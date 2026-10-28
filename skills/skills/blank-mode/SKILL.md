@@ -1,26 +1,23 @@
 ---
 name: blank-mode
-description: How blank works. Read at the start of any substantive task in this environment, and whenever choosing between the installed skills, principles, or routers. Covers which agent is being used for what, the six failure modes that recur here, and which playbook fits the request.
+description: Workflow preferences inherited by maynkudu. Read when coordinating a substantial development task, and whenever choosing between the installed skills, principles, or routers. Covers which agent is being used for what, the six failure modes that recur here, and which playbook fits the request.
 ---
 
 # blank mode
 
-The routing layer over everything installed here. It is model-invocable on purpose: the audit that
-produced it found that 28 of 30 slash-only skills had never been typed once in 6,961 prompts. A router
-you have to remember to type reproduces the failure it exists to fix.
-
-Read `profile/how-i-work.md` in `dotfiles/skills` for the full evidence. This is the operational
-short form.
+This workflow is adapted from Aryan's dotfiles. Codex is the primary agent and Claude
+Code is used occasionally. The user builds websites, apps, and documents on Arch Linux.
+The original audit in `profile/how-i-work.md` describes Aryan, not the current user.
 
 ## Always on, no matter the playbook
 
-Four rules load on every turn and are not optional: `unslop` (writing), `direction-first` (research
-tools through the second brain first), `fidelity-first` (1:1 work), `read-before-edit`. Do not restate
+Four rules load on every turn and are not optional: `unslop` (writing), `direction-first` (inspect available sources before choosing), `fidelity-first` (1:1 work), `read-before-edit`. Do not restate
 them, follow them.
 
 ## The six failure modes
 
-These come from 359 correction prompts. Each one has a fix already installed.
+These checks preserve useful lessons from the original setup. Use a named skill
+only if installed; the check still applies when it is unavailable.
 
 | What goes wrong | Reach for |
 |---|---|
@@ -34,12 +31,11 @@ These come from 359 correction prompts. Each one has a fix already installed.
 ## Playbooks
 
 **An image plus a few words.** The picture is the spec; the words point at the part that matters.
-12.6% of prompts arrive this way. Ask which element is meant before changing anything across the
+Ask which element is meant before changing anything across the
 page. Verify with `argent-screenshot-diff` or `agent-browser`, chosen by `ui-verification`.
 
 **"Make it 1:1" or reproduce a linked source.** Follow `fidelity-first` exactly: pin the source into
-`reference/`, extract real values, name the mechanism in one sentence, diff. Never eyeball. This is
-the single most-corrected category.
+`reference/`, extract real values, name the mechanism in one sentence, diff. Never eyeball.
 
 **Open design or implementation choice.** Follow `direction-first` for discovery triggers and
 bypasses. Research the existing wall, registry and component code; good ideas can come from anywhere.
@@ -52,20 +48,19 @@ cause, say the cause in one sentence, then fix only that.
 **Build a feature.** The `plannotator` rule owns the planning trigger, exceptions and approval.
 Use its on-demand procedure; the representative proof replaces duplicate creative approval steps.
 
-**Ship it.** 7.4% of prompts are push or commit; 4.3% are deploy. Never commit or push unless asked.
+**Ship it.** Never commit or push unless asked.
 When asked, carry it to a verified end, not to a plan.
 
-**Agent plumbing.** Skills, rules, MCP, hooks, memory. Read `writing-for-agents` before authoring any
-of it, and rebuild with `bin/build && bin/install` rather than editing installed files.
+**Agent plumbing.** Skills, rules, MCP, hooks, memory. Read `writing-for-agents` when available before authoring it, and rebuild with `bin/build && bin/install` rather than editing installed files.
 
 ## Reaching the rest
 
-56 skills here are slash-only and cannot fire on their own. `router-process` indexes the engineering
-ones, `router-design` indexes the 129 design and motion skills that live in Codex. Read the relevant
-router rather than guessing that a skill exists.
+`router-process` indexes upstream engineering skills. `router-design` preserves the
+original design catalog as optional leads. Check installed skills before using any entry.
+The private design pack is not bundled. The motion recipes and writing examples are.
 
 ## Style
 
-Short answers. The median prompt in this environment is 46 characters; length is not thoroughness.
+Short answers. Length is not thoroughness.
 Show the mechanism, not the feeling: which value, which file, which line. Expect correction mid-flight
 and take it plainly, without re-explaining the previous attempt.

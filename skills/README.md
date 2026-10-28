@@ -1,94 +1,47 @@
-# skills
+# Agent rules and skills
 
-One source of truth for how Claude, Codex, Grok, Pi and OpenCode behave on this machine.
+Shared behavior for maynkudu's Codex and Claude Code setup, adapted from Aryan's
+original rules. Writing taste, source fidelity, and real verification remain;
+the biography, private-library assumptions, and historical agent roles do not.
 
-Built from an audit of 6,961 real prompts across all three agents. The findings live in
-[profile/how-i-work.md](profile/how-i-work.md); the operational parts live in `rules/` and
-`skills/blank-mode`.
+## Daily use
 
-## The idea
+Edit `rules/`, run `bin/build`, inspect the generated diff, then run `bin/install`.
+`bin/install --dry-run` previews changes. Active targets come from `../setup.toml`;
+`--agents codex claude` overrides them for one install. Existing files are backed up
+and repeated installation is a no-op. Each Claude rule has its own symlink, so
+unrelated local rules remain visible.
 
-Anything unused was advice. Anything used was a procedure: a pinned target, numbered steps, explicit
-anti-patterns, a closing check. Every rule here is written that way, and every rule is reachable
-without anyone remembering it exists.
+`bin/check --repo-only` validates a fresh checkout. `bin/check` also verifies the
+selected agents and installed skills. Neither check installs anything. Build output
+for Pi, Grok, and OpenCode remains available, but they are not default install targets.
 
-## Layout
+## Skills
 
-```
-rules/        always-loaded triggers and constraints
-  tiers.toml    which rule reaches which agent
-  core/         always on, all agents
-  shared/       situational, tiered per agent
-  agent/        per-agent working profile
-reference/    on-demand operational procedures reached from rules
-build/        generated, committed. exactly what each agent sees
-vendored/     upstream skills: sources + the patches we own
-skills/       blank-mode and the two routers
-profile/      the audit, and pre-migration backups
-bin/          build, install, patch, check, audit
-```
+`../bin/setup --skills` installs the current public selection from
+`sources.lock.json` through Codex's bundled skill-installer helper. Sources are pinned
+to commits. Existing skills are retained. Local skills and the Cloudflare skills
+under `../pi/skills` are linked into `~/.agents/skills`; Claude sees the same collection
+through per-skill links. Codex discovers the shared directory.
 
-## Use
+`manifest.toml` is the historical inventory, including unavailable private skills.
+It is not the installer input. The lock file records missing upstream names.
+`router-design` retains the private catalog as optional leads and checks availability;
+its entries are not claims that those skills are installed.
 
-```bash
-bin/build      # rules/ -> build/, fails if an agent's budget overflows
-bin/install    # build/ -> ~/.claude/rules, ~/.codex/AGENTS.md, ~/.grok/AGENTS.md
-bin/patch      # reapply our edits on top of vendored skills
-bin/check      # every invariant, read-only, exits non-zero on breakage
-bin/audit      # re-derive the historical prompt counts in profile/how-i-work.md
-bin/audit-adherence --before YYYY-MM-DD --limit 20  # task candidates for manual scoring; see profile/skill-adherence.md
-```
+The bundled `animation-fundamentals` recipes and `aryan-voice` examples work without
+access to the original private design collection. Historical prompt audits in
+`profile/` describe the original author, not maynkudu.
 
-Edit a rule, run `bin/build && bin/install`. Never edit `~/.codex/AGENTS.md` or `~/.grok/AGENTS.md`
-directly: they carry a generated-file header and the next build overwrites them.
+## Patches and budgets
 
-## Why build and install are separate
+`bin/patch --skill-home ~/.agents/skills` reapplies declared upstream skill patches.
+The setup runs this after installing skills. The explicit directory keeps the operation
+scoped. Review deletion declarations in `vendored/` before applying them to an
+existing collection. Missing skills are skipped, not fetched by the patcher.
 
-The old `sync-rules.sh` edited live files in place with a regex over `<!-- name -->` markers. Two
-blocks had malformed closers, so the regex never matched and every sync appended another copy.
-Nothing here reads a live file to decide what to write, so that class of bug cannot recur.
-`bin/install` run twice is a no-op, and `bin/check` proves it.
+Codex's generated file has a 24,576-character budget, with long verification and
+writing procedures in `reference/`. Grok retains its 10,000-character cap. The build
+validates all outputs before writing any file.
 
-## Budgets
-
-Grok truncates `AGENTS.md` at 10,000 characters, so rules are tiered. A rule can ship an agent-specific
-short form as `<name>.<agent>.md`, which wins over `<name>.md` for that agent. `bin/build` fails before
-writing when a rendered file would exceed its cap.
-
-## Vendored skills
-
-`manifest.toml` records every upstream skill and its source. `vendored/<source>/patches.toml` holds the
-edits we own, because `npx skills add` overwrites frontmatter with no warning. Run `bin/patch` after
-any install.
-
-Known CLI traps, both hit while building this repo:
-
-- `skills add <repo> -s <name>` does not reliably filter. On a multi-plugin repo it installed all 66
-  skills rather than the 33 requested, including a `tdd` that replaced the same-named Pocock skill.
-  Always diff what landed against what you asked for.
-- A reinstall writes a fresh copy into `~/.claude/skills` even when a patched copy exists in
-  `~/.agents/skills`. `bin/patch` checks every location for exactly this reason; checking only the
-  first one reports clean while the copy the agent actually loads is reverted.
-
-After any install: `bin/patch`, then re-normalise stray real directories back to symlinks into
-`~/.agents/skills`.
-
-## Workflow ownership
-
-`direction-first` owns source investigation, clarification and selective presentation. Good ideas
-can come from anywhere; the wall and component library are starting points, not a fixed style.
-`fidelity-first` owns exact-source comparisons. `plannotator` points to `reference/plan-review.md`
-for acceptance, developed proofs and approval. `ui-verification` owns surface selection,
-evidence-based iteration and one closeout. Argent, portless and webreel rules point to full
-procedures in `reference/`; their safety requirements still apply when triggered.
-
-Impeccable was deliberately removed. Its `vendored/impeccable/patches.toml` deletion is reapplied by
-`bin/patch` after installs. Its inventory and live shared lock registration were removed too.
-This does not prevent an explicit external reinstall that bypasses the patch workflow.
-
-## Evaluate results
-
-Model capability, tools, source understanding and instructions can all affect quality. Measure
-accepted results and user corrections, not skill invocation or effort settings alone. The pilot in
-[profile/skill-adherence.md](profile/skill-adherence.md) keeps installation checks separate from
-creative outcomes. Creative iteration may take time; avoid making the user sort weak attempts.
+See [how it works](docs/how-it-works.md) and [machine setup](../docs/setup.md).

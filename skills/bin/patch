@@ -17,6 +17,7 @@ Ops:
 import shutil
 import sys
 import tomllib
+import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -35,7 +36,14 @@ SKILL_HOMES = [
 ]
 AGENT_LINKS = [HOME / ".claude" / "skills", HOME / ".codex" / "skills", HOME / ".grok" / "skills"]
 
-CHECK = "--check" in sys.argv
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--check', action='store_true')
+parser.add_argument('--skill-home', type=Path, help='Patch only this skill directory')
+args = parser.parse_args()
+CHECK = args.check
+if args.skill_home:
+    SKILL_HOMES = [args.skill_home.expanduser().resolve()]
+    AGENT_LINKS = []
 
 
 def find_skills(name: str) -> list[Path]:

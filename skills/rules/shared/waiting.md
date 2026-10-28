@@ -3,10 +3,11 @@
 Never poll with a bare `sleep`. The harness has purpose-built waiting tools, and they report what
 actually happened instead of guessing at a duration.
 
-Measured across 200 transcripts: 751 `sleep` calls against 2 `Monitor` calls. No rule pointed at the
-alternative, so the shell won by default.
-
 ## What to reach for
+
+Use the waiting tools actually exposed by the current agent. In Codex, resume a
+running command with its session tool. The Claude-specific examples below apply
+only when those tools are available.
 
 One notification when a condition becomes true: `Bash` with `run_in_background`, running a command
 that exits on that condition. `until grep -q "Ready in" dev.log; do sleep 0.5; done` ends by itself

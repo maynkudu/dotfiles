@@ -1,0 +1,1 @@
+convert /home/maynkudu/dotfiles/.plannotator/setup-verification/sample.docx as a Writer document -> /home/maynkudu/dotfiles/.plannotator/setup-verification/office/docx/sample.pdf using filter : writer_pdf_Export

@@ -11,7 +11,7 @@
 # Hard caps in characters. 0 means no cap. bin/build fails before writing when a
 # rendered file exceeds its cap. Grok truncates AGENTS.md at 10000.
 grok = 10000
-codex = 0
+codex = 24576
 claude = 0
 pi = 0
 opencode = 0
@@ -21,6 +21,7 @@ agent = "claude"
 core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "ui-verification",
+  "documents",
   "argent",
   "portless",
   "webreel",
@@ -34,6 +35,7 @@ agent = "codex"
 core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "ui-verification",
+  "documents",
   "argent",
   "portless",
   "webreel",
@@ -63,6 +65,7 @@ agent = "pi"
 core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "ui-verification",
+  "documents",
   "argent",
   "portless",
   "webreel",
@@ -81,6 +84,7 @@ agent = "opencode"
 core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "ui-verification",
+  "documents",
   "argent",
   "portless",
   "webreel",

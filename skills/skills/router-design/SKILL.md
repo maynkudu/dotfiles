@@ -1,13 +1,17 @@
 ---
 name: router-design
-description: Index of the 129 design, motion, WebGL, and visual-craft skills installed only in Codex. Read when doing visual or animation work in Claude, since these skills are invisible here and would otherwise be improvised from scratch.
+description: Optional catalog of design, motion, and WebGL approaches from the original setup. Use when choosing a visual technique; verify availability before loading any listed skill.
 ---
 
 # Design router
 
-129 craft skills live in `~/.codex/skills` and are not installed in Claude. Design work
-happens here, so this index makes them reachable. Read the skill directly at
-`~/.codex/skills/<name>/SKILL.md`; do not reimplement what one of these already specifies.
+This is the original author's optional design catalog, not an installed inventory.
+The private 129-skill pack is not included. Check `~/.agents/skills` and the current
+agent's skills directory before following an entry. Never claim a missing skill was read.
+
+For this fork, start with the bundled `animation-fundamentals` and `aryan-voice`, plus
+installed `frontend-design`, design-system skills, and `anatomy` where relevant.
+Use inspected public references when a catalog entry is unavailable.
 
 ## Motion and scroll
 

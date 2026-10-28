@@ -5,9 +5,9 @@ description: Index of the slash-only engineering skills, which cannot fire on th
 
 # Process router
 
-56 installed skills carry `disable-model-invocation: true`, so nothing but a typed
-`/name` starts them. This index makes them reachable: read the entry, then follow that skill's
-SKILL.md directly.
+This catalog comes from the original setup. Upstreams rename and remove skills.
+Check the current agent's installed skills before following an entry, and read the
+matching SKILL.md directly when available. Missing entries are optional leads.
 
 ## poteto/plugins pstack
 

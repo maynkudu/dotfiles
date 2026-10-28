@@ -1,7 +1,7 @@
-# Every vendored skill and where it came from.
-# Regenerate: bin/manifest.  Reinstall: bin/install --skills (then bin/patch).
-#
-# claude 131 | codex 147 | grok 17 | distinct 261
+# Historical upstream inventory from Aryan's machine, retained for provenance.
+# The executable, pinned install list is sources.lock.json.
+# Install the current selection with ../bin/setup --skills.
+# The private design pack below is not bundled or downloadable from this file.
 
 [mattpocock_skills]
 repo = "mattpocock/skills"

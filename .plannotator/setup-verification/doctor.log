@@ -1,0 +1,207 @@
+ok   git: /usr/bin/git
+ok   node: /usr/bin/node
+ok   npm: /usr/bin/npm
+ok   pnpm: /usr/bin/pnpm
+ok   bun: /home/maynkudu/.bun/bin/bun
+ok   uv: /home/maynkudu/.local/bin/uv
+ok   cargo: /usr/bin/cargo
+ok   fnm: /home/maynkudu/.local/bin/fnm
+ok   zsh: /usr/bin/zsh
+ok   starship: /usr/bin/starship
+ok   zoxide: /home/maynkudu/.local/bin/zoxide
+ok   rg: /home/maynkudu/.codex/packages/app-server-daemon/releases/local-c94c34cd7a83d014d9f52183a22a3de4dc3f8619c7c49f0254687dc34cba9fa7-x86_64-unknown-linux-gnu/codex-path/rg
+ok   fd: /usr/bin/fd
+ok   bat: /usr/bin/bat
+ok   eza: /usr/bin/eza
+ok   ffmpeg: /usr/bin/ffmpeg
+ok   chromium: /usr/bin/chromium
+ok   plannotator: /home/maynkudu/.local/bin/plannotator
+ok   doc-python: /home/maynkudu/.local/bin/doc-python
+ok   codex: /usr/bin/codex
+ok   claude: /home/maynkudu/.local/bin/claude
+ok   argent: /home/maynkudu/.local/bin/argent
+ok   webreel: /home/maynkudu/.local/bin/webreel
+ok   ctx7: /home/maynkudu/.local/bin/ctx7
+ok   anydoc: /home/maynkudu/.local/bin/anydoc
+ok   agentation-mcp: /home/maynkudu/.local/bin/agentation-mcp
+ok   agent-browser: /home/maynkudu/.bun/bin/agent-browser
+ok   portless: /home/maynkudu/.bun/bin/portless
+ok   document libraries and Pandoc
+ok   Agentation SQLite storage
+ok   generated rules match sources and fit budgets
+ok   portable rule rules/agent/claude.md
+ok   portable rule rules/agent/codex.md
+ok   portable rule rules/agent/grok.md
+ok   portable rule rules/core/about-me.grok.md
+ok   portable rule rules/core/about-me.md
+ok   portable rule rules/core/aryan-voice.grok.md
+ok   portable rule rules/core/aryan-voice.md
+ok   portable rule rules/core/direction-first.grok.md
+ok   portable rule rules/core/direction-first.md
+ok   portable rule rules/core/fidelity-first.md
+ok   portable rule rules/core/mannered-prose.md
+ok   portable rule rules/core/read-before-edit.md
+ok   portable rule rules/core/unslop.grok.md
+ok   portable rule rules/core/unslop.md
+ok   portable rule rules/shared/argent.md
+ok   portable rule rules/shared/context7.md
+ok   portable rule rules/shared/plannotator.md
+ok   portable rule rules/shared/portless.grok.md
+ok   portable rule rules/shared/portless.md
+ok   portable rule rules/shared/ui-verification.md
+ok   portable rule rules/shared/waiting.md
+ok   portable rule rules/shared/webreel.grok.md
+ok   portable rule rules/shared/webreel.md
+ok   portable rule rules/shared/documents.md
+ok   local skill blank-mode
+ok   local skill aryan-voice
+ok   local skill animation-fundamentals
+ok   local skill router-design
+ok   local skill router-process
+ok   local skill subsystem-modeling
+ok   pinned source addyosmani/web-quality-skills
+ok   pinned source anthropics/skills
+ok   pinned source arla6ka/skills
+ok   pinned source benjitaylor/agentation
+ok   pinned source dmmulroy/.dotfiles
+ok   pinned source firecrawl/anydoc
+ok   pinned source makisuo/skills
+ok   pinned source mattpocock/skills
+ok   pinned source poteto/plugins
+ok   pinned source shadcn/improve
+ok   pinned source software-mansion/argent
+ok   pinned source vercel/ai
+ok   pinned source vercel-labs/agent-skills
+ok   pinned source vercel-labs/skills
+ok   installed codex rules
+ok   installed Claude rule about-me.md
+ok   installed Claude rule argent.md
+ok   installed Claude rule aryan-voice.md
+ok   installed Claude rule context7.md
+ok   installed Claude rule direction-first.md
+ok   installed Claude rule fidelity-first.md
+ok   installed Claude rule mannered-prose.md
+ok   installed Claude rule plannotator.md
+ok   installed Claude rule portless.md
+ok   installed Claude rule read-before-edit.md
+ok   installed Claude rule ui-verification.md
+ok   installed Claude rule unslop.md
+ok   installed Claude rule waiting.md
+ok   installed Claude rule webreel.md
+ok   installed Claude rule working-with-me.md
+ok   installed Claude rule documents.md
+ok   installed local skill blank-mode
+ok   installed local skill aryan-voice
+ok   installed local skill animation-fundamentals
+ok   installed local skill router-design
+ok   installed local skill router-process
+ok   installed local skill subsystem-modeling
+ok   installed public skill performance
+ok   installed public skill frontend-design
+ok   installed public skill docx
+ok   installed public skill pdf
+ok   installed public skill pptx
+ok   installed public skill xlsx
+ok   installed public skill doc-coauthoring
+ok   installed public skill build-design-system
+ok   installed public skill component-docs
+ok   installed public skill design-system-boss
+ok   installed public skill migrate-design-system
+ok   installed public skill token-mapping
+ok   installed public skill ui-review
+ok   installed public skill agentation
+ok   installed public skill agentation-self-driving
+ok   installed public skill bro
+ok   installed public skill herdr
+ok   installed public skill recipe-diagrams
+ok   installed public skill write-discoverable-code
+ok   installed public skill writing-for-agents
+ok   installed public skill convert-documents-to-markdown
+ok   installed public skill effect-best-practices
+ok   installed public skill ask-matt
+ok   installed public skill claude-handoff
+ok   installed public skill code-review
+ok   installed public skill codebase-design
+ok   installed public skill diagnosing-bugs
+ok   installed public skill domain-modeling
+ok   installed public skill git-guardrails-claude-code
+ok   installed public skill grill-me
+ok   installed public skill grill-with-docs
+ok   installed public skill grilling
+ok   installed public skill handoff
+ok   installed public skill implement
+ok   installed public skill improve-codebase-architecture
+ok   installed public skill loop-me
+ok   installed public skill migrate-to-shoehorn
+ok   installed public skill prototype
+ok   installed public skill research
+ok   installed public skill scaffold-exercises
+ok   installed public skill setup-matt-pocock-skills
+ok   installed public skill setup-pre-commit
+ok   installed public skill setup-ts-deep-modules
+ok   installed public skill teach
+ok   installed public skill to-spec
+ok   installed public skill to-tickets
+ok   installed public skill triage
+ok   installed public skill wayfinder
+ok   installed public skill wizard
+ok   installed public skill writing-beats
+ok   installed public skill writing-fragments
+ok   installed public skill writing-shape
+ok   installed public skill architect
+ok   installed public skill arena
+ok   installed public skill automate-me
+ok   installed public skill figure-it-out
+ok   installed public skill how
+ok   installed public skill interrogate
+ok   installed public skill poteto-mode
+ok   installed public skill principle-boundary-discipline
+ok   installed public skill principle-build-the-lever
+ok   installed public skill principle-encode-lessons-in-structure
+ok   installed public skill principle-exhaust-the-design-space
+ok   installed public skill principle-experience-first
+ok   installed public skill principle-fix-root-causes
+ok   installed public skill principle-foundational-thinking
+ok   installed public skill principle-guard-the-context-window
+ok   installed public skill principle-laziness-protocol
+ok   installed public skill principle-make-operations-idempotent
+ok   installed public skill principle-migrate-callers-then-delete-legacy-apis
+ok   installed public skill principle-minimize-reader-load
+ok   installed public skill principle-never-block-on-the-human
+ok   installed public skill principle-outcome-oriented-execution
+ok   installed public skill principle-prove-it-works
+ok   installed public skill principle-redesign-from-first-principles
+ok   installed public skill principle-separate-before-serializing-shared-state
+ok   installed public skill principle-sequence-verifiable-units
+ok   installed public skill principle-subtract-before-you-add
+ok   installed public skill principle-type-system-discipline
+ok   installed public skill pstack-tdd
+ok   installed public skill reflect
+ok   installed public skill setup-pstack
+ok   installed public skill show-me-your-work
+ok   installed public skill typescript-best-practices
+ok   installed public skill unslop
+ok   installed public skill why
+ok   installed public skill improve
+ok   installed public skill argent-android-emulator-setup
+ok   installed public skill argent-create-flow
+ok   installed public skill argent-device-interact
+ok   installed public skill argent-ios-simulator-setup
+ok   installed public skill argent-lens
+ok   installed public skill argent-metro-debugger
+ok   installed public skill argent-native-profiler
+ok   installed public skill argent-react-native-app-workflow
+ok   installed public skill argent-react-native-optimization
+ok   installed public skill argent-react-native-profiler
+ok   installed public skill argent-screen-recording
+ok   installed public skill argent-screenshot-diff
+ok   installed public skill argent-settings-permissions
+ok   installed public skill argent-test-ui-flow
+ok   installed public skill argent-tv-interact
+ok   installed public skill ai-sdk
+ok   installed public skill vercel-react-best-practices
+ok   installed public skill find-skills
+All checks passed.
+
+Optional gaps: 10 old skill names absent from current upstreams;
+the private BLANK library/design pack, macOS Computer Use, and authenticated CPA pool are not configured.

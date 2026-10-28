@@ -1,6 +1,7 @@
-# How I work with agents
+# Original author: how I work with agents
 
-Source document for this repo. Derived from 6,961 real prompts across Claude, Codex, and Grok,
+Historical source document from Aryan's setup, retained for provenance. These are not
+maynkudu's prompts or measured habits. Derived from 6,961 real prompts across Claude, Codex, and Grok,
 March to August 2026. Never injected into an agent; the rules and `blank-mode` carry the operational
 parts. Regenerate the numbers with `bin/audit`.
 

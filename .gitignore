@@ -9,3 +9,6 @@ pi/trust.json
 pi/sessions/
 pi/npm/node_modules/
 pi/models-store.json
+
+# Local credentials supplied for integration setup.
+/kiys

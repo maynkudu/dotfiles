@@ -1,25 +1,33 @@
 #!/usr/bin/env python3
 """Put build/ onto disk. Reads build/, never rules/.
 
-    bin/install           install rules for every agent
+    bin/install           install rules for the agents selected in setup.toml
     bin/install --dry-run show what would change, touch nothing
 
 Claude gets one symlink per rule, because ~/.claude/rules/ also holds
 machine-local rules and a directory symlink would hide them. Only symlinks
 pointing into this repo are ever removed; anything else there is left alone.
 
-Codex, Grok, pi and opencode get their whole AGENTS.md replaced. The repo owns those files
-now. The first run saves a .before-skills-repo backup.
+Selected single-file agents get their whole AGENTS.md replaced when it differs.
+Each replacement saves a timestamped .before-dotfiles- backup.
 """
 
 import os
 import shutil
 import sys
+import argparse
+import tomllib
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 BUILD = ROOT / "build"
-HOME = Path.home()
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--dry-run', action='store_true')
+parser.add_argument('--agents', nargs='+', choices=['codex', 'claude', 'grok', 'pi', 'opencode'])
+parser.add_argument('--home', type=Path, default=Path.home(), help='Target home, also useful for isolated verification')
+args = parser.parse_args()
+HOME = args.home.expanduser().resolve()
 
 TARGETS = {
     "claude": HOME / ".claude" / "rules",
@@ -32,7 +40,20 @@ TARGETS = {
     "opencode": HOME / ".config" / "opencode" / "AGENTS.md",
 }
 
-DRY = "--dry-run" in sys.argv
+DRY = args.dry_run
+
+
+def backup_existing(path: Path) -> None:
+    if not (path.exists() or path.is_symlink()):
+        return
+    stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+    backup = path.with_name(path.name + '.before-dotfiles-' + stamp)
+    act(f'back up {path} -> {backup.name}')
+    if not DRY:
+        if path.is_symlink():
+            backup.symlink_to(os.readlink(path))
+        else:
+            shutil.copy2(path, backup)
 
 
 def act(msg: str) -> None:
@@ -52,7 +73,7 @@ def install_claude() -> None:
         if not existing.is_symlink():
             continue
         target = os.path.realpath(existing)
-        if str(ROOT) not in target:
+        if not Path(target).is_relative_to(ROOT):
             continue  # machine-local or another repo's rule
         if existing.name not in wanted:
             act(f"unlink stale {existing.name}")
@@ -64,6 +85,8 @@ def install_claude() -> None:
         if dest.is_symlink() and Path(os.path.realpath(dest)) == src.resolve():
             continue
         act(f"link {src.name}")
+        if dest.exists() or dest.is_symlink():
+            backup_existing(dest)
         if not DRY:
             if dest.exists() or dest.is_symlink():
                 dest.unlink()
@@ -76,29 +99,30 @@ def install_single(agent: str) -> None:
     if not src.exists():
         return
     if not dest.parent.exists():
-        act(f"skip {agent}: {dest.parent} does not exist")
-        return
+        act(f"create {dest.parent}")
+        if not DRY:
+            dest.parent.mkdir(parents=True)
     text = src.read_text()
     if dest.exists() and dest.read_text() == text:
         return
-    backup = dest.with_suffix(".md.before-skills-repo")
-    if dest.exists() and not backup.exists():
-        act(f"back up {dest.name} -> {backup.name}")
-        if not DRY:
-            shutil.copy2(dest, backup)
+    backup_existing(dest)
     act(f"write {dest}")
     if not DRY:
+        if dest.is_symlink():
+            dest.unlink()
         dest.write_text(text)
 
 
 def main() -> int:
     if not BUILD.exists():
         sys.exit("error: build/ missing. Run bin/build first.")
-    print("claude:")
-    install_claude()
-    for agent in ("codex", "grok", "pi", "opencode"):
+    configured = tomllib.loads((ROOT.parent / 'setup.toml').read_text())['agents']
+    for agent in args.agents or configured:
         print(f"{agent}:")
-        install_single(agent)
+        if agent == 'claude':
+            install_claude()
+        else:
+            install_single(agent)
     print("\ndry run, nothing changed." if DRY else "\ninstalled.")
     return 0
 

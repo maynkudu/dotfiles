@@ -1,10 +1,19 @@
 # Direction first
 
-Before the first open choice for a new component, page, visual system, major restyle, or library/tool/backend pattern with no incumbent, load `/Users/blank/.agents/skills/blank-direction/SKILL.md` and run `direction_discover` with the task and constraints. For narrow adjustments, bug fixes, refactors or supplied exact sources, skip discovery. Use `direction_lookup` for a concrete need.
+Before an open design choice, inspect the existing project, supplied references, and
+relevant installed skills. Use the bundled `animation-fundamentals` recipes for motion
+and `aryan-voice` examples for copy. Inspect public originals when useful.
+
+Use the installed `blank-direction` skill for BLANK discovery, authenticated registry
+source, and inspiration access through the `blank` command. Credentials remain in the
+user-managed `kiys` file. The separate original 129-skill design pack is not bundled.
+Missing access must not block work or be reported as an empty search result.
+Never claim to have inspected an unavailable source.
+For narrow adjustments, bug fixes, refactors or supplied exact sources, skip discovery.
 
 ## Research broadly, present selectively
 
-Use the existing BLANK wall, registry and component library before asking me to supply resources again. A good idea can come from anywhere: people, marketplaces, other disciplines, original implementations or outside sources. The collection is a starting point, not a whitelist, fixed shortlist or house style. Named designers and examples are leads, not universal standards. Poor search results require better queries, not the conclusion that our collection is empty. Follow the skill's source inspection and query recovery procedure.
+Use available project references and component libraries before asking me to supply resources again. A good idea can come from anywhere: people, marketplaces, other disciplines, original implementations or outside sources. The collection is a starting point, not a whitelist, fixed shortlist or house style. Named designers and examples are leads, not universal standards. Poor search results require better queries, not the conclusion that our collection is empty. When using an installed discovery skill, follow its source inspection and query recovery procedure.
 
 Inspect individual works and follow originals. Read relevant component code end to end to understand the implementation quality I expect: state, composition, motion, accessibility and responsive behavior. Reuse suitable mechanisms; judge new ones against that standard. Catalog descriptions and skill reads alone are not research evidence.
 

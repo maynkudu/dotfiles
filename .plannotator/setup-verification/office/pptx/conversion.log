@@ -1,0 +1,1 @@
+convert /home/maynkudu/dotfiles/.plannotator/setup-verification/sample.pptx as a Impress document -> /home/maynkudu/dotfiles/.plannotator/setup-verification/office/pptx/sample.pdf using filter : impress_pdf_Export

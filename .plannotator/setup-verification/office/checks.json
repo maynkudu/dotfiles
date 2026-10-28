@@ -1,0 +1,81 @@
+{
+  "checked_at": "2026-10-28T11:54:04.552218+05:30",
+  "libreoffice": "LibreOffice 26.8.1.1 680(Build:1)",
+  "renders": [
+    {
+      "source": "sample.docx",
+      "pdf": "office/docx/sample.pdf",
+      "pages": 1,
+      "page_sizes_points": [
+        [
+          612.0,
+          792.0
+        ]
+      ],
+      "required_text": [
+        "Dotfiles verification",
+        "Document tools are ready."
+      ],
+      "previews": [
+        "office/docx/preview-1.png"
+      ],
+      "content_checks": "passed"
+    },
+    {
+      "source": "sample.pptx",
+      "pdf": "office/pptx/sample.pdf",
+      "pages": 1,
+      "page_sizes_points": [
+        [
+          720.0,
+          540.0
+        ]
+      ],
+      "required_text": [
+        "Dotfiles verification"
+      ],
+      "previews": [
+        "office/pptx/preview-1.png"
+      ],
+      "content_checks": "passed"
+    },
+    {
+      "source": "office/formulas.xlsx",
+      "pdf": "office/xlsx/formulas.pdf",
+      "pages": 2,
+      "page_sizes_points": [
+        [
+          595.303937007874,
+          841.889763779528
+        ],
+        [
+          595.303937007874,
+          841.889763779528
+        ]
+      ],
+      "required_text": [
+        "First value",
+        "Second value",
+        "Sum of inputs",
+        "Product of inputs",
+        "Sum plus product",
+        "13",
+        "42",
+        "55"
+      ],
+      "previews": [
+        "office/xlsx/preview-1.png",
+        "office/xlsx/preview-2.png"
+      ],
+      "content_checks": "passed"
+    }
+  ],
+  "recalculation": {
+    "report": "office/recalc.json",
+    "value_checks": "office/formula-values.json",
+    "status": "success",
+    "total_errors": 0,
+    "error_summary": {},
+    "total_formulas": 3
+  }
+}

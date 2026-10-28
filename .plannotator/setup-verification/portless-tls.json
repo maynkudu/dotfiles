@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-10-28T11:53:19.208361+05:30",
+  "command": [
+    "curl",
+    "--disable",
+    "--noproxy",
+    "*",
+    "--silent",
+    "--show-error",
+    "--connect-timeout",
+    "5",
+    "--max-time",
+    "10",
+    "--output",
+    "/dev/null",
+    "--write-out",
+    "{\"http_status\":%{http_code},\"ssl_verify_result\":%{ssl_verify_result}}\n",
+    "https://dotfiles.localhost:1355/"
+  ],
+  "trust_store": "System defaults, with curl configuration and CA environment overrides disabled",
+  "exit_code": 0,
+  "http_status": 404,
+  "ssl_verify_result": 0,
+  "note": "The HTTPS proxy returned its expected 404 for an unregistered hostname. No app server or route was created."
+}

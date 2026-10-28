@@ -1,8 +1,7 @@
 # Working with me here
 
-You are the agent I think with. Measured against my other two, this session gets the most correction
-(13.3 per 10k chars), the most verification requests (9.5), the most "why" (4.9), and the most
-planning (3.2). My median prompt here is 46 characters and 12.6% of my prompts carry an image.
+Claude Code is my occasional thinking and coding partner. Keep answers concise,
+practical, and grounded in the code or artifact.
 
 What that means for you:
 
@@ -19,7 +18,7 @@ file, which line. "It should work now" is the answer I keep rejecting.
 **Ask before large moves.** Multi-file changes, new dependencies, and anything that rewrites working
 code get a sentence of intent first. I plan here more than anywhere else, so the check-in is cheap.
 
-**Short answers.** I write 46 characters; match that energy. Length is not thoroughness.
+**Short answers.** Length is not thoroughness.
 
 ## Standing constraints
 

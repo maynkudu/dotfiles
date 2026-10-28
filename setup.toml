@@ -1,0 +1,19 @@
+# Active agents. Other generated targets remain available in skills/rules/tiers.toml.
+agents = ["codex", "claude"]
+
+# npm 12 requires explicit permission for native dependency build scripts.
+npm_allow_scripts = ["better-sqlite3", "node-pty", "tree-sitter", "tree-sitter-javascript", "tree-sitter-typescript", "sharp"]
+
+# Install only missing commands. Existing installations stay with their manager.
+[npm]
+argent = "@swmansion/argent@0.30.1"
+webreel = "webreel@0.1.4"
+ctx7 = "ctx7@0.8.2"
+anydoc = "@firecrawl/anydoc@0.2.4"
+agentation-mcp = "agentation-mcp@1.3.2"
+agent-browser = "agent-browser@0.39.4"
+portless = "portless@0.15.12"
+shadcn = "shadcn@4.23.0"
+
+[skills]
+local = ["blank-mode", "aryan-voice", "animation-fundamentals", "router-design", "router-process", "subsystem-modeling", "blank-direction"]

@@ -1,25 +1,12 @@
 # About me
 
-Hii, im Aryan (https://tldr.aryank.space), you're my agent x (https://tldr.aryank.space).
+I use the handle maynkudu and build websites, apps, and documents on Arch Linux.
+Codex is my primary agent; I also use Claude Code.
 
-BACKEND AND PLATFORM-FOCUSED ENGINEER WITH 4+ YEARS OF EXPERIENCE BUILDING PERFORMANCE-SENSITIVE
-SYSTEMS, EDGE INFRASTRUCTURE, AND PRODUCTION-GRADE WEB APPLICATIONS.
-
-STRONG BACKGROUND IN SYSTEM DESIGN, OPTIMIZATION, AND DEVELOPER TOOLING, WITH HANDS-ON EXPERIENCE
-ACROSS CLOUD, EDGE, AND ON-DEVICE ENVIRONMENTS.
-
-ENJOYS FRONTEND-HEAVY WORK AND HAS STRONG PRODUCT SENSE AND UI/UX EXECUTION, BRIDGING DESIGN AND
-ENGINEERING.
-
-I'm a highly visual person, always looking for new ways of productive work.
-
-I love to build. I focus on building complex things as simple as possible. I love to find ways to
-reduce complexity when solving problems.
-
-I treat agent verification as engineering infrastructure. Agents should be able to operate the real
-product, inspect what happened, and keep working until they have evidence that the result is correct.
-The codebase is the source of truth, with compact maps and tools that help agents navigate it without
-guessing.
+This setup is adapted from Aryan's dotfiles. I chose to keep his writing and design
+taste, practical communication, and preference for simple, well-verified work.
+His biography, clients, private resources, and historical prompt statistics are
+not facts about me. Do not sign messages as Aryan or invent personal details.
 
 I wanted to share some of my preferences here so we can be more aligned as we work together.
 
@@ -60,31 +47,11 @@ https://www.effect.website/ and https://www.effect.solutions/.
 
 ## Agent workflow preferences
 
-- Give agents the tools to close their own verification loop. A task is not done because the code
-  compiles. The agent should operate the product, inspect runtime state, and show evidence suited to
-  the change, such as screenshots, traces, logs, or focused test output.
-- Treat each active product's verification skill as critical infrastructure. Keep it tested, improve
-  it when a workflow is awkward, and maintain it frequently so it matches the current product.
-- Prefer a small, app-specific control CLI over markdown instructions or throwaway interaction
-  scripts. It should cover health checks, inspection, navigation, interaction, screenshots,
-  performance traces, network and console logs, feature flags, waiting, and cleanup where relevant.
-- Make control CLIs easy for agents to use: composable subcommands, gradual disclosure through
-  subcommands, rich `--help`, machine-readable output, specific recovery-oriented errors, and
-  `--dry-run` for actions with destructive side effects.
-- Make the development environment reproducible. Document and automate dependency setup, app
-  startup, seeded data, test users and auth, feature flags, and test or staging API configuration.
-- Keep a searchable Feature Map beside the verification skill. Describe each feature from the user's
-  point of view, how to reach it, exact control commands, account or entitlement conditions, and
-  recovery steps for known gotchas. Link detailed feature files from a short index.
-- Treat the Feature Map as a compact projection of the codebase, not an independent source of truth.
-  Update it alongside product changes and run regular maintenance to catch drift.
-- Once one agent can produce a verified change reliably, parallelize in isolated environments. Prefer
-  cloud agents for high parallelism when available, and use local worktrees when they are the simpler
-  fit. Keep coordinator agents free to supervise, review evidence, and dispatch follow-up work.
-- Measure performance before and after a targeted change. Use repeated independent runs when results
-  are noisy instead of treating one trace as proof.
-- Reuse mature verification flows in routines and automations. Reproduce incoming user reports first;
-  only consider automatic fixes when reproduction and verification are reliable.
+Operate the real product and verify the result. Keep checks focused on the change.
+For substantial app verification infrastructure, read
+`~/dotfiles/skills/reference/verification-infrastructure.md`: it covers reproducible
+setup, app-specific control CLIs, feature maps, runtime evidence, and performance
+measurement. These are tools for the task, not mandatory scaffolding for every edit.
 
 ## Questions are read-only
 

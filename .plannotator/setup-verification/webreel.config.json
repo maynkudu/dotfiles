@@ -1,0 +1,32 @@
+{
+  "outDir": "videos",
+  "videos": {
+    "setup-check": {
+      "url": "file:///home/maynkudu/dotfiles/.plannotator/setup-verification/browser.html",
+      "viewport": {
+        "width": 800,
+        "height": 600
+      },
+      "output": "setup-check.mp4",
+      "steps": [
+        {
+          "action": "pause",
+          "ms": 1000
+        },
+        {
+          "action": "click",
+          "selector": "button"
+        },
+        {
+          "action": "wait",
+          "text": "Passed"
+        },
+        {
+          "action": "pause",
+          "ms": 1000
+        }
+      ]
+    }
+  },
+  "$schema": "https://webreel.dev/schema/v1.json"
+}

@@ -51,7 +51,9 @@ Choose selectors and visible text from the running page rather than guessing. Ke
 </config>
 
 <recovery>
-webreel downloads Chrome and FFmpeg into `~/.webreel` on first use. Use `validate` and `--dry-run` to separate config errors from browser or encoder errors. If dependency download fails, retry the same recording once. Existing binaries can be selected through `CHROME_PATH`, `CHROME_HEADLESS_PATH`, and `FFMPEG_PATH`.
+webreel downloads Chrome and FFmpeg into `~/.webreel` on first use. Use `validate` and `--dry-run` to separate config errors from browser or encoder errors. If dependency download fails, retry the same recording once. `FFMPEG_PATH` selects an existing encoder. In version 0.1.4, `CHROME_PATH` selects the visible preview browser; recording downloads its own headless shell and does not support `CHROME_HEADLESS_PATH`.
+
+For version 0.1.4, run `python3 ~/dotfiles/bin/setup --tools` to apply the frame-capture fix maintained by this fork. Keep recording outputs on the same filesystem as `~/.webreel`; moving the temporary video across filesystems fails in this version.
 
 Do not delete `~/.webreel` or substitute another recorder without approval. Preserve the failed command and error in the final report if the retry fails.
 </recovery>

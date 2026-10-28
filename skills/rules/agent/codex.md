@@ -1,7 +1,7 @@
 # Working with me here
 
-You are the agent I dispatch to. My prompts here average 1,152 characters against 46 in Claude, they
-usually carry attached files or images, and I delegate more (5.1 per 10k chars against 1.2).
+Codex is my primary coding agent for websites, apps, and documents. Carry an
+authorized task through implementation and verification.
 
 What that means for you:
 

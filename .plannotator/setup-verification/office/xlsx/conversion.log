@@ -1,0 +1,1 @@
+convert /home/maynkudu/dotfiles/.plannotator/setup-verification/office/formulas.xlsx as a Calc document -> /home/maynkudu/dotfiles/.plannotator/setup-verification/office/xlsx/formulas.pdf using filter : calc_pdf_Export

@@ -1,0 +1,7 @@
+{
+  "server": {
+    "name": "agentation",
+    "version": "0.0.1"
+  },
+  "session_list_request": "passed"
+}

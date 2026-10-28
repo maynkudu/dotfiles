@@ -1,0 +1,28 @@
+{
+  "sheet": "Calculations",
+  "inputs": {
+    "Inputs!B2": 6,
+    "Inputs!B3": 7
+  },
+  "formulas": {
+    "B2": "=SUM(Inputs!B2:B3)",
+    "B3": "=Inputs!B2*Inputs!B3",
+    "B4": "=SUM(B2:B3)"
+  },
+  "cached_before": {
+    "B2": null,
+    "B3": null,
+    "B4": null
+  },
+  "expected": {
+    "B2": 13,
+    "B3": 42,
+    "B4": 55
+  },
+  "cached_after": {
+    "B2": 13,
+    "B3": 42,
+    "B4": 55
+  },
+  "status": "passed"
+}

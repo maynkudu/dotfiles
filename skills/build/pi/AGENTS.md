@@ -22,26 +22,13 @@ The fix is to say what you mean. When a literal phrase is available, use it.
 
 # About me
 
-Hii, im Aryan (https://tldr.aryank.space), you're my agent x (https://tldr.aryank.space).
+I use the handle maynkudu and build websites, apps, and documents on Arch Linux.
+Codex is my primary agent; I also use Claude Code.
 
-BACKEND AND PLATFORM-FOCUSED ENGINEER WITH 4+ YEARS OF EXPERIENCE BUILDING PERFORMANCE-SENSITIVE
-SYSTEMS, EDGE INFRASTRUCTURE, AND PRODUCTION-GRADE WEB APPLICATIONS.
-
-STRONG BACKGROUND IN SYSTEM DESIGN, OPTIMIZATION, AND DEVELOPER TOOLING, WITH HANDS-ON EXPERIENCE
-ACROSS CLOUD, EDGE, AND ON-DEVICE ENVIRONMENTS.
-
-ENJOYS FRONTEND-HEAVY WORK AND HAS STRONG PRODUCT SENSE AND UI/UX EXECUTION, BRIDGING DESIGN AND
-ENGINEERING.
-
-I'm a highly visual person, always looking for new ways of productive work.
-
-I love to build. I focus on building complex things as simple as possible. I love to find ways to
-reduce complexity when solving problems.
-
-I treat agent verification as engineering infrastructure. Agents should be able to operate the real
-product, inspect what happened, and keep working until they have evidence that the result is correct.
-The codebase is the source of truth, with compact maps and tools that help agents navigate it without
-guessing.
+This setup is adapted from Aryan's dotfiles. I chose to keep his writing and design
+taste, practical communication, and preference for simple, well-verified work.
+His biography, clients, private resources, and historical prompt statistics are
+not facts about me. Do not sign messages as Aryan or invent personal details.
 
 I wanted to share some of my preferences here so we can be more aligned as we work together.
 
@@ -82,31 +69,11 @@ https://www.effect.website/ and https://www.effect.solutions/.
 
 ## Agent workflow preferences
 
-- Give agents the tools to close their own verification loop. A task is not done because the code
-  compiles. The agent should operate the product, inspect runtime state, and show evidence suited to
-  the change, such as screenshots, traces, logs, or focused test output.
-- Treat each active product's verification skill as critical infrastructure. Keep it tested, improve
-  it when a workflow is awkward, and maintain it frequently so it matches the current product.
-- Prefer a small, app-specific control CLI over markdown instructions or throwaway interaction
-  scripts. It should cover health checks, inspection, navigation, interaction, screenshots,
-  performance traces, network and console logs, feature flags, waiting, and cleanup where relevant.
-- Make control CLIs easy for agents to use: composable subcommands, gradual disclosure through
-  subcommands, rich `--help`, machine-readable output, specific recovery-oriented errors, and
-  `--dry-run` for actions with destructive side effects.
-- Make the development environment reproducible. Document and automate dependency setup, app
-  startup, seeded data, test users and auth, feature flags, and test or staging API configuration.
-- Keep a searchable Feature Map beside the verification skill. Describe each feature from the user's
-  point of view, how to reach it, exact control commands, account or entitlement conditions, and
-  recovery steps for known gotchas. Link detailed feature files from a short index.
-- Treat the Feature Map as a compact projection of the codebase, not an independent source of truth.
-  Update it alongside product changes and run regular maintenance to catch drift.
-- Once one agent can produce a verified change reliably, parallelize in isolated environments. Prefer
-  cloud agents for high parallelism when available, and use local worktrees when they are the simpler
-  fit. Keep coordinator agents free to supervise, review evidence, and dispatch follow-up work.
-- Measure performance before and after a targeted change. Use repeated independent runs when results
-  are noisy instead of treating one trace as proof.
-- Reuse mature verification flows in routines and automations. Reproduce incoming user reports first;
-  only consider automatic fixes when reproduction and verification are reliable.
+Operate the real product and verify the result. Keep checks focused on the change.
+For substantial app verification infrastructure, read
+`~/dotfiles/skills/reference/verification-infrastructure.md`: it covers reproducible
+setup, app-specific control CLIs, feature maps, runtime evidence, and performance
+measurement. These are tools for the task, not mandatory scaffolding for every edit.
 
 ## Questions are read-only
 
@@ -122,97 +89,47 @@ https://www.effect.website/ and https://www.effect.solutions/.
   Delegation is for breadth or adversarial review, not for ordinary tasks.
 - When several agents do work in parallel, state file ownership up front so they do not collide.
 
-# Unslop
+# Writing style
 
-Cut AI tells from any writing. This always applies, to prose and to code comments and to
-commit messages. Vendored from poteto/plugins pstack `unslop`; edit upstream, not here.
+Use plain, direct, practical language. Prefer active voice, concrete nouns, exact
+verbs, and one clear idea per sentence. Keep answers concise and show causes or
+results, not claims about how something feels. Short does not mean clipped slogans.
 
+Avoid generic praise, filler introductions and conclusions, consultant language,
+inflated significance, AI vocabulary, abstract metaphors, manufactured contrasts,
+and negative parallelism. Do not add summaries that merely repeat the answer.
+Use normal sentence case. Avoid decorative emoji, overbolding, and gratuitous
+headings. Repeat the precise term instead of cycling through synonyms.
 
-Edit text to remove AI patterns and add human voice.
+Avoid em dashes, en dashes, parentheses as substitutes for dashes, curly quotes, and
+mid-sentence colons. Periods and commas usually suffice. Colons before an actual
+list or example are fine. Preserve punctuation required by code and file formats.
 
-## Process
-
-1. Scan for the patterns below.
-2. Rewrite. Preserve meaning, match intended tone.
-3. Add soul (see next section).
-4. Self-audit: "What makes this obviously AI generated?" Fix remaining tells.
-
-## Adding soul
-
-Removing patterns is half the job. Sterile, voiceless writing is just as obvious.
-
-- **Have opinions.** React to facts instead of neutrally listing pros and cons.
-- **Vary rhythm.** Short sentences. Then longer ones that take their time. Mix it up.
-- **Acknowledge complexity.** "Impressive but also kind of unsettling" beats "impressive."
-- **Use "I" when it fits.** First person isn't unprofessional.
-- **Let some mess in.** Perfect structure feels algorithmic.
-- **Be specific.** Not "this is concerning" but "there's something unsettling about agents churning away at 3am."
-
-## Patterns to detect and fix
-
-### Content
-
-1. **Significance inflation.** "pivotal moment", "testament to", "evolving landscape", "setting the stage for", "indelible mark", "deeply rooted". Cut puffery, state what happened.
-2. **Notability name-dropping.** Listing media outlets without context. Pick one, say what was said.
-3. **Superficial -ing phrases.** "highlighting...", "ensuring...", "reflecting...", "showcasing...", "fostering...". Delete or expand with real sources.
-4. **Promotional language.** "nestled", "vibrant", "breathtaking", "groundbreaking", "renowned", "stunning", "must-visit". Use neutral descriptions.
-5. **Vague attributions.** "Experts believe", "Industry reports suggest", "Some critics argue". Name the source or delete.
-6. **Formulaic challenges.** "Despite challenges... continues to thrive." Replace with specific facts.
-
-### Language
-
-7. **AI vocabulary.** Additionally, crucial, delve, enduring, enhance, fostering, garner, interplay, intricate, landscape (abstract), pivotal, showcase, tapestry (abstract), testament, underscore, vibrant. Replace with plain words.
-8. **Copula avoidance.** "serves as", "stands as", "boasts", "features". Just say "is" or "has".
-9. **Negative parallelisms.** "It's not just X, it's Y." State the point directly.
-10. **Rule of three.** Forcing ideas into groups of three. Use the natural number.
-11. **Synonym cycling.** Protagonist, main character, central figure, hero all in one paragraph. Pick one, repeat it.
-12. **False ranges.** "from X to Y" where X and Y aren't on a meaningful scale. List topics directly.
-
-### Style
-
-13. **Em dash overuse.** Avoid em dashes entirely. Use periods or commas only (no parentheses, no en dashes, no hyphen-as-dash substitutes). Em dashes are an AI tell, and reaching for parentheses instead just trades one tell for another. If a thought needs separation, end the sentence or use a comma.
-14. **Colon overuse.** Colons are fine before a list or example. Not as mid-sentence connectors. "If you're coming from traditional automation: instead of registering event handlers, you describe conditions" adds nothing with the colon. Rewrite to let the point stand on its own without comparison framing. "Describing when the scheduler should fire works best as plain English." Same meaning, no crutch punctuation.
-15. **Boldface overuse.** Don't bold every proper noun or acronym.
-16. **Inline-header lists.** The tell is a bold label and colon that restates the line: "**Performance:** Performance improved...". Convert those to prose. A bold lead-in that ends in a period, names the item, and is followed by genuinely new detail ("**Schema in TypeScript.** Tables live in one file.") is fine, not a tell.
-17. **Title case headings.** Use sentence case.
-18. **Decorative emojis.** Remove from headings and bullets.
-19. **Curly quotes.** Replace with straight quotes.
-
-### Communication artifacts
-
-20. **Chatbot phrases.** "I hope this helps!", "Let me know if...", "Of course!", "Certainly!", "Found the smoking gun!" Remove.
-21. **Cutoff disclaimers.** "While specific details are limited..." Find sources or remove.
-22. **Sycophantic tone.** "Great question! You're absolutely right!" Respond directly.
-
-### Filler
-
-23. **Filler phrases.** "In order to" becomes "To". "Due to the fact that" becomes "Because". "It is important to note that" gets deleted.
-24. **Excessive hedging.** "could potentially possibly be argued that it might" becomes "may".
-25. **Generic conclusions.** "The future looks bright." State specific plans or facts.
-
-### Jargon
-
-26. **Abstract metaphor nouns.** Substrate, wedge, vector, locus, vantage, nexus, primitive (as noun), harness (as metaphor), surface (as in "API surface"), bedrock, scaffolding (as metaphor), modality, paradigm, gold-plating. These read as technical but usually have a plainer concrete word. "Substrate" becomes "base". "Wedge in" becomes "add". "Vector" becomes "way" or "method". "Gold-plating" becomes "more than the job needs". Pick the concrete word.
-
-### Plain speech
-
-27. **Say the concrete thing.** Don't wrap a simple point in abstract framing, and don't describe how something feels instead of what it does. "the database stays close at hand", "SQL you can read", "types that follow your schema" name a feeling. The fix names the mechanism or a number: "`.toSQL()` returns the exact string sent to the database", "a column rename fails the build". Ask what the sentence tells the reader to do or know, then write that. If you can't restate it as a concrete instruction, fact, or number, cut it.
-28. **Shorten or split dense sentences.** If the reader has to backtrack to parse a sentence, break it in two or drop clauses. One idea per sentence.
-29. **Active voice.** Prefer it. Catch "is/are/was/were + past participle" and name the actor: "queries are validated" becomes "the compiler validates queries", "the file is parsed by the loader" becomes "the loader parses the file". Passive is fine only when the actor is unknown or genuinely doesn't matter.
-30. **Cut adverbs, or use a stronger verb.** "runs quickly" becomes "is fast" or the number. "significantly improves" becomes the measured delta. An adverb propping up a weak verb means the verb is wrong.
-31. **Prefer the plain word.** "utilize" becomes "use", "leverage" becomes "use", "facilitate" becomes "help", "numerous" becomes "many", "in the event that" becomes "if". The fancier synonym is rarely clearer.
+Before substantial prose or copy work, read the detailed inherited editing checks
+in `~/dotfiles/skills/reference/writing-style.md`. For website copy, component text,
+client replies, and paste-ready wording, also load `aryan-voice`. Keep useful labels,
+instructions, accessibility text, and real caveats. Do not write copy to fill space.
 
 # Aryan voice
 
-Before writing or editing website copy, component text, client replies, emails, or paste-ready wording, load the `aryan-voice` skill. This includes copy written during UI implementation. If skill discovery misses it, read `/Users/blank/dotfiles/skills/skills/aryan-voice/SKILL.md`. Follow its voice guide and relevant examples before drafting. Show final copy in its page or message context; a skill read alone does not verify the words fit.
+Before writing or editing website copy, component text, client replies, emails, or paste-ready wording, load the `aryan-voice` skill. This includes copy written during UI implementation. If skill discovery misses it, read `~/dotfiles/skills/skills/aryan-voice/SKILL.md`. Follow its voice guide and relevant examples before drafting. Show final copy in its page or message context; a skill read alone does not verify the words fit.
 
 # Direction first
 
-Before the first open choice for a new component, page, visual system, major restyle, or library/tool/backend pattern with no incumbent, load `/Users/blank/.agents/skills/blank-direction/SKILL.md` and run `direction_discover` with the task and constraints. For narrow adjustments, bug fixes, refactors or supplied exact sources, skip discovery. Use `direction_lookup` for a concrete need.
+Before an open design choice, inspect the existing project, supplied references, and
+relevant installed skills. Use the bundled `animation-fundamentals` recipes for motion
+and `aryan-voice` examples for copy. Inspect public originals when useful.
+
+Use the installed `blank-direction` skill for BLANK discovery, authenticated registry
+source, and inspiration access through the `blank` command. Credentials remain in the
+user-managed `kiys` file. The separate original 129-skill design pack is not bundled.
+Missing access must not block work or be reported as an empty search result.
+Never claim to have inspected an unavailable source.
+For narrow adjustments, bug fixes, refactors or supplied exact sources, skip discovery.
 
 ## Research broadly, present selectively
 
-Use the existing BLANK wall, registry and component library before asking me to supply resources again. A good idea can come from anywhere: people, marketplaces, other disciplines, original implementations or outside sources. The collection is a starting point, not a whitelist, fixed shortlist or house style. Named designers and examples are leads, not universal standards. Poor search results require better queries, not the conclusion that our collection is empty. Follow the skill's source inspection and query recovery procedure.
+Use available project references and component libraries before asking me to supply resources again. A good idea can come from anywhere: people, marketplaces, other disciplines, original implementations or outside sources. The collection is a starting point, not a whitelist, fixed shortlist or house style. Named designers and examples are leads, not universal standards. Poor search results require better queries, not the conclusion that our collection is empty. When using an installed discovery skill, follow its source inspection and query recovery procedure.
 
 Inspect individual works and follow originals. Read relevant component code end to end to understand the implementation quality I expect: state, composition, motion, accessibility and responsive behavior. Reuse suitable mechanisms; judge new ones against that standard. Catalog descriptions and skill reads alone are not research evidence.
 
@@ -316,85 +233,54 @@ was explaining the ui, but the ui was perfect."
 Do not guess at cause. "Read the entire component first, figure out why this happens" is the
 correction this rule exists to prevent.
 
-# UI verification: Argent or Agent Browser
+# UI verification
 
-Two different tools. Pick by surface, not by habit. Argent drives devices, native and RN apps, and
-Chromium runtimes already on CDP. Agent Browser is the web-page CLI.
+For visible web or app changes, read `~/dotfiles/skills/reference/ui-verification.md`.
+It owns surface selection, focused interaction checks, evidence-based iteration,
+and the single closeout. Use Agent Browser for ordinary websites. Use Argent for
+native, React Native, device, Electron, and Chromium-CDP work.
 
-## Decision, first match wins
+Operate the real product and inspect the result against the accepted brief. Check
+relevant responsive states, controls, transitions, keyboard behavior, and console
+errors. Fix defects within scope and verify again. Source edits and successful
+builds alone do not prove visible behavior or creative quality. Exact reproductions
+also follow `fidelity-first`. Report missing evidence as unverified, not as a pass.
 
-1. **Argent** (MCP `mcp__argent__*`). The thing under test is an iOS simulator, Android emulator,
-   physical Android device, React Native app (Metro, Hermes, component tree, profilers), native iOS
-   or Android app, Electron app, Apple TV or Android TV or Vega (Fire TV), or a Chromium browser
-   already exposing CDP (`chromium-cdp-*` in `list-devices`). Also Argent when the request says
-   simulator, emulator, device, tap, swipe, Metro, permissions, or "on the phone".
-2. **Agent Browser** (CLI `agent-browser`). The thing under test is a public URL, a local web app with
-   no device in play, live-page evidence after fetch and search both failed, or a disposable Chrome
-   session (auth vault, HAR, `eval`, cloud browsers).
-3. Both could work, for example a local Next or Vite app on desktop. Use Agent Browser for a fast
-   web-only check against the named `https://<name>.localhost` URL. Switch to Argent the moment a
-   simulator, emulator, RN runtime, real device, or Electron and CDP Chrome enters the picture.
+Present the result, compact evidence links, material deviations, and blockers in one
+closeout. Do not make the user sort research logs or discarded attempts.
 
-Do not use `agent-browser -p ios` or Appium Safari as a substitute for Argent. That path drives Safari
-web pages on a simulator. It cannot launch native apps, describe UIKit, grant permissions, or talk to
-Metro.
+# Documents
 
-Do not use Argent to open a random public URL unless a CDP Chrome session is already the intended
-surface.
+For Word, PDF, presentation, and spreadsheet work, load the matching installed
+`docx`, `pdf`, `pptx`, or `xlsx` skill. Use `anydoc` to extract an existing document
+instead of guessing its contents. Keep confidential documents local unless the
+user explicitly asks for a hosted conversion.
 
-## Argent workflow, devices and CDP apps
+`doc-python` runs the dedicated document environment at
+`~/.local/share/dotfiles/documents`. It includes python-docx, python-pptx, openpyxl,
+pypdf, ReportLab, Pillow, and pypandoc with its bundled Pandoc binary. Use this
+environment instead of installing libraries into Arch's system Python.
 
-Read `/Users/blank/dotfiles/skills/reference/argent.md` and the matching interaction skill before device work. That procedure owns availability, discovery before every tap, running-device preference and cleanup. This rule owns surface selection, including when a source's research instructions name a different browser.
-
-## Agent Browser workflow, web pages
-
-1. `agent-browser open <url>`
-2. `agent-browser wait --load networkidle`, or wait on a specific element or URL.
-3. `agent-browser snapshot -i`
-4. Interact through snapshot refs (`@e1`, `@e2`) or semantic locators (`find text`, `find label`,
-   `find role button --name`).
-5. Re-snapshot after any navigation, modal, submit, or dynamic DOM change. Refs go stale.
-6. Screenshot when layout, responsive behavior, or rendering correctness matters.
-7. `agent-browser close`, or `close --all`, when the task finishes.
-
-Use fixed waits only as a last resort.
-
-## After starting a local dev server
-
-Confirm the app loads on the surface that matches the product.
-
-Web-only desktop goes to Agent Browser against the named portless URL. Mobile, RN, simulator,
-emulator, Electron, or CDP Chrome goes to Argent.
-
-Report the exact URL or the device plus app, the flow, and any failures.
-
-## Finish against evidence before delivery
-
-Inspect actual output against the accepted brief and relevant inspected benchmarks. Compare layout at matched viewports, exercise ordinary audience behavior, and watch actual transitions rather than inferring motion from stills. Check interruption and reduced motion where relevant. Inspect final copy in context; listen to narration when supported. A successful render or audio metadata cannot establish performance quality.
-
-Fix finish defects within the authorized scope: places where the output fails the accepted brief, source or applicable check. Inspect again after changes. Missed opportunities are proposals unless the brief leaves that choice open; prototype them only in isolation, not in approved or reproduced work. Mention only material, relevant proposals rather than producing a mandatory suggestion list. Keep the source, comparison, experiment and observed result in task artifacts. Continue while iterations make meaningful progress within the user's budget; escalate persistent gaps or unavailable capabilities rather than silently lowering the target. Self-approval without external evidence is not a quality check.
-
-Use focused app-specific checks for affected states, such as overflow, clipped content, keyboard behavior and console errors. Exact-source work also requires the comparisons in `fidelity-first`. Failed applicable checks or missing required evidence must be reported as failures or unverified properties, not softened into claims such as "looks identical" or "near pixel-perfect". Automated checks establish specific properties, not taste. Distinguish verified execution, creative judgment and user acceptance.
-
-## One closeout
-
-Present the result, compact evidence links, material deviations and any blocker. Include the inspected source and decision it changed when relevant, not a separate compliance report. Keep research logs and discarded attempts available in artifacts without making the user sort them. If inspection or playback is unavailable, say what remains unverified. A build, skill read or authored walkthrough does not establish that the experience works.
+Check the actual exported artifact: text, page or sheet structure, formulas, and
+rendered layout where tooling supports it. Opening a document with a library does
+not prove the visual layout. State missing rendering tools when they affect the
+result; do not describe an unrendered document as visually verified.
 
 # Argent device work
 
-Before native, React Native, simulator, emulator, TV, Electron or Chromium-CDP work, read `/Users/blank/dotfiles/skills/reference/argent.md` and the matching platform skill. It owns availability checks, device selection, interaction safety, profiling and cleanup. `ui-verification` owns browser-versus-device selection.
+Before native, React Native, simulator, emulator, TV, Electron or Chromium-CDP work, read `~/dotfiles/skills/reference/argent.md` and the matching platform skill. It owns availability checks, device selection, interaction safety, profiling and cleanup. `ui-verification` owns browser-versus-device selection.
 
 Prefer running devices. Discover elements before every tap; screenshots are not tap coordinates. Use Argent for covered device operations, not raw simulator commands. If unavailable, report it once and ask whether to continue without it. Do not load device procedures for unrelated work.
 
 # Named local servers
 
-Before starting or exposing a long-running local server, read `/Users/blank/dotfiles/skills/reference/portless.md`. It owns availability, deterministic naming, shared-process safety, announcement format and fallbacks.
+Before starting or exposing a long-running local server, read `~/dotfiles/skills/reference/portless.md`. It owns availability, deterministic naming, shared-process safety, announcement format and fallbacks.
 
 Use `https://<repo-name>.localhost` through portless, with configured names taking precedence. Check existing servers and reuse the requested app when appropriate. Never choose random ports, override portless's assigned port, or kill another process to free one. Announce the exact named URL when ready and at closeout. If the normal path is unavailable, use and disclose the reference's fallback tier.
 
 # Browser demo recordings
 
-For repeatable browser demo videos, walkthroughs, tutorials, changelog clips or browser-behavior review recordings, read `/Users/blank/dotfiles/skills/reference/webreel.md` before setup. It owns config, validation, dry-run, recording and recovery. Preserve requested formats and verify the artifact plays.
+For repeatable browser demo videos, walkthroughs, tutorials, changelog clips or browser-behavior review recordings, read `~/dotfiles/skills/reference/webreel.md` before setup. It owns config, validation, dry-run, recording and recovery. Preserve requested formats and verify the artifact plays.
 
 Use Agent Browser for ordinary interactive web QA. Use Argent for native, RN, device, Electron and CDP recordings. A completed recording proves its scripted path ran, not that the experience meets the creative brief.
 
@@ -403,10 +289,11 @@ Use Agent Browser for ordinary interactive web QA. Use Argent for native, RN, de
 Never poll with a bare `sleep`. The harness has purpose-built waiting tools, and they report what
 actually happened instead of guessing at a duration.
 
-Measured across 200 transcripts: 751 `sleep` calls against 2 `Monitor` calls. No rule pointed at the
-alternative, so the shell won by default.
-
 ## What to reach for
+
+Use the waiting tools actually exposed by the current agent. In Codex, resume a
+running command with its session tool. The Claude-specific examples below apply
+only when those tools are available.
 
 One notification when a condition becomes true: `Bash` with `run_in_background`, running a command
 that exits on that condition. `until grep -q "Ready in" dev.log; do sleep 0.5; done` ends by itself
@@ -454,7 +341,7 @@ If a command fails with a quota error, inform the user and suggest `npx ctx7@lat
 
 # Plan review
 
-Before implementation beyond a tiny obvious edit, read `/Users/blank/dotfiles/skills/reference/plan-review.md` and open the concrete plan in Plannotator. It owns acceptance, representative previews, approval and implementation review. Skip the approval gate only when I explicitly say to skip planning or just do it, or the edit is tiny with no design choice. A requested visualization still applies.
+Before implementation beyond a tiny obvious edit, read `~/dotfiles/skills/reference/plan-review.md` and open the concrete plan in Plannotator. It owns acceptance, representative previews, approval and implementation review. Skip the approval gate only when I explicitly say to skip planning or just do it, or the edit is tiny with no design choice. A requested visualization still applies.
 
 Show the actual decision before asking for approval. Develop and self-check the hardest representative part before expanding production. Consolidate creative choices into one review rather than separate palette, layout and mock approvals. Reopen for material departures, not settled decisions. Preview work stays isolated until approval.
 

@@ -5,6 +5,10 @@ description: Write or refine website copy, component text, client replies, email
 
 # Aryan voice
 
+maynkudu chose to inherit this writing style. The name credits its original author.
+Examples describe their original subjects, not the current user. Never reuse personal
+claims, client relationships, or signatures as facts about maynkudu.
+
 Write words chosen for the actual business, reader, and situation. Aryan prefers practical, semi-casual client communication and website copy with a clear offer, exact detail, and feeling that comes from understanding the subject.
 
 ## Read before drafting

@@ -6,9 +6,10 @@
 
 # About me
 
-Aryan, backend/platform engineer. Simplify; no `any`. Questions: read-only. No one-pass subagents.
-Verify: reproducible setup, control CLI, Feature Map, runtime proof; reproduce before fixing.
-Never use U+2197/up-right arrows in any design or form. Use plain labels.
+maynkudu builds websites, apps, and documents on Arch Linux. Codex first, Claude occasionally.
+Keep the inherited practical writing and design taste. Aryan is the original author, not me.
+Simplify; prefer type safety. Verify real results. Never invent my biography or client facts.
+Never use U+2197/up-right arrows in designs; use plain labels.
 
 # Unslop
 
@@ -20,15 +21,15 @@ Have an opinion when evidence supports one. Before sending prose, comments or co
 
 # Aryan voice
 
-Before writing or editing website copy, component text, client replies, emails, or paste-ready wording, load the `aryan-voice` skill. This includes copy written during UI implementation. If skill discovery misses it, read `/Users/blank/dotfiles/skills/skills/aryan-voice/SKILL.md`. Follow its voice guide and relevant examples before drafting. Show final copy in its page or message context; a skill read alone does not verify the words fit.
+Before writing or editing website copy, component text, client replies, emails, or paste-ready wording, load the `aryan-voice` skill. This includes copy written during UI implementation. If skill discovery misses it, read `~/dotfiles/skills/skills/aryan-voice/SKILL.md`. Follow its voice guide and relevant examples before drafting. Show final copy in its page or message context; a skill read alone does not verify the words fit.
 
 # Direction first
 
-Before an open design or library/tool/backend choice with no incumbent, load `/Users/blank/.agents/skills/blank-direction/SKILL.md` and run `direction_discover`. Skip discovery for narrow edits, bugs, refactors and exact sources; use `direction_lookup` for concrete needs. Follow its inspection and query recovery procedure.
-
-Search our existing wall, registry and component library before asking for resources. Good ideas can come from anywhere; collections and named designers are starting points, not a fixed shortlist or house style. Inspect original work and relevant code, not just catalog descriptions. Ask focused follow-ups where vague intent permits materially different results; establish the audience problem and section purpose.
-
-Develop one strong recommendation; present at most three alternatives only when a real choice needs them. This limits presentation, not research, experiments or creative time. Compare actual output with the brief and inspected benchmarks, fix defects within scope and retain evidence. Keep unsolicited improvements as isolated proposals; obtain approval before applying departures. Explicit user requirements, the approved plan and approved sources govern aesthetics, then incumbent systems, task guidance and generic defaults; preserve prohibitions. Report useful source/decision/check evidence once, not a research dump.
+Inspect supplied references, the existing project, and relevant installed skills before
+open design choices. Use `blank-direction` only if installed and its service works.
+The original private BLANK library is not bundled; use inspected public originals
+and the bundled motion and writing examples when it is unavailable. Clarify material
+ambiguity, present one strong direction, and verify the result against the brief.
 
 # Named local URLs (portless)
 
@@ -69,9 +70,6 @@ Omit `<name>` only when every configured video is requested. For Plannotator, ke
 
 # Working with me here
 
-You are the agent I wire plumbing with. I delegate more here than anywhere (8.3 per 10k chars against
-1.2 in Claude), and the topics are agent infrastructure: WhatsApp bridges, headless runs, agents
-watching agents.
-
-Answer the operational question directly. When I ask whether something still works, check it and say
-what you checked. Never commit or push unless I ask, and never retain credentials.
+Grok is an optional target and is not installed by the default setup. Answer operational
+questions directly and verify what you checked. Never commit or push unless asked.
+Do not retain credentials.

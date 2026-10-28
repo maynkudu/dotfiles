@@ -1,0 +1,25 @@
+
+portless doctor
+
+Version: 0.15.6
+Node.js: 26.12.1
+Platform: linux x64
+State dir: /home/maynkudu/.portless
+Proxy target: https://127.0.0.1:1355
+Mode: HTTPS, .localhost
+
+ok    Node.js 26.12.1 satisfies portless requirements.
+ok    State directory is writable: /home/maynkudu/.portless
+ok    Proxy is responding on port 1355.
+ok    Proxy PID file points to the responding proxy process: 63135
+ok    OpenSSL is available for certificate generation.
+ok    Local CA is trusted by the OS trust store.
+warn  Routes: 1 active route, 2 stale routes.
+      Run: portless prune
+warn  Stale route addvora.localhost is owned by exited PID 2745.
+warn  Stale route kitse.localhost is owned by exited PID 3026.
+warn  Route maynkudu-warehourse.localhost points to port 3000, but nothing is listening there.
+      Remove the alias or start that service.
+ok    Registered hostnames resolve through the system resolver.
+
+Summary: 0 failures, 4 warnings.

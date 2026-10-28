@@ -1,0 +1,198 @@
+#!/usr/bin/env python3
+"""Set up the selected agents, public skills, tools and shells. No credentials needed.
+
+Run with --dry-run to review changes. Select phases with --tools, --skills,
+--rules, --shell, --mcp; no phase flags means all five. Existing tools are reused.
+"""
+import argparse
+import json
+import os
+from pathlib import Path
+import shlex
+import shutil
+import subprocess
+import sys
+import tomllib
+from datetime import datetime, timezone
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--home', type=Path, default=Path.home())
+    for phase in ('tools', 'skills', 'rules', 'shell', 'mcp'):
+        parser.add_argument('--' + phase, action='store_true')
+    args = parser.parse_args()
+    home = args.home.expanduser().resolve()
+    cfg = tomllib.loads((ROOT / 'setup.toml').read_text())
+    phases = {p for p in ('tools', 'skills', 'rules', 'shell', 'mcp') if getattr(args, p)}
+    phases = phases or {'tools', 'skills', 'rules', 'shell', 'mcp'}
+    env = dict(os.environ)
+    env['PATH'] = str(home / '.local/bin') + os.pathsep + env.get('PATH', '')
+
+    def run(cmd):
+        cmd = [str(c) for c in cmd]
+        print(('would run: ' if args.dry_run else 'run: ') + shlex.join(cmd), flush=True)
+        if not args.dry_run:
+            subprocess.run(cmd, check=True, env=env)
+
+    def backup(path):
+        stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+        dest = path.with_name(path.name + '.before-dotfiles-' + stamp)
+        print(f'back up {path} -> {dest}')
+        if not args.dry_run:
+            if path.is_symlink():
+                dest.symlink_to(os.readlink(path))
+            else:
+                shutil.copy2(path, dest)
+
+    def link(source, dest):
+        if dest.is_symlink() and dest.resolve() == source.resolve():
+            return
+        if dest.exists() or dest.is_symlink():
+            print(f'keep existing {dest}')
+            return
+        print(f'link {dest} -> {source}')
+        if not args.dry_run:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.symlink_to(source)
+
+    if 'tools' in phases:
+        # Use Sharp's bundled libvips rather than compiling against Arch's copy.
+        env['SHARP_IGNORE_GLOBAL_LIBVIPS'] = '1'
+        missing = [package for binary, package in cfg['npm'].items()
+                   if not shutil.which(binary, path=env['PATH'])]
+        if missing:
+            run(['npm', 'install', '--global', '--prefix', home / '.local',
+                 '--allow-scripts=' + ','.join(cfg['npm_allow_scripts']), *missing])
+        # Webreel 0.1.4 disables automatic frames but never calls beginFrame.
+        # Page.captureScreenshot then stalls and the recording has no frames.
+        core = home / '.local/lib/node_modules/webreel/node_modules/@webreel/core'
+        manifest = core / 'package.json'
+        if manifest.is_file() and json.loads(manifest.read_text())['version'] == '0.1.4':
+            chrome = core / 'dist/chrome.js'
+            source = chrome.read_text()
+            flag = '                "--enable-begin-frame-control",\n'
+            if flag in source:
+                print(f'patch Webreel 0.1.4 frame capture: {chrome}')
+                backup(chrome)
+                if not args.dry_run:
+                    chrome.write_text(source.replace(flag, ''))
+        if not shutil.which('fnm', path=env['PATH']):
+            run(['cargo', 'install', 'fnm', '--locked', '--root', home / '.local'])
+        for plugin in ('zsh-autosuggestions', 'zsh-syntax-highlighting'):
+            dest = home / '.local/share/dotfiles/zsh' / plugin
+            if not dest.exists():
+                run(['git', 'clone', '--depth', '1', f'https://github.com/zsh-users/{plugin}.git', dest])
+        # Libraries stay in a dedicated environment, outside Arch's system Python.
+        docenv = home / '.local/share/dotfiles/documents'
+        if not (docenv / 'bin/python').exists():
+            run(['uv', 'venv', '--python', '3.13', docenv])
+        run(['uv', 'pip', 'install', '--python', docenv / 'bin/python', '-r', ROOT / 'documents/requirements.txt'])
+        # A symlink outside the venv loses Python's pyvenv.cfg discovery.
+        wrapper = home / '.local/bin/doc-python'
+        content = '#!/bin/sh\nexec ' + shlex.quote(str(docenv / 'bin/python')) + ' "$@"\n'
+        owned_link = wrapper.is_symlink() and wrapper.resolve() == (docenv / 'bin/python').resolve()
+        if owned_link or not wrapper.exists() or wrapper.read_text() == content:
+            if owned_link or not wrapper.exists():
+                print(f'write document Python launcher {wrapper}')
+                if not args.dry_run:
+                    wrapper.parent.mkdir(parents=True, exist_ok=True)
+                    if wrapper.is_symlink():
+                        wrapper.unlink()
+                    wrapper.write_text(content)
+                    wrapper.chmod(0o755)
+        else:
+            print(f'keep existing {wrapper}')
+        link(ROOT / 'bin/blank', home / '.local/bin/blank')
+
+    if 'skills' in phases:
+        shared = home / '.agents/skills'
+        installer = Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))) / 'skills/.system/skill-installer/scripts/install-skill-from-github.py'
+        lock = json.loads((ROOT / 'skills/sources.lock.json').read_text())
+        if not installer.is_file():
+            raise SystemExit(f'Skill installer missing: {installer}. Install Codex with its system skills first.')
+        for source in lock['sources']:
+            pending = [entry for entry in source['skills'] if not (shared / entry['name']).exists()]
+            # Group unchanged basenames so each source downloads only once.
+            plain = [entry for entry in pending if Path(entry['path']).name == entry['name']]
+            renamed = [entry for entry in pending if entry not in plain]
+            base = [sys.executable, installer, '--repo', source['repo'], '--ref', source['ref'], '--dest', shared]
+            if plain:
+                run([*base, '--path', *[entry['path'] for entry in plain]])
+            for entry in renamed:
+                run([*base, '--path', entry['path'], '--name', entry['name']])
+        for name in cfg['skills']['local']:
+            link(ROOT / 'skills/skills' / name, shared / name)
+        # The vendored Cloudflare skills are useful in both active clients.
+        for source in sorted((ROOT / 'pi/skills').iterdir()):
+            if (source / 'SKILL.md').is_file():
+                link(source, shared / source.name)
+        if 'claude' in cfg['agents']:
+            for source in sorted(shared.glob('*/SKILL.md')):
+                link(source.parent, home / '.claude/skills' / source.parent.name)
+        if not args.dry_run:
+            run([sys.executable, ROOT / 'skills/bin/patch', '--skill-home', shared])
+
+    if 'rules' in phases:
+        # Refuse to install stale generated rules.
+        run([sys.executable, ROOT / 'skills/bin/build', '--check'])
+        cmd = [sys.executable, ROOT / 'skills/bin/install', '--home', home, '--agents', *cfg['agents']]
+        if args.dry_run:
+            subprocess.run([*map(str, cmd), '--dry-run'], check=True)
+        else:
+            run(cmd)
+
+    if 'shell' in phases:
+        # Keep the user's login shell and existing configuration. Append one managed block.
+        for filename, target in (('.bashrc', ROOT / 'shell/bash.sh'), ('.zshrc', ROOT / 'zshrc')):
+            path = home / filename
+            begin, end = '# >>> maynkudu/dotfiles >>>', '# <<< maynkudu/dotfiles <<<'
+            old = path.read_text() if path.exists() else ''
+            block = f'{begin}\nexport DOTFILES_ROOT={shlex.quote(str(ROOT))}\nsource {shlex.quote(str(target))}\n{end}\n'
+            if begin in old:
+                before, rest = old.split(begin, 1)
+                if end not in rest:
+                    raise SystemExit(f'Incomplete managed block in {path}; inspect before updating.')
+                _, after = rest.split(end, 1)
+                new = before + block + after.lstrip('\n')
+            else:
+                new = old.rstrip('\n') + '\n\n' + block
+            if new != old:
+                if path.exists() or path.is_symlink():
+                    backup(path)
+                print(f'update {path}')
+                if not args.dry_run:
+                    # Do not write through a symlink into an unrelated dotfiles repository.
+                    if path.is_symlink():
+                        path.unlink()
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text(new)
+
+    if 'mcp' in phases:
+        if home != Path.home().resolve():
+            raise SystemExit('MCP registration uses the real home; omit --mcp for isolated installs.')
+        servers = {'argent': ('argent', ['mcp']), 'agentation': ('agentation-mcp', ['server'])}
+        for agent in cfg['agents']:
+            if agent not in ('codex', 'claude'):
+                continue
+            for name, (binary, arguments) in servers.items():
+                result = subprocess.run([agent, 'mcp', 'get', name], capture_output=True, env=env)
+                if result.returncode == 0:
+                    print(f'keep existing {agent} MCP server: {name}')
+                    continue
+                command = shutil.which(binary, path=env['PATH']) or str(home / '.local/bin' / binary)
+                cmd = [agent, 'mcp', 'add']
+                if agent == 'claude':
+                    cmd += ['--scope', 'user']
+                run([*cmd, name, '--', command, *arguments])
+    print('Dry run complete.' if args.dry_run else 'Setup complete.')
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except subprocess.CalledProcessError as exc:
+        raise SystemExit(f'Setup stopped: command exited {exc.returncode}. Fix the error and rerun; completed steps are retained.')

@@ -1,0 +1,560 @@
+{
+  "sources": [
+    {
+      "repo": "addyosmani/web-quality-skills",
+      "ref": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "skills": [
+        {
+          "name": "performance",
+          "path": "skills/performance"
+        }
+      ]
+    },
+    {
+      "repo": "anthropics/skills",
+      "ref": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "skills": [
+        {
+          "name": "frontend-design",
+          "path": "skills/frontend-design"
+        },
+        {
+          "name": "docx",
+          "path": "skills/docx"
+        },
+        {
+          "name": "pdf",
+          "path": "skills/pdf"
+        },
+        {
+          "name": "pptx",
+          "path": "skills/pptx"
+        },
+        {
+          "name": "xlsx",
+          "path": "skills/xlsx"
+        },
+        {
+          "name": "doc-coauthoring",
+          "path": "skills/doc-coauthoring"
+        }
+      ]
+    },
+    {
+      "repo": "arla6ka/skills",
+      "ref": "7ba4371768dfd8c589290bbdb5ef53ed88d27f8c",
+      "skills": [
+        {
+          "name": "build-design-system",
+          "path": "skills/build-design-system"
+        },
+        {
+          "name": "component-docs",
+          "path": "skills/component-docs"
+        },
+        {
+          "name": "design-system-boss",
+          "path": "skills/design-system-boss"
+        },
+        {
+          "name": "migrate-design-system",
+          "path": "skills/migrate-design-system"
+        },
+        {
+          "name": "token-mapping",
+          "path": "skills/token-mapping"
+        },
+        {
+          "name": "ui-review",
+          "path": "skills/ui-review"
+        }
+      ]
+    },
+    {
+      "repo": "benjitaylor/agentation",
+      "ref": "0e3236eb1a0f5577852ab7bb5121f5dd46d42f1d",
+      "skills": [
+        {
+          "name": "agentation",
+          "path": "skills/agentation"
+        },
+        {
+          "name": "agentation-self-driving",
+          "path": "skills/agentation-self-driving"
+        }
+      ]
+    },
+    {
+      "repo": "dmmulroy/.dotfiles",
+      "ref": "04aee9370b6b9081988126d5b9cac458c57956d8",
+      "skills": [
+        {
+          "name": "bro",
+          "path": "home/.agents/skills/bro"
+        },
+        {
+          "name": "herdr",
+          "path": "home/.agents/skills/herdr"
+        },
+        {
+          "name": "recipe-diagrams",
+          "path": "home/.agents/skills/recipe-diagrams"
+        },
+        {
+          "name": "write-discoverable-code",
+          "path": "home/.agents/skills/write-discoverable-code"
+        },
+        {
+          "name": "writing-for-agents",
+          "path": "home/.agents/skills/writing-for-agents"
+        }
+      ]
+    },
+    {
+      "repo": "firecrawl/anydoc",
+      "ref": "e7178e099b6bf9171e2c52b832cbdb4134b69112",
+      "skills": [
+        {
+          "name": "convert-documents-to-markdown",
+          "path": "skills/convert-documents-to-markdown"
+        }
+      ]
+    },
+    {
+      "repo": "makisuo/skills",
+      "ref": "7a8d5504ba6d889c41274f659c7b6402aba71ba6",
+      "skills": [
+        {
+          "name": "effect-best-practices",
+          "path": "effect-best-practices"
+        }
+      ]
+    },
+    {
+      "repo": "mattpocock/skills",
+      "ref": "59db609eb1e18aaf59b63284d0e52255aff0c63c",
+      "skills": [
+        {
+          "name": "ask-matt",
+          "path": "skills/engineering/ask-matt"
+        },
+        {
+          "name": "claude-handoff",
+          "path": "skills/in-progress/claude-handoff"
+        },
+        {
+          "name": "code-review",
+          "path": "skills/engineering/code-review"
+        },
+        {
+          "name": "codebase-design",
+          "path": "skills/engineering/codebase-design"
+        },
+        {
+          "name": "diagnosing-bugs",
+          "path": "skills/engineering/diagnosing-bugs"
+        },
+        {
+          "name": "domain-modeling",
+          "path": "skills/engineering/domain-modeling"
+        },
+        {
+          "name": "git-guardrails-claude-code",
+          "path": "skills/misc/git-guardrails-claude-code"
+        },
+        {
+          "name": "grill-me",
+          "path": "skills/productivity/grill-me"
+        },
+        {
+          "name": "grill-with-docs",
+          "path": "skills/engineering/grill-with-docs"
+        },
+        {
+          "name": "grilling",
+          "path": "skills/productivity/grilling"
+        },
+        {
+          "name": "handoff",
+          "path": "skills/productivity/handoff"
+        },
+        {
+          "name": "implement",
+          "path": "skills/engineering/implement"
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "path": "skills/engineering/improve-codebase-architecture"
+        },
+        {
+          "name": "loop-me",
+          "path": "skills/in-progress/loop-me"
+        },
+        {
+          "name": "migrate-to-shoehorn",
+          "path": "skills/misc/migrate-to-shoehorn"
+        },
+        {
+          "name": "prototype",
+          "path": "skills/engineering/prototype"
+        },
+        {
+          "name": "research",
+          "path": "skills/engineering/research"
+        },
+        {
+          "name": "scaffold-exercises",
+          "path": "skills/misc/scaffold-exercises"
+        },
+        {
+          "name": "setup-matt-pocock-skills",
+          "path": "skills/engineering/setup-matt-pocock-skills"
+        },
+        {
+          "name": "setup-pre-commit",
+          "path": "skills/misc/setup-pre-commit"
+        },
+        {
+          "name": "setup-ts-deep-modules",
+          "path": "skills/in-progress/setup-ts-deep-modules"
+        },
+        {
+          "name": "teach",
+          "path": "skills/productivity/teach"
+        },
+        {
+          "name": "to-spec",
+          "path": "skills/engineering/to-spec"
+        },
+        {
+          "name": "to-tickets",
+          "path": "skills/engineering/to-tickets"
+        },
+        {
+          "name": "triage",
+          "path": "skills/engineering/triage"
+        },
+        {
+          "name": "wayfinder",
+          "path": "skills/engineering/wayfinder"
+        },
+        {
+          "name": "wizard",
+          "path": "skills/engineering/wizard"
+        },
+        {
+          "name": "writing-beats",
+          "path": "skills/in-progress/writing-beats"
+        },
+        {
+          "name": "writing-fragments",
+          "path": "skills/in-progress/writing-fragments"
+        },
+        {
+          "name": "writing-shape",
+          "path": "skills/in-progress/writing-shape"
+        }
+      ]
+    },
+    {
+      "repo": "poteto/plugins",
+      "ref": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "skills": [
+        {
+          "name": "architect",
+          "path": "pstack/skills/architect"
+        },
+        {
+          "name": "arena",
+          "path": "pstack/skills/arena"
+        },
+        {
+          "name": "automate-me",
+          "path": "pstack/skills/automate-me"
+        },
+        {
+          "name": "figure-it-out",
+          "path": "pstack/skills/figure-it-out"
+        },
+        {
+          "name": "how",
+          "path": "pstack/skills/how"
+        },
+        {
+          "name": "interrogate",
+          "path": "pstack/skills/interrogate"
+        },
+        {
+          "name": "poteto-mode",
+          "path": "pstack/skills/poteto-mode"
+        },
+        {
+          "name": "principle-boundary-discipline",
+          "path": "pstack/skills/principle-boundary-discipline"
+        },
+        {
+          "name": "principle-build-the-lever",
+          "path": "pstack/skills/principle-build-the-lever"
+        },
+        {
+          "name": "principle-encode-lessons-in-structure",
+          "path": "pstack/skills/principle-encode-lessons-in-structure"
+        },
+        {
+          "name": "principle-exhaust-the-design-space",
+          "path": "pstack/skills/principle-exhaust-the-design-space"
+        },
+        {
+          "name": "principle-experience-first",
+          "path": "pstack/skills/principle-experience-first"
+        },
+        {
+          "name": "principle-fix-root-causes",
+          "path": "pstack/skills/principle-fix-root-causes"
+        },
+        {
+          "name": "principle-foundational-thinking",
+          "path": "pstack/skills/principle-foundational-thinking"
+        },
+        {
+          "name": "principle-guard-the-context-window",
+          "path": "pstack/skills/principle-guard-the-context-window"
+        },
+        {
+          "name": "principle-laziness-protocol",
+          "path": "pstack/skills/principle-laziness-protocol"
+        },
+        {
+          "name": "principle-make-operations-idempotent",
+          "path": "pstack/skills/principle-make-operations-idempotent"
+        },
+        {
+          "name": "principle-migrate-callers-then-delete-legacy-apis",
+          "path": "pstack/skills/principle-migrate-callers-then-delete-legacy-apis"
+        },
+        {
+          "name": "principle-minimize-reader-load",
+          "path": "pstack/skills/principle-minimize-reader-load"
+        },
+        {
+          "name": "principle-never-block-on-the-human",
+          "path": "pstack/skills/principle-never-block-on-the-human"
+        },
+        {
+          "name": "principle-outcome-oriented-execution",
+          "path": "pstack/skills/principle-outcome-oriented-execution"
+        },
+        {
+          "name": "principle-prove-it-works",
+          "path": "pstack/skills/principle-prove-it-works"
+        },
+        {
+          "name": "principle-redesign-from-first-principles",
+          "path": "pstack/skills/principle-redesign-from-first-principles"
+        },
+        {
+          "name": "principle-separate-before-serializing-shared-state",
+          "path": "pstack/skills/principle-separate-before-serializing-shared-state"
+        },
+        {
+          "name": "principle-sequence-verifiable-units",
+          "path": "pstack/skills/principle-sequence-verifiable-units"
+        },
+        {
+          "name": "principle-subtract-before-you-add",
+          "path": "pstack/skills/principle-subtract-before-you-add"
+        },
+        {
+          "name": "principle-type-system-discipline",
+          "path": "pstack/skills/principle-type-system-discipline"
+        },
+        {
+          "name": "pstack-tdd",
+          "path": "pstack/skills/tdd"
+        },
+        {
+          "name": "reflect",
+          "path": "pstack/skills/reflect"
+        },
+        {
+          "name": "setup-pstack",
+          "path": "pstack/skills/setup-pstack"
+        },
+        {
+          "name": "show-me-your-work",
+          "path": "pstack/skills/show-me-your-work"
+        },
+        {
+          "name": "typescript-best-practices",
+          "path": "pstack/skills/typescript-best-practices"
+        },
+        {
+          "name": "unslop",
+          "path": "pstack/skills/unslop"
+        },
+        {
+          "name": "why",
+          "path": "pstack/skills/why"
+        }
+      ]
+    },
+    {
+      "repo": "shadcn/improve",
+      "ref": "cac56e1ebd3c279aa9153616cfeac7b174ab90f9",
+      "skills": [
+        {
+          "name": "improve",
+          "path": "skills/improve"
+        }
+      ]
+    },
+    {
+      "repo": "software-mansion/argent",
+      "ref": "d3a69142c4f78677733736624324ea777ccc4d36",
+      "skills": [
+        {
+          "name": "argent-android-emulator-setup",
+          "path": "packages/skills/skills/argent-android-emulator-setup"
+        },
+        {
+          "name": "argent-create-flow",
+          "path": "packages/skills/skills/argent-create-e2e"
+        },
+        {
+          "name": "argent-device-interact",
+          "path": "packages/skills/skills/argent-device-interact"
+        },
+        {
+          "name": "argent-ios-simulator-setup",
+          "path": "packages/skills/skills/argent-ios-simulator-setup"
+        },
+        {
+          "name": "argent-lens",
+          "path": "packages/skills/skills/argent-lens"
+        },
+        {
+          "name": "argent-metro-debugger",
+          "path": "packages/skills/skills/argent-metro-debugger"
+        },
+        {
+          "name": "argent-native-profiler",
+          "path": "packages/skills/skills/argent-native-profiler"
+        },
+        {
+          "name": "argent-react-native-app-workflow",
+          "path": "packages/skills/skills/argent-react-native-app-workflow"
+        },
+        {
+          "name": "argent-react-native-optimization",
+          "path": "packages/skills/skills/argent-react-native-optimization"
+        },
+        {
+          "name": "argent-react-native-profiler",
+          "path": "packages/skills/skills/argent-react-native-profiler"
+        },
+        {
+          "name": "argent-screen-recording",
+          "path": "packages/skills/skills/argent-screen-recording"
+        },
+        {
+          "name": "argent-screenshot-diff",
+          "path": "packages/skills/skills/argent-screenshot-diff"
+        },
+        {
+          "name": "argent-settings-permissions",
+          "path": "packages/skills/skills/argent-settings-permissions"
+        },
+        {
+          "name": "argent-test-ui-flow",
+          "path": "packages/skills/skills/argent-test-ui-flow"
+        },
+        {
+          "name": "argent-tv-interact",
+          "path": "packages/skills/skills/argent-tv-interact"
+        }
+      ]
+    },
+    {
+      "repo": "vercel/ai",
+      "ref": "c3b6fef1ffcebd52a8fa1495b96785dc9d802880",
+      "skills": [
+        {
+          "name": "ai-sdk",
+          "path": "skills/use-ai-sdk"
+        }
+      ]
+    },
+    {
+      "repo": "vercel-labs/agent-skills",
+      "ref": "6ec269328bc400712ee225a173a14b6b29128df7",
+      "skills": [
+        {
+          "name": "vercel-react-best-practices",
+          "path": "skills/react-best-practices"
+        }
+      ]
+    },
+    {
+      "repo": "vercel-labs/skills",
+      "ref": "533c7df02f9b4d913fb8eba553aa99d86103d1d4",
+      "skills": [
+        {
+          "name": "find-skills",
+          "path": "skills/find-skills"
+        }
+      ]
+    }
+  ],
+  "unavailable": [
+    {
+      "repo": "dmmulroy/.dotfiles",
+      "skill": "cloudflare-composition-root",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "dmmulroy/.dotfiles",
+      "skill": "coding-standards",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "design-an-interface",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "edit-article",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "obsidian-vault",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "qa",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "request-refactor-plan",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "resolving-merge-conflicts",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "ubiquitous-language",
+      "reason": "Not present in current public source"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "skill": "writing-great-skills",
+      "reason": "Not present in current public source"
+    }
+  ]
+}
