@@ -106,7 +106,8 @@ def main():
                     wrapper.chmod(0o755)
         else:
             print(f'keep existing {wrapper}')
-        link(ROOT / 'bin/blank', home / '.local/bin/blank')
+        for command in ('blank', 'usage'):
+            link(ROOT / 'bin' / command, home / '.local/bin' / command)
 
     if 'skills' in phases:
         shared = home / '.agents/skills'

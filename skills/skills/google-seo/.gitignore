@@ -1,0 +1,7 @@
+# transient build artifacts — regenerate with the scripts
+.cache/
+assets/
+node_modules/
+
+# OS noise
+.DS_Store

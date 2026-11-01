@@ -29,7 +29,9 @@ Upstream skill names that no longer exist are recorded in `sources.lock.json`.
 ## Machine tools
 
 From the repository root, `python3 bin/setup` installs missing CLI tools, document
-libraries, skills, agent rules, shell includes, and Argent and Agentation MCP registration. Use
+libraries, skills, agent rules, shell includes, and Argent and Agentation MCP registration. Agent
+Browser handles websites, Agent Desktop handles native Linux desktop apps, and Argent handles
+devices, React Native, Electron, and existing CDP sessions. Use
 phase flags to repeat only the needed work. `--dry-run` prints proposed actions.
 The setup retains the login shell and existing provider settings, and backs up
 configuration files before changing them.

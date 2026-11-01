@@ -16,6 +16,7 @@ Make these commands available first:
 | `bash`, `zsh` | Shell configuration |
 | `pnpm`, `bun`, `starship`, `zoxide`, `rg`, `fd`, `bat`, `eza` | Development commands and shell integrations |
 | `chromium`, `ffmpeg`, `pdftoppm`, `plannotator` | Browser checks, recordings, PDF previews, and reviews |
+| `at-spi2-core` | Native Linux desktop inspection and input through Agent Desktop |
 
 These commands are present on the current machine. Codex must also have its
 bundled skill-installer helper under `~/.codex/skills/.system/skill-installer/`.
@@ -68,7 +69,7 @@ skill installations. MCP registration uses the real home and refuses a different
 
 | Location | Installed content |
 | --- | --- |
-| `~/.local/bin`, `~/.local/lib/node_modules` | Missing npm tools and the `doc-python` and `blank` launchers |
+| `~/.local/bin`, `~/.local/lib/node_modules` | Missing npm tools and the `doc-python`, `blank`, and `usage` launchers |
 | `~/.local/share/dotfiles/documents` | Python 3.13 environment with the pinned document libraries |
 | `~/.local/share/dotfiles/zsh` | Zsh suggestions and highlighting plugins |
 | `~/.agents/skills` | Shared public and bundled skills |
@@ -106,8 +107,10 @@ the previous module state.
 
 ## Browser and annotation tools
 
-Agent Browser works with the installed browser. Webreel downloads its headless
-browser on first recording. `FFMPEG_PATH=/usr/bin/ffmpeg` selects the system encoder.
+Agent Browser works with the installed browser. Agent Desktop uses the current graphical session
+and needs `at-spi2-core`; run `agent-desktop skills get platform` for the X11, Wayland, and desktop
+environment limits. Webreel downloads its headless browser on first recording.
+`FFMPEG_PATH=/usr/bin/ffmpeg` selects the system encoder.
 
 Webreel 0.1.4 starts its browser with manual frame control, but its recorder never
 advances those frames. Setup removes that one flag from the locally installed
@@ -160,7 +163,7 @@ and Poppler for that check. Formula recalculation also needs LibreOffice.
 ```bash
 python3 skills/bin/check --repo-only
 python3 -m unittest discover -s tests -v
-bash -n shell/common.sh shell/bash.sh
+bash -n shell/common.sh shell/bash.sh pi/restore.sh
 zsh -n zshrc
 python3 bin/doctor
 ```
@@ -173,9 +176,9 @@ The [verification record](../.plannotator/setup-verification/results.md) contain
 the runtime evidence and its limits. Office rendering, spreadsheet formula
 recalculation, and Portless HTTPS certificate validation passed on this machine.
 
-The public selection contains 105 skills from 14 pinned repositories. Ten old
+The public selection contains 129 skills from 16 pinned repositories. Ten old
 names are unavailable in their current upstream sources, as recorded in
 [`skills/sources.lock.json`](../skills/sources.lock.json). The original separate
-129-skill design pack, macOS Computer Use, and authenticated CPA pool are not
+129-skill design pack, legacy macOS Computer Use, and authenticated CPA pool are not
 configured. The live BLANK registry and inspiration directory are available
 through the new helper. Bundled motion recipes and writing examples remain available.

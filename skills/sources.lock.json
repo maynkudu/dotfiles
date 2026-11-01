@@ -85,6 +85,236 @@
       ]
     },
     {
+      "repo": "cursor/plugins",
+      "ref": "4dd1d05818d19792e7cd6e818f1667f95f7e1dbe",
+      "skills": [
+        {
+          "name": "architect",
+          "path": "harness/pstack/claude-code/skills/architect"
+        },
+        {
+          "name": "arena",
+          "path": "harness/pstack/claude-code/skills/arena"
+        },
+        {
+          "name": "automate-me",
+          "path": "harness/pstack/claude-code/skills/automate-me"
+        },
+        {
+          "name": "benchmark-checklist",
+          "path": "harness/pstack/claude-code/skills/benchmark-checklist"
+        },
+        {
+          "name": "blast-radius",
+          "path": "harness/pstack/claude-code/skills/blast-radius"
+        },
+        {
+          "name": "correct",
+          "path": "harness/pstack/claude-code/skills/correct"
+        },
+        {
+          "name": "create-formal-verification-skill",
+          "path": "harness/pstack/claude-code/skills/create-formal-verification-skill"
+        },
+        {
+          "name": "create-verification-skill",
+          "path": "harness/pstack/claude-code/skills/create-verification-skill"
+        },
+        {
+          "name": "figure-it-out",
+          "path": "harness/pstack/claude-code/skills/figure-it-out"
+        },
+        {
+          "name": "how",
+          "path": "harness/pstack/claude-code/skills/how"
+        },
+        {
+          "name": "in-your-own-words",
+          "path": "harness/pstack/claude-code/skills/in-your-own-words"
+        },
+        {
+          "name": "interrogate",
+          "path": "harness/pstack/claude-code/skills/interrogate"
+        },
+        {
+          "name": "ketchup",
+          "path": "harness/pstack/claude-code/skills/ketchup"
+        },
+        {
+          "name": "ketchup-video",
+          "path": "harness/pstack/claude-code/skills/ketchup-video"
+        },
+        {
+          "name": "maintain-formal-verification-skill",
+          "path": "harness/pstack/claude-code/skills/maintain-formal-verification-skill"
+        },
+        {
+          "name": "maintain-verification-skill",
+          "path": "harness/pstack/claude-code/skills/maintain-verification-skill"
+        },
+        {
+          "name": "make-bot-ui",
+          "path": "harness/pstack/claude-code/skills/make-bot-ui"
+        },
+        {
+          "name": "no-comments",
+          "path": "harness/pstack/claude-code/skills/no-comments"
+        },
+        {
+          "name": "poteto-help",
+          "path": "harness/pstack/claude-code/skills/poteto-help"
+        },
+        {
+          "name": "poteto-mode",
+          "path": "harness/pstack/claude-code/skills/poteto-mode"
+        },
+        {
+          "name": "principle-attack-the-premise",
+          "path": "harness/pstack/claude-code/skills/principle-attack-the-premise"
+        },
+        {
+          "name": "principle-boundary-discipline",
+          "path": "harness/pstack/claude-code/skills/principle-boundary-discipline"
+        },
+        {
+          "name": "principle-build-the-lever",
+          "path": "harness/pstack/claude-code/skills/principle-build-the-lever"
+        },
+        {
+          "name": "principle-encode-lessons-in-structure",
+          "path": "harness/pstack/claude-code/skills/principle-encode-lessons-in-structure"
+        },
+        {
+          "name": "principle-exhaust-the-design-space",
+          "path": "harness/pstack/claude-code/skills/principle-exhaust-the-design-space"
+        },
+        {
+          "name": "principle-experience-first",
+          "path": "harness/pstack/claude-code/skills/principle-experience-first"
+        },
+        {
+          "name": "principle-explain-the-number",
+          "path": "harness/pstack/claude-code/skills/principle-explain-the-number"
+        },
+        {
+          "name": "principle-fix-root-causes",
+          "path": "harness/pstack/claude-code/skills/principle-fix-root-causes"
+        },
+        {
+          "name": "principle-foundational-thinking",
+          "path": "harness/pstack/claude-code/skills/principle-foundational-thinking"
+        },
+        {
+          "name": "principle-guard-the-context-window",
+          "path": "harness/pstack/claude-code/skills/principle-guard-the-context-window"
+        },
+        {
+          "name": "principle-laziness-protocol",
+          "path": "harness/pstack/claude-code/skills/principle-laziness-protocol"
+        },
+        {
+          "name": "principle-make-operations-idempotent",
+          "path": "harness/pstack/claude-code/skills/principle-make-operations-idempotent"
+        },
+        {
+          "name": "principle-migrate-callers-then-delete-legacy-apis",
+          "path": "harness/pstack/claude-code/skills/principle-migrate-callers-then-delete-legacy-apis"
+        },
+        {
+          "name": "principle-minimize-reader-load",
+          "path": "harness/pstack/claude-code/skills/principle-minimize-reader-load"
+        },
+        {
+          "name": "principle-model-the-domain",
+          "path": "harness/pstack/claude-code/skills/principle-model-the-domain"
+        },
+        {
+          "name": "principle-never-block-on-the-human",
+          "path": "harness/pstack/claude-code/skills/principle-never-block-on-the-human"
+        },
+        {
+          "name": "principle-outcome-oriented-execution",
+          "path": "harness/pstack/claude-code/skills/principle-outcome-oriented-execution"
+        },
+        {
+          "name": "principle-prove-it-works",
+          "path": "harness/pstack/claude-code/skills/principle-prove-it-works"
+        },
+        {
+          "name": "principle-redesign-from-first-principles",
+          "path": "harness/pstack/claude-code/skills/principle-redesign-from-first-principles"
+        },
+        {
+          "name": "principle-separate-before-serializing-shared-state",
+          "path": "harness/pstack/claude-code/skills/principle-separate-before-serializing-shared-state"
+        },
+        {
+          "name": "principle-sequence-verifiable-units",
+          "path": "harness/pstack/claude-code/skills/principle-sequence-verifiable-units"
+        },
+        {
+          "name": "principle-subtract-before-you-add",
+          "path": "harness/pstack/claude-code/skills/principle-subtract-before-you-add"
+        },
+        {
+          "name": "principle-test-behavior-not-implementation",
+          "path": "harness/pstack/claude-code/skills/principle-test-behavior-not-implementation"
+        },
+        {
+          "name": "principle-type-system-discipline",
+          "path": "harness/pstack/claude-code/skills/principle-type-system-discipline"
+        },
+        {
+          "name": "recall",
+          "path": "harness/pstack/claude-code/skills/recall"
+        },
+        {
+          "name": "reflect",
+          "path": "harness/pstack/claude-code/skills/reflect"
+        },
+        {
+          "name": "setup-pstack",
+          "path": "harness/pstack/claude-code/skills/setup-pstack"
+        },
+        {
+          "name": "sharpen",
+          "path": "harness/pstack/claude-code/skills/sharpen"
+        },
+        {
+          "name": "show-me-your-work",
+          "path": "harness/pstack/claude-code/skills/show-me-your-work"
+        },
+        {
+          "name": "statechart",
+          "path": "harness/pstack/claude-code/skills/statechart"
+        },
+        {
+          "name": "swarm",
+          "path": "harness/pstack/claude-code/skills/swarm"
+        },
+        {
+          "name": "pstack-tdd",
+          "path": "harness/pstack/claude-code/skills/tdd"
+        },
+        {
+          "name": "technical-writing",
+          "path": "harness/pstack/claude-code/skills/technical-writing"
+        },
+        {
+          "name": "typescript-best-practices",
+          "path": "harness/pstack/claude-code/skills/typescript-best-practices"
+        },
+        {
+          "name": "unslop",
+          "path": "harness/pstack/claude-code/skills/unslop"
+        },
+        {
+          "name": "why",
+          "path": "harness/pstack/claude-code/skills/why"
+        }
+      ]
+    },
+    {
       "repo": "dmmulroy/.dotfiles",
       "ref": "04aee9370b6b9081988126d5b9cac458c57956d8",
       "skills": [
@@ -257,148 +487,6 @@
       ]
     },
     {
-      "repo": "poteto/plugins",
-      "ref": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
-      "skills": [
-        {
-          "name": "architect",
-          "path": "pstack/skills/architect"
-        },
-        {
-          "name": "arena",
-          "path": "pstack/skills/arena"
-        },
-        {
-          "name": "automate-me",
-          "path": "pstack/skills/automate-me"
-        },
-        {
-          "name": "figure-it-out",
-          "path": "pstack/skills/figure-it-out"
-        },
-        {
-          "name": "how",
-          "path": "pstack/skills/how"
-        },
-        {
-          "name": "interrogate",
-          "path": "pstack/skills/interrogate"
-        },
-        {
-          "name": "poteto-mode",
-          "path": "pstack/skills/poteto-mode"
-        },
-        {
-          "name": "principle-boundary-discipline",
-          "path": "pstack/skills/principle-boundary-discipline"
-        },
-        {
-          "name": "principle-build-the-lever",
-          "path": "pstack/skills/principle-build-the-lever"
-        },
-        {
-          "name": "principle-encode-lessons-in-structure",
-          "path": "pstack/skills/principle-encode-lessons-in-structure"
-        },
-        {
-          "name": "principle-exhaust-the-design-space",
-          "path": "pstack/skills/principle-exhaust-the-design-space"
-        },
-        {
-          "name": "principle-experience-first",
-          "path": "pstack/skills/principle-experience-first"
-        },
-        {
-          "name": "principle-fix-root-causes",
-          "path": "pstack/skills/principle-fix-root-causes"
-        },
-        {
-          "name": "principle-foundational-thinking",
-          "path": "pstack/skills/principle-foundational-thinking"
-        },
-        {
-          "name": "principle-guard-the-context-window",
-          "path": "pstack/skills/principle-guard-the-context-window"
-        },
-        {
-          "name": "principle-laziness-protocol",
-          "path": "pstack/skills/principle-laziness-protocol"
-        },
-        {
-          "name": "principle-make-operations-idempotent",
-          "path": "pstack/skills/principle-make-operations-idempotent"
-        },
-        {
-          "name": "principle-migrate-callers-then-delete-legacy-apis",
-          "path": "pstack/skills/principle-migrate-callers-then-delete-legacy-apis"
-        },
-        {
-          "name": "principle-minimize-reader-load",
-          "path": "pstack/skills/principle-minimize-reader-load"
-        },
-        {
-          "name": "principle-never-block-on-the-human",
-          "path": "pstack/skills/principle-never-block-on-the-human"
-        },
-        {
-          "name": "principle-outcome-oriented-execution",
-          "path": "pstack/skills/principle-outcome-oriented-execution"
-        },
-        {
-          "name": "principle-prove-it-works",
-          "path": "pstack/skills/principle-prove-it-works"
-        },
-        {
-          "name": "principle-redesign-from-first-principles",
-          "path": "pstack/skills/principle-redesign-from-first-principles"
-        },
-        {
-          "name": "principle-separate-before-serializing-shared-state",
-          "path": "pstack/skills/principle-separate-before-serializing-shared-state"
-        },
-        {
-          "name": "principle-sequence-verifiable-units",
-          "path": "pstack/skills/principle-sequence-verifiable-units"
-        },
-        {
-          "name": "principle-subtract-before-you-add",
-          "path": "pstack/skills/principle-subtract-before-you-add"
-        },
-        {
-          "name": "principle-type-system-discipline",
-          "path": "pstack/skills/principle-type-system-discipline"
-        },
-        {
-          "name": "pstack-tdd",
-          "path": "pstack/skills/tdd"
-        },
-        {
-          "name": "reflect",
-          "path": "pstack/skills/reflect"
-        },
-        {
-          "name": "setup-pstack",
-          "path": "pstack/skills/setup-pstack"
-        },
-        {
-          "name": "show-me-your-work",
-          "path": "pstack/skills/show-me-your-work"
-        },
-        {
-          "name": "typescript-best-practices",
-          "path": "pstack/skills/typescript-best-practices"
-        },
-        {
-          "name": "unslop",
-          "path": "pstack/skills/unslop"
-        },
-        {
-          "name": "why",
-          "path": "pstack/skills/why"
-        }
-      ]
-    },
-    {
       "repo": "shadcn/improve",
       "ref": "cac56e1ebd3c279aa9153616cfeac7b174ab90f9",
       "skills": [
@@ -475,12 +563,22 @@
       ]
     },
     {
-      "repo": "vercel/ai",
-      "ref": "c3b6fef1ffcebd52a8fa1495b96785dc9d802880",
+      "repo": "vercel-labs/agent-browser",
+      "ref": "5868f7c05020e047c00e68e4abf9253cce864f41",
       "skills": [
         {
-          "name": "ai-sdk",
-          "path": "skills/use-ai-sdk"
+          "name": "agent-browser",
+          "path": "skills/agent-browser"
+        }
+      ]
+    },
+    {
+      "repo": "vercel-labs/agent-desktop",
+      "ref": "893a4140d35261c5f8e3a6aa646d1558bb4f386f",
+      "skills": [
+        {
+          "name": "agent-desktop",
+          "path": "skills/agent-desktop"
         }
       ]
     },
@@ -501,6 +599,16 @@
         {
           "name": "find-skills",
           "path": "skills/find-skills"
+        }
+      ]
+    },
+    {
+      "repo": "vercel/ai",
+      "ref": "c3b6fef1ffcebd52a8fa1495b96785dc9d802880",
+      "skills": [
+        {
+          "name": "ai-sdk",
+          "path": "skills/use-ai-sdk"
         }
       ]
     }

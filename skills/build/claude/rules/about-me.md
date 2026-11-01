@@ -40,6 +40,9 @@ https://www.effect.website/ and https://www.effect.solutions/.
 
 ## Design preferences
 
+- Use [Rune Icons](https://www.runeicons.com/) as the default icon library when building apps.
+  Prefer it to Lucide and other icon libraries. Keep an existing project's icon system for narrow
+  changes unless I ask for a migration.
 - Never use the northeast/up-right arrow, U+2197, anywhere in my design work. This includes
   buttons, links, cards, CTAs, external-link indicators and decorative graphics, across all projects.
   Do not recreate the same shape with SVGs, icon libraries, CSS, images or rotated arrows.

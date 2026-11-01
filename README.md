@@ -21,7 +21,7 @@ python3 bin/doctor
 
 Setup expects Python 3.11+, Node 24+, npm, Cargo, Git, uv, and the selected agents.
 The current machine already has these, plus pnpm, Bun, Starship, Zoxide, Chromium,
-FFmpeg, Agent Browser, Portless, and Plannotator. See [setup notes](docs/setup.md)
+FFmpeg, Agent Browser, Agent Desktop, Portless, and Plannotator. See [setup notes](docs/setup.md)
 for system prerequisites, verification, backups, and optional integrations.
 
 Choose agents and CLI packages in [setup.toml](setup.toml). Run only selected phases:
@@ -75,6 +75,6 @@ use my identity and never adopt the original author's biography or client claims
 ```bash
 python3 skills/bin/check --repo-only
 python3 -m unittest discover -s tests -v
-bash -n shell/common.sh shell/bash.sh
+bash -n shell/common.sh shell/bash.sh pi/restore.sh
 zsh -n zshrc
 ```

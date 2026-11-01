@@ -2,8 +2,9 @@
 
 For visible web or app changes, read `~/dotfiles/skills/reference/ui-verification.md`.
 It owns surface selection, focused interaction checks, evidence-based iteration,
-and the single closeout. Use Agent Browser for ordinary websites. Use Argent for
-native, React Native, device, Electron, and Chromium-CDP work.
+and the single closeout. Use Agent Browser for ordinary websites, Agent Desktop
+for native desktop apps, and Argent for devices, React Native, Electron, and
+existing Chromium-CDP sessions.
 
 Operate the real product and inspect the result against the accepted brief. Check
 relevant responsive states, controls, transitions, keyboard behavior, and console

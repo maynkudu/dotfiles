@@ -9,8 +9,8 @@ this directory holds the small part that is.
 ## What is here
 
 ```
-settings.json   theme, default provider/model/thinking level, extension list
-package.json    the extension dependencies pi installs into ~/.pi/agent/npm
+settings.json   theme, default provider/model/thinking level, package list
+package.json    resolved npm package versions, retained for reference
 skills/         13 Cloudflare skills that exist nowhere else (2.4 MB)
 restore.sh      put all of the above onto a new machine
 ```
@@ -26,7 +26,7 @@ manager owns and `~/.agents/.skill-lock.json` can rebuild.
 | `auth.json` | Live OAuth access and refresh tokens. Never commit. Run `pi auth`. |
 | `models-store.json` | A cache. Carries `etag` and `checkedAt`, and pi refetches it. Committing it pins a stale model list. |
 | `sessions/` | 3.9 MB of private chat logs that churn every session. |
-| `npm/node_modules/` | 201 MB, rebuilt from `package.json`. |
+| `npm/node_modules/` | 201 MB, rebuilt from the package list in `settings.json`. |
 | `trust.json` | Absolute paths for one machine's trusted directories. |
 
 ## Setup on a new machine

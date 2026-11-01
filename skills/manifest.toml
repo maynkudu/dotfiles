@@ -49,22 +49,41 @@ skills = [
 ]
 
 [poteto_plugins]
-repo = "poteto/plugins"
-url  = "https://github.com/poteto/plugins.git"
-count = 34
+# pstack moved to cursor/plugins. This inventory follows the Claude Code
+# harness at version 0.15.36, commit 4dd1d05. `bro` and `teach` keep their
+# existing sources. Upstream `tdd` installs here as `pstack-tdd`.
+repo = "cursor/plugins"
+url  = "https://github.com/cursor/plugins.git"
+path = "harness/pstack/claude-code"
+count = 56
 skills = [
   "architect",
   "arena",
   "automate-me",
+  "benchmark-checklist",
+  "blast-radius",
+  "correct",
+  "create-formal-verification-skill",
+  "create-verification-skill",
   "figure-it-out",
   "how",
+  "in-your-own-words",
   "interrogate",
+  "ketchup",
+  "ketchup-video",
+  "maintain-formal-verification-skill",
+  "maintain-verification-skill",
+  "make-bot-ui",
+  "no-comments",
+  "poteto-help",
   "poteto-mode",
+  "principle-attack-the-premise",
   "principle-boundary-discipline",
   "principle-build-the-lever",
   "principle-encode-lessons-in-structure",
   "principle-exhaust-the-design-space",
   "principle-experience-first",
+  "principle-explain-the-number",
   "principle-fix-root-causes",
   "principle-foundational-thinking",
   "principle-guard-the-context-window",
@@ -72,6 +91,7 @@ skills = [
   "principle-make-operations-idempotent",
   "principle-migrate-callers-then-delete-legacy-apis",
   "principle-minimize-reader-load",
+  "principle-model-the-domain",
   "principle-never-block-on-the-human",
   "principle-outcome-oriented-execution",
   "principle-prove-it-works",
@@ -79,11 +99,17 @@ skills = [
   "principle-separate-before-serializing-shared-state",
   "principle-sequence-verifiable-units",
   "principle-subtract-before-you-add",
+  "principle-test-behavior-not-implementation",
   "principle-type-system-discipline",
   "pstack-tdd",
+  "recall",
   "reflect",
   "setup-pstack",
+  "sharpen",
   "show-me-your-work",
+  "statechart",
+  "swarm",
+  "technical-writing",
   "typescript-best-practices",
   "unslop",
   "why",
@@ -114,14 +140,13 @@ skills = [
 [dmmulroy__dotfiles]
 repo = "dmmulroy/.dotfiles"
 url  = "https://github.com/dmmulroy/.dotfiles.git"
-count = 9
+count = 8
 skills = [
   "bro",
   "cloudflare-composition-root",
   "coding-standards",
   "herdr",
   "recipe-diagrams",
-  "use-computer-mcp",
   "workday-training",
   "write-discoverable-code",
   "writing-for-agents",
@@ -158,6 +183,22 @@ url  = "https://github.com/vercel-labs/skills.git"
 count = 1
 skills = [
   "find-skills",
+]
+
+[vercel_labs_agent_browser]
+repo = "vercel-labs/agent-browser"
+url  = "https://github.com/vercel-labs/agent-browser.git"
+count = 1
+skills = [
+  "agent-browser",
+]
+
+[vercel_labs_agent_desktop]
+repo = "vercel-labs/agent-desktop"
+url  = "https://github.com/vercel-labs/agent-desktop.git"
+count = 1
+skills = [
+  "agent-desktop",
 ]
 
 [vercel_labs_agent_skills]
@@ -347,16 +388,4 @@ skills = [
   "webgl-laser",
   "write-like-meng-on-x",
   "x-bookmark-quote-posts",
-]
-
-# Not installed from a skills repo. The MCP server is the Codex Computer Use
-# client running standalone over stdio, registered as `computer` in claude and
-# grok. Codex reaches it through its bundled computer-use@openai-bundled plugin.
-[computer_use_mcp]
-repo    = "(openai bundled, via Codex app)"
-binary  = "~/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient mcp"
-servers = { claude = "computer", grok = "computer", codex = "computer-use@openai-bundled plugin" }
-tools   = 10
-skills  = [
-  "use-computer-mcp",
 ]

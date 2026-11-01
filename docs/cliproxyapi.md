@@ -221,25 +221,27 @@ curl -s -w '\n%{http_code}\n' -X POST http://127.0.0.1:8317/v1/messages \
 reload logs `config successfully reloaded, triggering client reload` followed by
 `full client load complete - N clients`.
 
-## Usage limits for the Claude pool
+## Account and usage state
 
-`usage` reads every `claude-*.json` grant in `auth-dir` and asks Anthropic
-for the same 5-hour / weekly / extra-usage numbers Claude Code's `/usage` uses.
+`usage` reads Claude, Codex, and xAI grants in `auth-dir`. Codex grants use the live
+usage endpoint. Claude and xAI have no public usage endpoint, so the command reports
+grant state plus cooldown and OAuth failures recorded in `cpa.log`.
 
 ```bash
-usage              # every enabled Claude grant
-usage aryan        # filter by email substring
-usage --json       # raw payload
-usage --check      # exit 1 if any window is currently blocking
+usage              # pooled paid accounts
+usage name         # filter by email or filename
+usage --all        # include free-tier and disabled grants
+usage --json       # machine-readable state for every grant
+usage --check      # exit 1 if any displayed grant is unusable
 ```
 
 The script lives at `~/dotfiles/bin/usage` and is on `PATH` via
-`~/.local/bin/usage`. It never prints tokens.
+`~/.local/bin/usage`. It never prints tokens. Free-tier Codex and disabled grants
+stay hidden in the default view.
 
-A 401 means the grant expired and the proxy has not refreshed it yet. Kick the
-agent (`launchctl kickstart -k gui/$(id -u)/com.router-for-me.cliproxyapi`) and
-retry. Do not poll this more than a few times an hour: `/api/oauth/usage` rate
-limits hard.
+A failed Codex fetch can mean the grant expired before the proxy refreshed it. Restart the
+proxy with the service manager used on the machine and retry. Do not poll the upstream usage
+endpoint repeatedly.
 
 ## Gotchas
 

@@ -29,6 +29,7 @@ CHECKS = [
     ("portless named URLs",     "portless.md",       "/\\bportless\\b/"),
     ("  vs banned pkill",       "portless.md",       "/\\bpkill\\b|\\bkillall\\b|kill \\$\\(lsof/"),
     ("agent-browser",           "ui-verification.md","/\\bagent-browser\\b/"),
+    ("agent-desktop",           "ui-verification.md","/\\bagent-desktop\\b/"),
     ("argent (all)",            "argent.md",         "mcp__argent__*"),
     ("agentation",              "agentation.md",     "mcp__agentation__*"),
     ("direction_discover",      "direction-first.md","mcp__blank-direction__direction_discover"),

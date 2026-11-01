@@ -1,0 +1,35 @@
+# Seed pages for Google SEO skill extraction.
+# Lines beginning with # are ignored. Blank lines ignored.
+# The discover step BFS-crawls these pages' sidebar nav for more /search/docs
+# and /crawling/docs links.
+
+https://developers.google.com/search/docs/essentials
+https://developers.google.com/search/docs/essentials/technical
+https://developers.google.com/search/docs/essentials/spam-policies
+https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+https://developers.google.com/search/docs/fundamentals/how-search-works
+https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
+https://developers.google.com/search/docs/fundamentals/using-gen-ai-content
+https://developers.google.com/search/docs/fundamentals/get-started
+https://developers.google.com/search/docs/fundamentals/get-started-developers
+https://developers.google.com/search/docs/fundamentals/do-i-need-seo
+https://developers.google.com/search/docs/fundamentals/third-party-seo
+https://developers.google.com/search/docs/crawling-indexing
+https://developers.google.com/search/docs/crawling-indexing/indexable-file-types
+https://developers.google.com/search/docs/crawling-indexing/url-structure
+https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/combine-sitemap-extensions
+https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl
+https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors
+https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers
+
+# Roots to ensure the whole Search Central + Crawling guide is discovered.
+https://developers.google.com/search/docs
+https://developers.google.com/crawling/docs/about-crawling

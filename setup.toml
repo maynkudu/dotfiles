@@ -12,8 +12,9 @@ ctx7 = "ctx7@0.8.2"
 anydoc = "@firecrawl/anydoc@0.2.4"
 agentation-mcp = "agentation-mcp@1.3.2"
 agent-browser = "agent-browser@0.39.4"
+agent-desktop = "agent-desktop@1.0.2"
 portless = "portless@0.15.12"
 shadcn = "shadcn@4.23.0"
 
 [skills]
-local = ["blank-mode", "aryan-voice", "animation-fundamentals", "router-design", "router-process", "subsystem-modeling", "blank-direction"]
+local = ["blank-mode", "aryan-voice", "animation-fundamentals", "router-design", "router-process", "subsystem-modeling", "blank-direction", "google-seo"]

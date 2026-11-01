@@ -1,4 +1,4 @@
-# Edits we own on top of poteto/plugins pstack.
+# Edits we own on top of cursor/plugins pstack.
 
 [[patch]]
 skill  = "pstack-tdd"

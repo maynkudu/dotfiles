@@ -1,0 +1,1735 @@
+{
+  "generatedAt": "2026-09-30T09:30:17.946Z",
+  "count": 247,
+  "urls": [
+    {
+      "url": "https://developers.google.com/crawling/docs/about-crawling",
+      "path": "crawling/docs/about-crawling",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/changelog",
+      "path": "crawling/docs/changelog",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawl-budget",
+      "path": "crawling/docs/crawl-budget",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/apis-user-agent",
+      "path": "crawling/docs/crawlers-fetchers/apis-user-agent",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/feedfetcher",
+      "path": "crawling/docs/crawlers-fetchers/feedfetcher",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers",
+      "path": "crawling/docs/crawlers-fetchers/google-common-crawlers",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-special-case-crawlers",
+      "path": "crawling/docs/crawlers-fetchers/google-special-case-crawlers",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers",
+      "path": "crawling/docs/crawlers-fetchers/google-user-triggered-fetchers",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers",
+      "path": "crawling/docs/crawlers-fetchers/overview-google-crawlers",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/read-aloud-user-agent",
+      "path": "crawling/docs/crawlers-fetchers/read-aloud-user-agent",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/reduce-crawl-rate",
+      "path": "crawling/docs/crawlers-fetchers/reduce-crawl-rate",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests",
+      "path": "crawling/docs/crawlers-fetchers/verify-google-requests",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/verifying-googlebot",
+      "path": "crawling/docs/crawlers-fetchers/verifying-googlebot",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/web-bot-auth",
+      "path": "crawling/docs/crawlers-fetchers/web-bot-auth",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": false
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/faceted-navigation",
+      "path": "crawling/docs/faceted-navigation",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/myths-about-crawling",
+      "path": "crawling/docs/myths-about-crawling",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/robots-txt/create-robots-txt",
+      "path": "crawling/docs/robots-txt/create-robots-txt",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec",
+      "path": "crawling/docs/robots-txt/robots-txt-spec",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/robots-txt/submit-updated-robots-txt",
+      "path": "crawling/docs/robots-txt/submit-updated-robots-txt",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/robots-txt/useful-robots-txt-rules",
+      "path": "crawling/docs/robots-txt/useful-robots-txt-rules",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/troubleshooting/dns-network-errors",
+      "path": "crawling/docs/troubleshooting/dns-network-errors",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/troubleshooting/http-status-codes",
+      "path": "crawling/docs/troubleshooting/http-status-codes",
+      "section": "crawling",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs",
+      "path": "search/docs",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/crawling/block-access-overview",
+      "path": "search/docs/advanced/crawling/block-access-overview",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/crawling/special-tags",
+      "path": "search/docs/advanced/crawling/special-tags",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/guidelines/bloggers",
+      "path": "search/docs/advanced/guidelines/bloggers",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/guidelines/paid-links",
+      "path": "search/docs/advanced/guidelines/paid-links",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/guidelines/qualify-outbound-links",
+      "path": "search/docs/advanced/guidelines/qualify-outbound-links",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/guidelines/report-spam",
+      "path": "search/docs/advanced/guidelines/report-spam",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/guidelines/search-console",
+      "path": "search/docs/advanced/guidelines/search-console",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/guidelines/valid-html",
+      "path": "search/docs/advanced/guidelines/valid-html",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/mobile/google-discover",
+      "path": "search/docs/advanced/mobile/google-discover",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/advanced/structured-data",
+      "path": "search/docs/advanced/structured-data",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance",
+      "path": "search/docs/appearance",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ad-network-and-translation",
+      "path": "search/docs/appearance/ad-network-and-translation",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/aggregator-features",
+      "path": "search/docs/appearance/aggregator-features",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/aggregator-unit",
+      "path": "search/docs/appearance/aggregator-unit",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "path": "search/docs/appearance/ai-features",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-overviews",
+      "path": "search/docs/appearance/ai-overviews",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/avoid-intrusive-interstitials",
+      "path": "search/docs/appearance/avoid-intrusive-interstitials",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/core-updates",
+      "path": "search/docs/appearance/core-updates",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/core-web-vitals",
+      "path": "search/docs/appearance/core-web-vitals",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ecosystem-carousel",
+      "path": "search/docs/appearance/ecosystem-carousel",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/enable-web-stories",
+      "path": "search/docs/appearance/enable-web-stories",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/enriched-search-results",
+      "path": "search/docs/appearance/enriched-search-results",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/establish-business-details",
+      "path": "search/docs/appearance/establish-business-details",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/favicon-in-search",
+      "path": "search/docs/appearance/favicon-in-search",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/featured-snippets",
+      "path": "search/docs/appearance/featured-snippets",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/flexible-sampling",
+      "path": "search/docs/appearance/flexible-sampling",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/google-discover",
+      "path": "search/docs/appearance/google-discover",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/google-images",
+      "path": "search/docs/appearance/google-images",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/job-sites",
+      "path": "search/docs/appearance/job-sites",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/mobile-recharge",
+      "path": "search/docs/appearance/mobile-recharge",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/package-tracking",
+      "path": "search/docs/appearance/package-tracking",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/page-experience",
+      "path": "search/docs/appearance/page-experience",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/places-sites",
+      "path": "search/docs/appearance/places-sites",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/preferred-sources",
+      "path": "search/docs/appearance/preferred-sources",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/publication-dates",
+      "path": "search/docs/appearance/publication-dates",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ranking-systems-guide",
+      "path": "search/docs/appearance/ranking-systems-guide",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/reviews-system",
+      "path": "search/docs/appearance/reviews-system",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/search-profiles",
+      "path": "search/docs/appearance/search-profiles",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/search-result-features",
+      "path": "search/docs/appearance/search-result-features",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/signed-exchange",
+      "path": "search/docs/appearance/signed-exchange",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/site-names",
+      "path": "search/docs/appearance/site-names",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/sitelinks",
+      "path": "search/docs/appearance/sitelinks",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/snippet",
+      "path": "search/docs/appearance/snippet",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/south-africa-features",
+      "path": "search/docs/appearance/south-africa-features",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/spam-updates",
+      "path": "search/docs/appearance/spam-updates",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data",
+      "path": "search/docs/appearance/structured-data",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/article",
+      "path": "search/docs/appearance/structured-data/article",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/book",
+      "path": "search/docs/appearance/structured-data/book",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/breadcrumb",
+      "path": "search/docs/appearance/structured-data/breadcrumb",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/carousel",
+      "path": "search/docs/appearance/structured-data/carousel",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/carousels-beta",
+      "path": "search/docs/appearance/structured-data/carousels-beta",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/course",
+      "path": "search/docs/appearance/structured-data/course",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/course-info",
+      "path": "search/docs/appearance/structured-data/course-info",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/critic-review",
+      "path": "search/docs/appearance/structured-data/critic-review",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/dataset",
+      "path": "search/docs/appearance/structured-data/dataset",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/discussion-forum",
+      "path": "search/docs/appearance/structured-data/discussion-forum",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/education-qa",
+      "path": "search/docs/appearance/structured-data/education-qa",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/employer-rating",
+      "path": "search/docs/appearance/structured-data/employer-rating",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/estimated-salary",
+      "path": "search/docs/appearance/structured-data/estimated-salary",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/event",
+      "path": "search/docs/appearance/structured-data/event",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/factcheck",
+      "path": "search/docs/appearance/structured-data/factcheck",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/faqpage",
+      "path": "search/docs/appearance/structured-data/faqpage",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/generate-structured-data-with-javascript",
+      "path": "search/docs/appearance/structured-data/generate-structured-data-with-javascript",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/home-activities",
+      "path": "search/docs/appearance/structured-data/home-activities",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/how-to",
+      "path": "search/docs/appearance/structured-data/how-to",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/image-license-metadata",
+      "path": "search/docs/appearance/structured-data/image-license-metadata",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data",
+      "path": "search/docs/appearance/structured-data/intro-structured-data",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/job-posting",
+      "path": "search/docs/appearance/structured-data/job-posting",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/job-training",
+      "path": "search/docs/appearance/structured-data/job-training",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/learning-video",
+      "path": "search/docs/appearance/structured-data/learning-video",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/local-business",
+      "path": "search/docs/appearance/structured-data/local-business",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/logo",
+      "path": "search/docs/appearance/structured-data/logo",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/loyalty-program",
+      "path": "search/docs/appearance/structured-data/loyalty-program",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/math-solvers",
+      "path": "search/docs/appearance/structured-data/math-solvers",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing",
+      "path": "search/docs/appearance/structured-data/merchant-listing",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/movie",
+      "path": "search/docs/appearance/structured-data/movie",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "path": "search/docs/appearance/structured-data/organization",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/paywalled-content",
+      "path": "search/docs/appearance/structured-data/paywalled-content",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/practice-problems",
+      "path": "search/docs/appearance/structured-data/practice-problems",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/product",
+      "path": "search/docs/appearance/structured-data/product",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/product-snippet",
+      "path": "search/docs/appearance/structured-data/product-snippet",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/product-variants",
+      "path": "search/docs/appearance/structured-data/product-variants",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/profile-page",
+      "path": "search/docs/appearance/structured-data/profile-page",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/qapage",
+      "path": "search/docs/appearance/structured-data/qapage",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/recipe",
+      "path": "search/docs/appearance/structured-data/recipe",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/return-policy",
+      "path": "search/docs/appearance/structured-data/return-policy",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/review-snippet",
+      "path": "search/docs/appearance/structured-data/review-snippet",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "path": "search/docs/appearance/structured-data/sd-policies",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery",
+      "path": "search/docs/appearance/structured-data/search-gallery",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/shipping-policy",
+      "path": "search/docs/appearance/structured-data/shipping-policy",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sitelinks-searchbox",
+      "path": "search/docs/appearance/structured-data/sitelinks-searchbox",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/software-app",
+      "path": "search/docs/appearance/structured-data/software-app",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/speakable",
+      "path": "search/docs/appearance/structured-data/speakable",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/special-announcements",
+      "path": "search/docs/appearance/structured-data/special-announcements",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/vacation-rental",
+      "path": "search/docs/appearance/structured-data/vacation-rental",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/vehicle-listing",
+      "path": "search/docs/appearance/structured-data/vehicle-listing",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/video",
+      "path": "search/docs/appearance/structured-data/video",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/supplier-unit",
+      "path": "search/docs/appearance/supplier-unit",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/title-link",
+      "path": "search/docs/appearance/title-link",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/top-places-list",
+      "path": "search/docs/appearance/top-places-list",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/translated-results",
+      "path": "search/docs/appearance/translated-results",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/video",
+      "path": "search/docs/appearance/video",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/visual-elements-gallery",
+      "path": "search/docs/appearance/visual-elements-gallery",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/web-stories-content-policy",
+      "path": "search/docs/appearance/web-stories-content-policy",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/web-stories-creation-best-practices",
+      "path": "search/docs/appearance/web-stories-creation-best-practices",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/basics/get-started",
+      "path": "search/docs/basics/get-started",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/beginner/get-started",
+      "path": "search/docs/beginner/get-started",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/beginner/search-console",
+      "path": "search/docs/beginner/search-console",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing",
+      "path": "search/docs/crawling-indexing",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects",
+      "path": "search/docs/crawling-indexing/301-redirects",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/amp",
+      "path": "search/docs/crawling-indexing/amp",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/amp/enhance-amp",
+      "path": "search/docs/crawling-indexing/amp/enhance-amp",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/amp/remove-amp",
+      "path": "search/docs/crawling-indexing/amp/remove-amp",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/amp/validate-amp",
+      "path": "search/docs/crawling-indexing/amp/validate-amp",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl",
+      "path": "search/docs/crawling-indexing/ask-google-to-recrawl",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/block-indexing",
+      "path": "search/docs/crawling-indexing/block-indexing",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/canonicalization",
+      "path": "search/docs/crawling-indexing/canonicalization",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting",
+      "path": "search/docs/crawling-indexing/canonicalization-troubleshooting",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+      "path": "search/docs/crawling-indexing/consolidate-duplicate-urls",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/control-what-you-share",
+      "path": "search/docs/crawling-indexing/control-what-you-share",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/crawling-managing-faceted-navigation",
+      "path": "search/docs/crawling-indexing/crawling-managing-faceted-navigation",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "path": "search/docs/crawling-indexing/google-common-crawlers",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-producer",
+      "path": "search/docs/crawling-indexing/google-producer",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-user-triggered-fetchers",
+      "path": "search/docs/crawling-indexing/google-user-triggered-fetchers",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/googlebot",
+      "path": "search/docs/crawling-indexing/googlebot",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/http-network-errors",
+      "path": "search/docs/crawling-indexing/http-network-errors",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/indexable-file-types",
+      "path": "search/docs/crawling-indexing/indexable-file-types",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/dynamic-rendering",
+      "path": "search/docs/crawling-indexing/javascript/dynamic-rendering",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/fix-search-javascript",
+      "path": "search/docs/crawling-indexing/javascript/fix-search-javascript",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics",
+      "path": "search/docs/crawling-indexing/javascript/javascript-seo-basics",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/lazy-loading",
+      "path": "search/docs/crawling-indexing/javascript/lazy-loading",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/keep-redacted-information-out",
+      "path": "search/docs/crawling-indexing/keep-redacted-information-out",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget",
+      "path": "search/docs/crawling-indexing/large-site-managing-crawl-budget",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+      "path": "search/docs/crawling-indexing/links-crawlable",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/mobile",
+      "path": "search/docs/crawling-indexing/mobile",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing",
+      "path": "search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/mobile/web-light",
+      "path": "search/docs/crawling-indexing/mobile/web-light",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers",
+      "path": "search/docs/crawling-indexing/overview-google-crawlers",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/pause-online-business",
+      "path": "search/docs/crawling-indexing/pause-online-business",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/prevent-images-on-your-page",
+      "path": "search/docs/crawling-indexing/prevent-images-on-your-page",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "path": "search/docs/crawling-indexing/qualify-outbound-links",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/read-aloud-user-agent",
+      "path": "search/docs/crawling-indexing/read-aloud-user-agent",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/reduce-crawl-rate",
+      "path": "search/docs/crawling-indexing/reduce-crawl-rate",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/remove-information",
+      "path": "search/docs/crawling-indexing/remove-information",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag",
+      "path": "search/docs/crawling-indexing/robots-meta-tag",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt",
+      "path": "search/docs/crawling-indexing/robots/create-robots-txt",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro",
+      "path": "search/docs/crawling-indexing/robots/intro",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt",
+      "path": "search/docs/crawling-indexing/robots/robots_txt",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots/submit-updated-robots-txt",
+      "path": "search/docs/crawling-indexing/robots/submit-updated-robots-txt",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/safesearch",
+      "path": "search/docs/crawling-indexing/safesearch",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/site-move-no-url-changes",
+      "path": "search/docs/crawling-indexing/site-move-no-url-changes",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes",
+      "path": "search/docs/crawling-indexing/site-move-with-url-changes",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "path": "search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/combine-sitemap-extensions",
+      "path": "search/docs/crawling-indexing/sitemaps/combine-sitemap-extensions",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps",
+      "path": "search/docs/crawling-indexing/sitemaps/image-sitemaps",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps",
+      "path": "search/docs/crawling-indexing/sitemaps/large-sitemaps",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap",
+      "path": "search/docs/crawling-indexing/sitemaps/news-sitemap",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview",
+      "path": "search/docs/crawling-indexing/sitemaps/overview",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps",
+      "path": "search/docs/crawling-indexing/sitemaps/video-sitemaps",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/special-tags",
+      "path": "search/docs/crawling-indexing/special-tags",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors",
+      "path": "search/docs/crawling-indexing/troubleshoot-crawling-errors",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/url-structure",
+      "path": "search/docs/crawling-indexing/url-structure",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata",
+      "path": "search/docs/crawling-indexing/valid-page-metadata",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot",
+      "path": "search/docs/crawling-indexing/verifying-googlebot",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/website-testing",
+      "path": "search/docs/crawling-indexing/website-testing",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/what-is-site-move",
+      "path": "search/docs/crawling-indexing/what-is-site-move",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/essentials",
+      "path": "search/docs/essentials",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "path": "search/docs/essentials/spam-policies",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/essentials/technical",
+      "path": "search/docs/essentials/technical",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "path": "search/docs/fundamentals/ai-optimization-guide",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "path": "search/docs/fundamentals/creating-helpful-content",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/do-i-need-seo",
+      "path": "search/docs/fundamentals/do-i-need-seo",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/get-on-google",
+      "path": "search/docs/fundamentals/get-on-google",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/get-started",
+      "path": "search/docs/fundamentals/get-started",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/get-started-developers",
+      "path": "search/docs/fundamentals/get-started-developers",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/how-search-works",
+      "path": "search/docs/fundamentals/how-search-works",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+      "path": "search/docs/fundamentals/seo-starter-guide",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/third-party-seo",
+      "path": "search/docs/fundamentals/third-party-seo",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content",
+      "path": "search/docs/fundamentals/using-gen-ai-content",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/covid-19-resources",
+      "path": "search/docs/guides/covid-19-resources",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/debug",
+      "path": "search/docs/guides/debug",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/enable-web-stories",
+      "path": "search/docs/guides/enable-web-stories",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/fix-search-javascript",
+      "path": "search/docs/guides/fix-search-javascript",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/intro-structured-data",
+      "path": "search/docs/guides/intro-structured-data",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/javascript-seo-basics",
+      "path": "search/docs/guides/javascript-seo-basics",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/lazy-loading",
+      "path": "search/docs/guides/lazy-loading",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/mark-up-listings",
+      "path": "search/docs/guides/mark-up-listings",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/rendering",
+      "path": "search/docs/guides/rendering",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/sd-policies",
+      "path": "search/docs/guides/sd-policies",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/search-gallery",
+      "path": "search/docs/guides/search-gallery",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/submit-URLs",
+      "path": "search/docs/guides/submit-URLs",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/web-stories-content-policy",
+      "path": "search/docs/guides/web-stories-content-policy",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/guides/web-stories-creation-best-practices",
+      "path": "search/docs/guides/web-stories-creation-best-practices",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/analyze-social-video-content",
+      "path": "search/docs/monitor-debug/analyze-social-video-content",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/bubble-chart-analysis",
+      "path": "search/docs/monitor-debug/bubble-chart-analysis",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/debugging-search-traffic-drops",
+      "path": "search/docs/monitor-debug/debugging-search-traffic-drops",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/google-analytics-search-console",
+      "path": "search/docs/monitor-debug/google-analytics-search-console",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/prevent-abuse",
+      "path": "search/docs/monitor-debug/prevent-abuse",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/search-console-start",
+      "path": "search/docs/monitor-debug/search-console-start",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/search-operators",
+      "path": "search/docs/monitor-debug/search-operators",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/search-operators/all-search-site",
+      "path": "search/docs/monitor-debug/search-operators/all-search-site",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/search-operators/image-search",
+      "path": "search/docs/monitor-debug/search-operators/image-search",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/security",
+      "path": "search/docs/monitor-debug/security",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/security/malware",
+      "path": "search/docs/monitor-debug/security/malware",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/security/prevent-malware",
+      "path": "search/docs/monitor-debug/security/prevent-malware",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/security/safe-browsing-repeat-offenders",
+      "path": "search/docs/monitor-debug/security/safe-browsing-repeat-offenders",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/security/social-engineering",
+      "path": "search/docs/monitor-debug/security/social-engineering",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/security/what-is-hacked",
+      "path": "search/docs/monitor-debug/security/what-is-hacked",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/monitor-debug/trends-start",
+      "path": "search/docs/monitor-debug/trends-start",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce",
+      "path": "search/docs/specialty/ecommerce",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites",
+      "path": "search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure",
+      "path": "search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/how-to-launch-an-ecommerce-website",
+      "path": "search/docs/specialty/ecommerce/how-to-launch-an-ecommerce-website",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce",
+      "path": "search/docs/specialty/ecommerce/include-structured-data-relevant-to-ecommerce",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading",
+      "path": "search/docs/specialty/ecommerce/pagination-and-incremental-page-loading",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/share-your-product-data-with-google",
+      "path": "search/docs/specialty/ecommerce/share-your-product-data-with-google",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/where-ecommerce-data-can-appear-on-google",
+      "path": "search/docs/specialty/ecommerce/where-ecommerce-data-can-appear-on-google",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews",
+      "path": "search/docs/specialty/ecommerce/write-high-quality-reviews",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/explicit/guidelines",
+      "path": "search/docs/specialty/explicit/guidelines",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/explicit/troubleshooting",
+      "path": "search/docs/specialty/explicit/troubleshooting",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/international",
+      "path": "search/docs/specialty/international",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/international/locale-adaptive-pages",
+      "path": "search/docs/specialty/international/locale-adaptive-pages",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/international/localized-versions",
+      "path": "search/docs/specialty/international/localized-versions",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    },
+    {
+      "url": "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites",
+      "path": "search/docs/specialty/international/managing-multi-regional-sites",
+      "section": "search",
+      "category": "docs",
+      "hasMarkdown": true
+    }
+  ]
+}

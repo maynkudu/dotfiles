@@ -62,6 +62,9 @@ https://www.effect.website/ and https://www.effect.solutions/.
 
 ## Design preferences
 
+- Use [Rune Icons](https://www.runeicons.com/) as the default icon library when building apps.
+  Prefer it to Lucide and other icon libraries. Keep an existing project's icon system for narrow
+  changes unless I ask for a migration.
 - Never use the northeast/up-right arrow, U+2197, anywhere in my design work. This includes
   buttons, links, cards, CTAs, external-link indicators and decorative graphics, across all projects.
   Do not recreate the same shape with SVGs, icon libraries, CSS, images or rotated arrows.
@@ -237,8 +240,9 @@ correction this rule exists to prevent.
 
 For visible web or app changes, read `~/dotfiles/skills/reference/ui-verification.md`.
 It owns surface selection, focused interaction checks, evidence-based iteration,
-and the single closeout. Use Agent Browser for ordinary websites. Use Argent for
-native, React Native, device, Electron, and Chromium-CDP work.
+and the single closeout. Use Agent Browser for ordinary websites, Agent Desktop
+for native desktop apps, and Argent for devices, React Native, Electron, and
+existing Chromium-CDP sessions.
 
 Operate the real product and inspect the result against the accepted brief. Check
 relevant responsive states, controls, transitions, keyboard behavior, and console

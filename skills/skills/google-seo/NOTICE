@@ -1,0 +1,38 @@
+NOTICE
+======
+
+This repository mirrors documentation from Google Search Central for offline,
+non-commercial reference by AI agents and developers.
+
+Source
+------
+- https://developers.google.com/search/docs
+- https://developers.google.com/crawling/docs
+
+The markdown under `docs/` is generated from Google's own `.md.txt` renderings
+of the pages above. The page inventory is derived from
+https://developers.google.com/sitemap.xml.
+
+Ownership
+---------
+All documentation content (text, structure, examples) is
+© Google LLC and is subject to Google's terms of service. It is included here
+for identification and offline reference purposes only. No ownership is claimed
+over Google's content. Images are not redistributed; markdown links point to
+Google-hosted URLs.
+
+Code
+----
+The pipeline scripts in `scripts/` are original work licensed under the MIT
+License (see LICENSE).
+
+No affiliation
+--------------
+This project is unofficial and is not affiliated with, endorsed by, or sponsored
+by Google.
+
+No warranty
+-----------
+The mirror may be incomplete, delayed, or out of date relative to the live
+documentation. For authoritative and current guidance, consult
+developers.google.com/search/docs directly.

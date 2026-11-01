@@ -1,7 +1,8 @@
-# UI verification: Argent or Agent Browser
+# UI verification: Argent, Agent Browser or Agent Desktop
 
-Two different tools. Pick by surface, not by habit. Argent drives devices, native and RN apps, and
-Chromium runtimes already on CDP. Agent Browser is the web-page CLI.
+Three tools. Pick by surface. Argent drives devices, native and React Native apps, and Chromium
+runtimes already on CDP. Agent Browser is the web-page CLI. Agent Desktop drives native desktop
+apps through the operating system accessibility tree.
 
 ## Decision, first match wins
 
@@ -13,7 +14,11 @@ Chromium runtimes already on CDP. Agent Browser is the web-page CLI.
 2. **Agent Browser** (CLI `agent-browser`). The thing under test is a public URL, a local web app with
    no device in play, live-page evidence after fetch and search both failed, or a disposable Chrome
    session (auth vault, HAR, `eval`, cloud browsers).
-3. Both could work, for example a local Next or Vite app on desktop. Use Agent Browser for a fast
+3. **Agent Desktop** (CLI `agent-desktop`). The thing under test is a native desktop app with no
+   CDP endpoint and no device, such as a file manager, system settings, a tray app, or a native
+   dialog. Run `agent-desktop skills get desktop` and `agent-desktop skills get platform` before
+   the first command. It is headless by default. Use `--headed` only when physical input is needed.
+4. More than one tool could work, for example a local Next or Vite app on desktop. Use Agent Browser for a fast
    web-only check against the named `https://<name>.localhost` URL. Switch to Argent the moment a
    simulator, emulator, RN runtime, real device, or Electron and CDP Chrome enters the picture.
 
@@ -23,6 +28,19 @@ Metro.
 
 Do not use Argent to open a random public URL unless a CDP Chrome session is already the intended
 surface.
+
+## Agent Desktop workflow, native desktop apps
+
+1. Run `agent-desktop skills get desktop` and `agent-desktop skills get platform`.
+2. Check `agent-desktop status`, then list apps or surfaces before selecting a target.
+3. Take a snapshot and interact through its full refs. A bare element ref is invalid.
+4. Snapshot again after each state change. Treat `STALE_REF` and `AMBIGUOUS_TARGET` as requests for
+   fresh state, not as permission to reuse a coordinate.
+5. Keep snapshots, clipboard reads, screenshots, and debug artifacts out of public logs. They can
+   contain private desktop content.
+
+On Linux, Agent Desktop needs a graphical session and `at-spi2-core`. Some input and window actions
+depend on X11, GNOME, or the Wayland portal. Read the platform skill before assuming support.
 
 ## Argent workflow, devices and CDP apps
 
@@ -45,8 +63,8 @@ Use fixed waits only as a last resort.
 
 Confirm the app loads on the surface that matches the product.
 
-Web-only desktop goes to Agent Browser against the named portless URL. Mobile, RN, simulator,
-emulator, Electron, or CDP Chrome goes to Argent.
+Web-only desktop goes to Agent Browser against the named portless URL. Native desktop apps go to
+Agent Desktop. Mobile, React Native, simulator, emulator, Electron, or CDP Chrome goes to Argent.
 
 Report the exact URL or the device plus app, the flow, and any failures.
 

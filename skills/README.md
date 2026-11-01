@@ -33,6 +33,10 @@ The bundled `animation-fundamentals` recipes and `aryan-voice` examples work wit
 access to the original private design collection. Historical prompt audits in
 `profile/` describe the original author, not maynkudu.
 
+The pstack collection is pinned to `cursor/plugins` 0.15.36. `bro` and `teach`
+keep their existing sources, and pstack's colliding `tdd` skill installs as
+`pstack-tdd`. Agent Browser and Agent Desktop are pinned as separate public skills.
+
 ## Patches and budgets
 
 `bin/patch --skill-home ~/.agents/skills` reapplies declared upstream skill patches.

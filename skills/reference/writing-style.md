@@ -1,7 +1,7 @@
 # Unslop
 
 Cut AI tells from any writing. This always applies, to prose and to code comments and to
-commit messages. Vendored from poteto/plugins pstack `unslop`; edit upstream, not here.
+commit messages. Vendored from cursor/plugins pstack `unslop`; edit upstream, not here.
 
 
 Edit text to remove AI patterns and add human voice.
