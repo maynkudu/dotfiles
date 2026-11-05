@@ -23,12 +23,16 @@ through stdin. Browser cookies and state are not exported by the helper.
 ## Find references and inspect source
 
 ```bash
+blank registry-search 'scroll text' --section components
 blank search 'scroll driven gallery'
 blank catalog
 blank source cell-portrait
 ```
 
-Search uses the public direction endpoint. Catalog and source authenticate with
+`registry-search` uses two to four task keywords and searches `components`, `pages`,
+`backend`, or `all` through `/registry/search`. `search` uses a short task phrase
+with `/direction/discover` for joint registry and inspiration discovery.
+Catalog and source authenticate with
 the supplied registry token. The source command returns the registry item's JSON,
 including its source files, without creating a project or installing a component.
 
@@ -66,6 +70,21 @@ The [registry's setup guide](https://ui.aryank.space/docs) and
 describe the named registry and environment-variable mechanism. The source URL
 alone does not attach shadcn's authorization header.
 
+## Search enforcement
+
+`skills/bin/install` adds the BLANK gate to agents selected in `setup.toml`.
+Codex and Claude are the default targets. Grok, Pi and OpenCode adapters are
+available when selected. The gate requires a search before supported edits,
+installs and browser opens. UI edits also require inspecting matching components
+and installing a fit, or inspecting returned inspiration sources when none fits.
+Server edits require a backend search and source inspection.
+
+Search failures count as attempts. Failed source reads and installs do not count
+as success. The gate allows bounded recovery when repeated searches return no
+references. See the [skill](../skills/skills/blank-direction/SKILL.md) for commands
+and recovery. Runtime progress contains counts and source identifiers, without
+credentials or raw responses. Tokens remain in the user-managed `kiys` file.
+
 ## Open the inspiration directory
 
 ```bash
@@ -98,3 +117,6 @@ This integration supplies live BLANK discovery, source access, and browser login
 It does not include the original separate 129-skill design pack or historical
 BLANK MCP servers. See the [verification record](../.plannotator/blank-access/results.md)
 for the installed commands and checks.
+The [gate verification record](../.plannotator/blank-direction-d4f2eeb/results.md)
+covers the enforced workflow and installed hooks. Start a new Codex or Claude
+session to load the updated global rules and hooks.

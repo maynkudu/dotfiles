@@ -1,0 +1,7 @@
+  claude  16 rules   24195 chars
+  codex   16 rules   24513 chars  cap 24576
+  grok     7 rules    4964 chars  cap 10000
+  pi      15 rules   23040 chars
+  opencode 15 rules   23040 chars
+
+no drift.

@@ -1,0 +1,58 @@
+[
+  {
+    "path": "bin/blank",
+    "sha256": "9e59abf4f0c9413c85b62f3bf2c7255215c8a305ee65e78a70dfa6cd507c6eaf"
+  },
+  {
+    "path": "skills/bin/install",
+    "sha256": "039d32763cc325d5a25b47cbd48538f1b8435bfbf5a9eec71d3491e15c883d11"
+  },
+  {
+    "path": "skills/hooks/blank-direction-gate",
+    "sha256": "40b444160e57b2c4dfed109329d6576d3f6efc5646c1a249b9aef485ecb9246c"
+  },
+  {
+    "path": "skills/hooks/opencode-blank-direction.ts",
+    "sha256": "55fc2789eab83c71fa1a14e80b89f2de1919b92e8a25a75da8f4031a14b0be02"
+  },
+  {
+    "path": "skills/hooks/pi-blank-direction.ts",
+    "sha256": "86376ff140eba1c8a26a93d5978ef27a256f81790e341634e71495bb9b28ea27"
+  },
+  {
+    "path": "skills/rules/core/direction-first.md",
+    "sha256": "e6eb77c2595e5425b5e78938b20da21686d30c261dbf932d79c7d4aeaf215ff6"
+  },
+  {
+    "path": "skills/rules/core/direction-first.grok.md",
+    "sha256": "82af6fd99184df65def061d6ac4330db885210b60ffc3556bd59579fbe795925"
+  },
+  {
+    "path": "skills/skills/blank-direction/SKILL.md",
+    "sha256": "bd78a9fd414b347011b1b822619734e67c84cd76e27ef775421a6177352be349"
+  },
+  {
+    "path": "tests/test_blank.py",
+    "sha256": "0fee0013a02316fc4ac393afd26bde564f0a0b62df84f69e7d46a3262bfc8323"
+  },
+  {
+    "path": "tests/test_blank_direction_gate.py",
+    "sha256": "78669b1483f021e9da520f1fc9e2a07efd207fa1484a171007e73a6daea1e0e0"
+  },
+  {
+    "path": "tests/test_setup.py",
+    "sha256": "205ca78b14f53c82562a00248186dd1c1121584d034b8a9abcddf7b32908ace8"
+  },
+  {
+    "path": "docs/blank.md",
+    "sha256": "f540d28bb00c96ab4c8e1941359e2d271ec4aaa0d46b7b457e7f4f74f6f41cc7"
+  },
+  {
+    "path": "skills/README.md",
+    "sha256": "f5e455d7da18b67accf15bcb731fee5ed5bea3c33ebcb26f72a14c5ace3c6156"
+  },
+  {
+    "path": "README.md",
+    "sha256": "247bdd57c021333b0db53ef0846fe8fad52a2493a3dab0303688611aca961fa4"
+  }
+]

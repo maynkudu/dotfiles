@@ -1,15 +1,18 @@
 # Direction first
 
-Before an open design choice, inspect the existing project, supplied references, and
-relevant installed skills. Use the bundled `animation-fundamentals` recipes for motion
-and `aryan-voice` examples for copy. Inspect public originals when useful.
+Search BLANK at the start of every task before editing, installing, browsing,
+searching the web or recommending a source. Reading the project is always allowed.
+Use the installed `blank-direction` skill and `blank` command. Start with a registry
+search using two to four task keywords, then discovery using a short phrase.
+For UI, inspect BLANK components and pages and install a fit. If none fits, explain
+why and inspect two returned inspiration sources. For server work, search backend
+blocks and read a relevant source before building.
 
-Use the installed `blank-direction` skill for BLANK discovery, authenticated registry
-source, and inspiration access through the `blank` command. Credentials remain in the
-user-managed `kiys` file. The separate original 129-skill design pack is not bundled.
-Missing access must not block work or be reported as an empty search result.
-Never claim to have inspected an unavailable source.
-For narrow adjustments, bug fixes, refactors or supplied exact sources, skip discovery.
+Credentials stay in `~/dotfiles/kiys`; the helper supplies them at runtime.
+The installed gate checks this order for configured agents. Follow the skill for
+commands, failed-search recovery and source inspection. Missing access is a reported
+service failure, not an empty collection. The separate private design pack is not bundled.
+Use `animation-fundamentals` for motion and `aryan-voice` for copy.
 
 ## Research broadly, present selectively
 

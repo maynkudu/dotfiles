@@ -1,0 +1,41 @@
+[
+  {
+    "scenario": "UI edit before search",
+    "gate_exit": 2
+  },
+  {
+    "scenario": "public component search",
+    "exit_code": 0,
+    "returned_registry_picks": true
+  },
+  {
+    "scenario": "UI edit after search before source",
+    "gate_exit": 2
+  },
+  {
+    "scenario": "authenticated catalog",
+    "exit_code": 0,
+    "item_count": 375
+  },
+  {
+    "scenario": "authenticated source",
+    "exit_code": 0,
+    "name": "word-highlight-scroll",
+    "source_file_count": 1,
+    "source_has_content": true
+  },
+  {
+    "scenario": "UI edit after source before reuse",
+    "gate_exit": 2
+  },
+  {
+    "scenario": "progress metadata",
+    "searches": 1,
+    "sections": [
+      "components"
+    ],
+    "visited": [
+      "ui.aryank.space/components/word-highlight-scroll"
+    ]
+  }
+]

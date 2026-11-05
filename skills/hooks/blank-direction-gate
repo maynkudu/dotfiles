@@ -1,0 +1,440 @@
+#!/usr/bin/env python3
+"""Tool-call hook for selected agents. Inspect BLANK in this order:
+
+  1. Search BLANK before editing, installing, browsing or searching the web.
+  2. UI files: inspect BLANK components and pages first. Open one, then install
+     one, or, when none fits, inspect MIN_SOURCES inspiration sources.
+  3. Backend files: inspect BLANK backend blocks and open or install one.
+
+    blank-direction-gate mark   PostToolUse / PostToolUseFailure. Records BLANK
+                                searches (and which registry sections they
+                                covered), the URLs they returned, and visits.
+    blank-direction-gate gate   PreToolUse. Exits 2 (block; stderr is the reason)
+                                while the step a call needs is missing.
+
+Input is a Claude-style hook event on stdin. Claude Code, Codex and Grok send that
+shape natively; the OpenCode plugin and Pi extension in hooks/ build it. Each
+agent names its tools differently (Codex apply_patch, Grok search_replace, Pi
+mcp__blank_direction__*), so normalize() maps them onto Claude's names first and
+the rules below only ever see Bash, Edit, Write, Read, WebFetch and mcp__<server>__<tool>.
+
+A search counts even when it fails, because the agent tried. A visit counts only
+when it succeeds. Visiting a registry item means opening its BLANK page, reading
+its registry JSON or local source, or running `shadcn add/view @compronents/<name>`.
+State lives in $TMPDIR/blank-direction-gate/<session_id>.json. bin/install wires
+both modes into the agents selected in setup.toml.
+
+    BLANK_DIRECTION_GATE=off          disable entirely
+    BLANK_DIRECTION_MIN_SOURCES=<n>   inspiration sources when no component fits (default 2)
+    BLANK_LOCAL_REGISTRY=<path>       optional local registry source directory
+"""
+
+import fcntl
+import json
+import os
+import re
+import shlex
+import sys
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
+
+BLANK_HOST = "ui.aryank.space"
+REGISTRY_SECTIONS = ("components", "pages", "backend")
+UI_SECTIONS = {"components", "pages"}
+LOCAL_REGISTRY = os.environ.get("BLANK_LOCAL_REGISTRY", "").rstrip("/")
+if LOCAL_REGISTRY:
+    LOCAL_REGISTRY += "/"
+# Hosts that hold many unrelated sources, and how many path segments name one.
+SHARED_HOSTS = {"github.com": 2, "gitlab.com": 2, "x.com": 1, "twitter.com": 1, "codepen.io": 1, "youtube.com": 2, "vercel.com": 1}
+URL = re.compile(r"https?://[^\s\"'<>()\[\]`\\]+")
+ITEM_CMD = re.compile(r"shadcn(@[\w.-]+)?\s+(add|view)\s+[^;&|]*?@compronents/([\w-]+)")
+INSTALL = re.compile(
+    r"(^|[;&|\s])((npm|pnpm|yarn|bun)\s+(add|i|install)(\s|$)|npx\s+(-y\s+)?(shadcn|skills|plugins)"
+    r"|bunx\s+shadcn|brew\s+install|pip3?\s+install|uv\s+(add|pip\s+install)|cargo\s+add|go\s+get"
+    r"|agent-browser\s+open)"
+)
+VISIT_TOOLS = {
+    "WebFetch", "mcp__chrome-devtools__navigate_page", "mcp__chrome-devtools__new_page", "mcp__argent__open-url",
+    "mcp__t3_code__preview_open", "mcp__t3_code__preview_navigate",
+}
+BROWSER_OPEN = re.compile(r"(^|[;&|\s])(?:[^\s;&|]*/)?agent-browser\b[^;&|]*\bopen(?:\s|$)")
+EDIT_TOOLS = {"Edit", "Write", "MultiEdit", "NotebookEdit"}
+SHOPPING_TOOLS = EDIT_TOOLS | VISIT_TOOLS | {"WebSearch"}
+UI_FILE = re.compile(r"\.(tsx|jsx|css|scss|sass|less|vue|svelte|astro|html)$")
+CODE_FILE = re.compile(r"\.(ts|mts|cts|js|mjs|cjs|py|go|rs)$")
+NOT_BACKEND = re.compile(r"(\.d\.ts|\.config\.[mc]?[jt]s|\.(test|spec)\.[mc]?[jt]s)$")
+BACKEND_PATH = re.compile(
+    r"/(server|api|backend|convex|workers?|services?|jobs|queues?|db|database|trpc|functions|effect|actors?|workflows?)/"
+)
+EFFECT_IMPORT = re.compile(r"""from\s+["'](effect|@effect/[\w-]+)["']""")
+MIN_SOURCES = int(os.environ.get("BLANK_DIRECTION_MIN_SOURCES", "2"))
+
+# Other agents' tool names, lowercased, mapped onto Claude's.
+TOOL_ALIASES = {
+    **dict.fromkeys(("bash", "shell", "run_terminal_command", "exec_command", "local_shell", "powershell"), "Bash"),
+    **dict.fromkeys(("edit", "multiedit", "search_replace", "hashline_edit", "strreplace", "str_replace", "edit_file"), "Edit"),
+    **dict.fromkeys(("write", "write_file", "create_file"), "Write"),
+    **dict.fromkeys(("apply_patch", "patch"), "Edit"),
+    **dict.fromkeys(("notebookedit", "editnotebook"), "NotebookEdit"),
+    **dict.fromkeys(("read", "read_file"), "Read"),
+    **dict.fromkeys(("webfetch", "web_fetch", "fetch", "fetch_content"), "WebFetch"),
+    **dict.fromkeys(("websearch", "web_search"), "WebSearch"),
+}
+# MCP tools as Claude (mcp__blank-direction__x), Codex and Pi (mcp__blank_direction__x),
+# Grok (blank-direction__x) and OpenCode (blank_direction_x) name them.
+MCP_NAME = re.compile(r"^(?:mcp__)?(blank[-_]direction|chrome[-_]devtools|argent)(?:__|_)(.+)$")
+PATCH_FILE = re.compile(r"^\*\*\* (?:Add|Update) File: (.+)$|^\*\*\* Move to: (.+)$", re.M)
+PATH_KEYS = ("file_path", "filePath", "path", "target_file", "notebook_path", "target_notebook")
+
+
+def strings(value) -> list[str]:
+    """Every string inside a tool input, for content checks that should not care about its shape."""
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [s for v in value.values() for s in strings(v)]
+    if isinstance(value, list):
+        return [s for v in value for s in strings(v)]
+    return []
+
+
+def normalize(data: dict) -> tuple[str, str, dict, object, str]:
+    """(session, Claude tool name, tool input, tool response, event) for any agent's event.
+
+    The input gains a `paths` list: the files an edit touches, read from whichever key
+    the agent uses or from the headers of an apply_patch body.
+    """
+    session = str(data.get("session_id") or data.get("sessionId") or "")
+    raw = str(data.get("tool_name") or data.get("toolName") or "")
+    m = MCP_NAME.match(raw)
+    if m:
+        server, name = m.group(1).replace("_", "-"), m.group(2)
+        tool = f"mcp__{server}__{name.replace('_', '-') if server == 'argent' else name}"
+    else:
+        tool = TOOL_ALIASES.get(raw.lower(), raw)
+    raw_input = data.get("tool_input") or data.get("toolInput") or {}
+    tin = dict(raw_input) if isinstance(raw_input, dict) else {"command": raw_input}
+    if "command" not in tin and "cmd" in tin:
+        tin["command"] = tin["cmd"]
+    command = tin.get("command")
+    if isinstance(command, list):  # older Codex shell: ["bash", "-lc", "..."]
+        tin["command"] = " ".join(map(str, command))
+    paths = [str(tin[k]) for k in PATH_KEYS if isinstance(tin.get(k), str)]
+    if raw.lower() in ("apply_patch", "patch"):
+        body = "\n".join(strings(tin))
+        paths += [a or b for a, b in PATCH_FILE.findall(body)]
+        tin.pop("command", None)  # Codex puts the patch body here; it is not a shell command
+        tin["content"] = body
+    tin["paths"] = paths
+    if tool == "WebFetch" and not tin.get("url"):
+        tin["url"] = next(iter(URL.findall(" ".join(strings(tin)))), "")
+    response = next((data[k] for k in ("tool_response", "toolResult", "tool_result") if k in data), "")
+    return session, tool, tin, response, str(data.get("hook_event_name", ""))
+
+
+def source_key(url: str) -> str | None:
+    """One key per source: a site, a repo, or one item in the BLANK registry."""
+    try:
+        p = urlparse(url.rstrip(".,;:"))
+    except ValueError:
+        return None
+    host = (p.hostname or "").removeprefix("www.")
+    if not host or "." not in host:
+        return None
+    if host == BLANK_HOST:
+        parts = [s for s in p.path.split("/") if s]
+        if len(parts) >= 2 and parts[0] in REGISTRY_SECTIONS and not parts[1].endswith(".txt"):
+            return f"{host}/{parts[0]}/{parts[1]}"
+        if len(parts) == 2 and parts[0] == "r":
+            return f"{host}/r/{parts[1].removesuffix('.json')}"
+        return None  # search API, llms.txt, docs: the search itself
+    if host in SHARED_HOSTS:
+        parts = [s for s in p.path.split("/") if s][: SHARED_HOSTS[host]]
+        return "/".join([host, *parts]) if parts else None
+    return host
+
+
+def section_of(key: str) -> str | None:
+    parts = key.split("/")
+    return parts[1] if parts[0] == BLANK_HOST and parts[1] in REGISTRY_SECTIONS else None
+
+
+def blank_calls(command: str) -> list[tuple[str, list[str]]]:
+    """Read direct blank CLI invocations, including paths, Python, and shell separators."""
+    try:
+        lexer = shlex.shlex(command, posix=True, punctuation_chars=";&|")
+        lexer.whitespace_split = True
+        groups: list[list[str]] = [[]]
+        for word in lexer:
+            if word and set(word) <= set(";&|"):
+                groups.append([])
+            else:
+                groups[-1].append(word)
+    except ValueError:
+        return []
+    calls = []
+    for words in groups:
+        while words and (words[0] in {"env", "command", "python", "python3"} or re.match(r"^[A-Za-z_][\w]*=", words[0])):
+            words = words[1:]
+        if len(words) >= 2 and Path(words[0]).name == "blank":
+            calls.append((words[1], words[2:]))
+    return calls
+
+
+def blank_search(tool: str, tin: dict, cmd: str) -> set[str] | None:
+    """Registry sections a call searched, or None when it was not a BLANK search.
+
+    Wall-only searches return an empty set: they count as a search but cover no
+    registry section. Opening a BLANK item page is a visit, not a search.
+    """
+    if tool.startswith("mcp__blank-direction__"):
+        if tool.endswith(("inspiration_search", "inspiration_recommend", "inspiration_inspect", "inspiration_feedback")):
+            return set()
+        section = tin.get("section") or "all"
+        return set(REGISTRY_SECTIONS) if section == "all" else {section}
+    if tool not in ("Bash", "WebFetch"):
+        return None
+    if tool == "Bash":
+        covered: set[str] = set()
+        attempted = False
+        for action, arguments in blank_calls(cmd):
+            if action not in {"search", "registry-search"}:
+                continue
+            attempted = True
+            section = "all"
+            for index, argument in enumerate(arguments):
+                if argument.startswith("--section="):
+                    section = argument.split("=", 1)[1]
+                elif argument == "--section" and index + 1 < len(arguments):
+                    section = arguments[index + 1]
+            covered |= set(REGISTRY_SECTIONS) if section == "all" else {section} & set(REGISTRY_SECTIONS)
+        if attempted:
+            return covered
+    urls = [u for u in (URL.findall(cmd) if tool == "Bash" else [str(tin.get("url", ""))]) if urlparse(u).hostname == BLANK_HOST]
+    searches = [u for u in urls if source_key(u) is None]
+    if tool == "Bash" and BLANK_HOST in cmd and not urls:
+        return set(REGISTRY_SECTIONS)
+    if not searches:
+        return None
+    found: set[str] = set()
+    for u in searches:
+        p = urlparse(u)
+        if p.path.startswith("/backend/llms.txt"):
+            found.add("backend")
+        elif p.path.startswith(("/registry", "/direction")):
+            section = parse_qs(p.query).get("section", ["all"])[0]
+            found |= set(REGISTRY_SECTIONS) if section == "all" else {section}
+    return found
+
+
+def resolve(key: str, returned: list[str]) -> str:
+    """Map a /r/<name> or local-source key onto the section key BLANK returned."""
+    name = key.rsplit("/", 1)[-1]
+    if section_of(key):
+        return key
+    for k in returned:
+        if section_of(k) and k.rsplit("/", 1)[-1] == name:
+            return k
+    return key
+
+
+def visited_keys(tool: str, tin: dict, cmd: str) -> list[str]:
+    keys: list[str] = []
+    if tool in VISIT_TOOLS:
+        keys += [k for k in [source_key(str(tin.get("url", "")))] if k]
+    elif tool == "Bash":
+        if BROWSER_OPEN.search(cmd) or re.search(r"curl\s|wget\s", cmd):
+            keys += [k for k in map(source_key, URL.findall(cmd)) if k]
+        keys += [f"{BLANK_HOST}/r/{m.group(3)}" for m in ITEM_CMD.finditer(cmd)]
+        for action, arguments in blank_calls(cmd):
+            if action == "source" and arguments and re.fullmatch(r"[a-z0-9][a-z0-9-]*", arguments[0]):
+                keys.append(f"{BLANK_HOST}/r/{arguments[0]}")
+    elif tool == "Read":
+        for path in tin.get("paths", []):
+            if LOCAL_REGISTRY and LOCAL_REGISTRY in path:
+                name = re.split(r"[/.]", path.split(LOCAL_REGISTRY, 1)[1])[0]
+                keys.append(f"{BLANK_HOST}/r/{name}")
+    return keys
+
+
+def kind_of_edit(tool: str, tin: dict) -> str | None:
+    """"ui" or "backend" when any file the edit touches is one, UI first."""
+    if tool not in EDIT_TOOLS:
+        return None
+    paths = ["/" + p.lstrip("/") for p in tin.get("paths", [])]  # relative patch paths still match /api/
+    if any(UI_FILE.search(p) for p in paths):
+        return "ui"
+    code = [p for p in paths if CODE_FILE.search(p) and not NOT_BACKEND.search(p)]
+    if code and (any(BACKEND_PATH.search(p) for p in code) or EFFECT_IMPORT.search(" ".join(strings(tin)))):
+        return "backend"
+    return None
+
+
+SEARCH_FIRST = (
+    "Blocked: this session has not searched BLANK yet. Search before editing, installing, browsing or searching the web.\n\n"
+    "1. Run `blank registry-search '<2 to 4 task keywords>'`. Add `--section backend` for server work.\n"
+    "2. Run `blank search '<short task phrase>'` for joint registry and inspiration discovery.\n"
+    "The blank-direction MCP registry_search and direction_discover tools also count when available.\n"
+    "Then retry this call and report the queries you ran. Follow ~/.agents/skills/blank-direction/SKILL.md.\n"
+)
+
+HOW_TO_USE = (
+    "Open the BLANK item page, read `blank source <name>`, then install a fit with "
+    "`blank shadcn add @compronents/<name>`. Initialize shadcn in the target app if it lacks components.json, "
+    "then run `blank configure .`. Credentials stay in ~/dotfiles/kiys and are supplied only at runtime.\n"
+)
+
+
+def lines(keys: list[str], limit: int = 8) -> str:
+    return "\n".join(f"  - https://{k}" for k in keys[:limit]) or "  (none yet)"
+
+
+def succeeded(response: object, event: str) -> bool:
+    """Codex reports failed shell commands in PostToolUse, so inspect their exit status."""
+    if event == "PostToolUseFailure":
+        return False
+    if isinstance(response, dict):
+        if response.get("isError") or response.get("is_error"):
+            return False
+        if any(response.get(key) not in (None, 0) for key in ("exit_code", "exitCode")):
+            return False
+    for value in strings(response):
+        if any(int(code) != 0 for code in re.findall(r"(?m)^Process exited with code (\d+)", value)):
+            return False
+    return True
+
+
+def read_state(path: Path) -> dict:
+    state = {"searches": 0, "sections": [], "returned": [], "visited": [], "installed": []}
+    if path.exists():
+        try:
+            state.update(json.loads(path.read_text()))
+        except ValueError:
+            pass
+    return state
+
+
+def main() -> int:
+    if os.environ.get("BLANK_DIRECTION_GATE", "on") == "off":
+        return 0
+    try:
+        data = json.load(sys.stdin)
+    except ValueError:
+        return 0
+    session, tool, tin, response, event = normalize(data)
+    if not session:
+        return 0
+    session = re.sub(r"[^\w.-]", "_", session)
+    cmd = str(tin.get("command", ""))
+
+    state_dir = Path(os.environ.get("TMPDIR", "/tmp")) / "blank-direction-gate"
+    state_file = state_dir / f"{session}.json"
+    mode = sys.argv[1] if len(sys.argv) > 1 else ""
+    searched = blank_search(tool, tin, cmd)
+
+    if mode == "mark":
+        visits = visited_keys(tool, tin, cmd) if succeeded(response, event) else []
+        if searched is None and not visits:
+            return 0
+        state_dir.mkdir(parents=True, exist_ok=True)
+        with state_file.with_suffix(".lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            state = read_state(state_file)
+            if searched is not None:
+                state["searches"] += 1
+                state["sections"] = sorted(set(state["sections"]) | searched)
+                if succeeded(response, event):
+                    found = URL.findall(json.dumps(response))
+                    keys = {k for k in map(source_key, found) if k}
+                    state["returned"] = sorted(set(state["returned"]) | keys)
+            if succeeded(response, event) and tool == "Bash":
+                for m in ITEM_CMD.finditer(cmd):
+                    if m.group(2) == "add" and m.group(3) not in state["installed"]:
+                        state["installed"].append(m.group(3))
+            for k in visits:
+                k = resolve(k, state["returned"])
+                if k not in state["visited"] and (k in state["returned"] or section_of(k) or "/r/" in k):
+                    state["visited"].append(k)
+            temporary = state_file.with_suffix(f".{os.getpid()}.tmp")
+            temporary.write_text(json.dumps(state))
+            temporary.replace(state_file)
+        return 0
+
+    if mode != "gate":
+        return 0
+    blocked = decide(tool, tin, cmd, read_state(state_file), searched)
+    if blocked is None:
+        return 0
+    sys.stderr.write(blocked)
+    if "hookEventName" in data:
+        # Grok keeps only the first stderr line of an exit-2 deny; a JSON reason it reads whole.
+        print(json.dumps({"decision": "deny", "reason": blocked}))
+    return 2
+
+
+def decide(tool: str, tin: dict, cmd: str, state: dict, searched: set[str] | None) -> str | None:
+    """The reason to block this call, or None to let it run."""
+    if state["searches"] == 0 and searched is None:
+        # Codex, Grok, OpenCode and pi send every tool here, including the ones that
+        # read code and the wrapper pi calls MCP through, so only shopping is held back.
+        if tool == "Bash":
+            return SEARCH_FIRST if INSTALL.search(cmd) or BROWSER_OPEN.search(cmd) else None
+        return SEARCH_FIRST if tool in SHOPPING_TOOLS else None
+
+    kind = kind_of_edit(tool, tin)
+    if kind is None:
+        return None
+    returned, visited, sections = state["returned"], state["visited"], set(state["sections"])
+    ours = [k for k in returned if section_of(k) in (UI_SECTIONS if kind == "ui" else {"backend"})]
+    used_ours = [k for k in visited if section_of(resolve(k, returned)) in (UI_SECTIONS if kind == "ui" else {"backend"})]
+
+    if kind == "ui":
+        if not sections & UI_SECTIONS:
+            return (
+                "Blocked: search BLANK components before writing UI. Run `blank registry-search '<keywords>' "
+                "--section components`, and use `--section pages` for full sections or templates.\n"
+            )
+        wall = [k for k in returned if not section_of(k) and "/r/" not in k]
+        wall_visits = [k for k in visited if k in wall]
+        need = min(MIN_SOURCES, len(wall)) if wall else MIN_SOURCES
+        if ours and not used_ours:
+            return (
+                "Blocked: open BLANK components before writing UI. Operate the likely matches on their BLANK "
+                "page and read their source, then install the one that fits.\n\n"
+                f"BLANK components and pages from your searches:\n{lines(ours)}\n\n{HOW_TO_USE}"
+            )
+        if state["installed"] or (wall and len(wall_visits) >= need):
+            return None
+        if not returned and state["searches"] >= 3:
+            return None
+        return (
+            "Blocked: use a BLANK component, or explain why none fits. Install the match with "
+            "`blank shadcn add @compronents/<name>` and build from it. If none fits, inspect "
+            f"at least {need} returned inspiration sources. Opened so far: {len(wall_visits)}.\n\n"
+            f"Inspiration sources:\n{lines([k for k in wall if k not in visited])}\n\n"
+            "For each source, open it past its homepage, search its catalog for the task, operate the matching component "
+            "and read its code if it ships any. Note the mechanism and whether you adopt, adapt or reject it.\n"
+            + ("" if wall else "\nBLANK has returned no inspiration sources yet. Run `blank search '<short task phrase>'`.\n")
+        )
+
+    # backend
+    if "backend" not in sections:
+        return (
+            "Blocked: search BLANK backend blocks before writing server code. Run "
+            "`blank registry-search '<keywords>' --section backend` for the mechanism you need, or read "
+            "https://ui.aryank.space/backend/llms.txt. Inspect a relevant implementation before building.\n"
+        )
+    if used_ours:
+        return None
+    if not ours and state["searches"] >= 2:
+        return None  # searched twice, nothing relevant
+    return (
+        "Blocked: open a BLANK backend block before writing server code. Read how it solves the problem, then "
+        "install it or follow its pattern.\n\n"
+        f"Backend blocks from your searches:\n{lines(ours)}\n\n{HOW_TO_USE}"
+        + ("" if ours else "\nYour backend searches returned nothing yet. Search again with different keywords.\n")
+    )
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

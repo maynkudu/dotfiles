@@ -1,0 +1,19 @@
+codex:
+  back up /home/maynkudu/.codex/AGENTS.md -> AGENTS.md.before-dotfiles-20261105T145003532145Z
+  write /home/maynkudu/.codex/AGENTS.md
+  set PreToolUse hook blank-direction-gate
+  set PostToolUse hook blank-direction-gate
+  back up /home/maynkudu/.codex/hooks.json -> hooks.json.before-dotfiles-20261105T145003532830Z
+  trust codex hook pre_tool_use
+  trust codex hook post_tool_use
+  back up /home/maynkudu/.codex/config.toml -> config.toml.before-dotfiles-20261105T145003646031Z
+claude:
+  set PreToolUse hook blank-direction-gate
+  set PostToolUse hook blank-direction-gate
+  set PostToolUseFailure hook blank-direction-gate
+  allow Bash(blank search:*)
+  allow Bash(blank registry-search:*)
+  allow Bash(blank source:*)
+  back up /home/maynkudu/.claude/settings.json -> settings.json.before-dotfiles-20261105T145003648395Z
+
+installed.

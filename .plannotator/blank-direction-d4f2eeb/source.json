@@ -1,0 +1,34 @@
+{
+  "repository": "https://github.com/kiritocode1/dotfiles",
+  "commit": "d4f2eebddf680057c8869419fc0090a5ecd01573",
+  "files": [
+    {
+      "path": "skills/hooks/blank-direction-gate",
+      "blob": "ca1c70fb48b2420ef4292d2e305fbaec6a620bc0"
+    },
+    {
+      "path": "skills/hooks/opencode-blank-direction.ts",
+      "blob": "337bdf3e750c300cd2282e1a2500ffab2dc2d774"
+    },
+    {
+      "path": "skills/hooks/pi-blank-direction.ts",
+      "blob": "f75678580fe88597617e6bb4fe82b46384128d43"
+    },
+    {
+      "path": "skills/bin/install",
+      "blob": "592a03789dd9f8bf51e8d1824761a04fa752f1f6"
+    },
+    {
+      "path": "skills/rules/core/direction-first.md",
+      "blob": "99f4250dfc71b301ee7f3c1807723f77c155a169"
+    },
+    {
+      "path": "skills/rules/core/direction-first.grok.md",
+      "blob": "5662bc535c046aad2655bc653a2f611cdc1eb653"
+    },
+    {
+      "path": "skills/tests/test_blank_direction_gate.py",
+      "blob": "c819246e739dcfeea3fda255ffd1ac296ff2f940"
+    }
+  ]
+}

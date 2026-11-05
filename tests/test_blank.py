@@ -5,11 +5,30 @@ import sys
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlsplit
 
 BLANK = runpy.run_path(str(Path(__file__).resolve().parents[1] / 'bin/blank'))
 
 
 class BlankTests(unittest.TestCase):
+    def test_search_routes_preserve_query_and_section(self):
+        namespace = BLANK['main'].__globals__
+        query = 'retry queue & cache'
+        for command, arguments, endpoint in (
+            ('search', [], '/direction/discover'),
+            ('registry-search', ['--section', 'backend'], '/registry/search'),
+        ):
+            paths = []
+            with self.subTest(command=command), patch.dict(namespace, fetch=paths.append), \
+                 patch.object(sys, 'argv', ['blank', command, query, *arguments]):
+                BLANK['main']()
+                request = urlsplit(paths[0])
+                self.assertEqual(request.path, endpoint)
+                expected = {'q': [query]}
+                if command == 'registry-search':
+                    expected['section'] = ['backend']
+                self.assertEqual(parse_qs(request.query), expected)
+
     def test_registry_token_uses_stdin_and_child_environment(self):
         token = 'blank_dummy_test_credential'
         namespace = BLANK['credential'].__globals__

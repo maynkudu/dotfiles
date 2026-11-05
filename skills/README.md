@@ -16,6 +16,18 @@ unrelated local rules remain visible.
 selected agents and installed skills. Neither check installs anything. Build output
 for Pi, Grok, and OpenCode remains available, but they are not default install targets.
 
+## BLANK gate
+
+`hooks/blank-direction-gate` checks the discovery and inspection order through
+native hook payloads. The installer adds hooks for selected Codex, Claude and
+Grok targets, or links the Pi and OpenCode adapters when those agents are selected.
+It preserves unrelated hooks and backs up changed configuration. For Codex, it
+gets the current hook hashes from `app-server` and records trust for these hooks.
+
+The gate recognizes `blank registry-search`, `blank search`, `blank source` and
+`blank shadcn` without needing the upstream author's local MCP server. Credentials
+stay in `../kiys`. See [BLANK access](../docs/blank.md) for use and recovery.
+
 ## Skills
 
 `../bin/setup --skills` installs the current public selection from

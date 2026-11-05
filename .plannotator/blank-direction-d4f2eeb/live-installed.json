@@ -1,0 +1,16 @@
+{
+  "installed_cli": "/home/maynkudu/dotfiles/bin/blank",
+  "credential_mode": "0o600",
+  "catalog": {
+    "exit_code": 0,
+    "item_count": 375
+  },
+  "source": {
+    "exit_code": 0,
+    "item": "word-highlight-scroll",
+    "source_file_count": 1,
+    "source_has_content": true
+  },
+  "public_registry_search_exit": 0,
+  "public_discovery_exit": 0
+}

@@ -1,0 +1,22 @@
+{
+  "codex_gate_hooks": [
+    {
+      "key": "/home/maynkudu/.codex/hooks.json:pre_tool_use:0:0",
+      "trust": "trusted",
+      "hash": "sha256:588e38c1e37d7ceb9f1eb5811f67aebecc2c413fa94001638eb547b66bc5020c"
+    },
+    {
+      "key": "/home/maynkudu/.codex/hooks.json:post_tool_use:0:0",
+      "trust": "trusted",
+      "hash": "sha256:6eed653e306fa8e32ccb731a33034cc2a4459c7499b77eedbe954906c60b77c9"
+    }
+  ],
+  "claude_gate_events": [
+    "PreToolUse",
+    "PostToolUse",
+    "PostToolUseFailure"
+  ],
+  "unrelated_claude_settings_preserved": true,
+  "unrelated_codex_settings_preserved": true,
+  "unselected_agents_preserved": true
+}

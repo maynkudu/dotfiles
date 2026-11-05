@@ -40,6 +40,8 @@ next turn; start a new agent session to reload global rules and MCP integrations
 BLANK registry and inspiration access use the `blank` command and shared
 `blank-direction` skill. See [BLANK access](docs/blank.md) for credential handling,
 source inspection, project configuration, and browser login.
+The rule installer also adds the BLANK discovery gate for selected agents.
+Searches and source reads use the CLI; credentials remain in `kiys`.
 
 ## What lives here
 
@@ -50,6 +52,7 @@ source inspection, project configuration, and browser login.
 | `skills/reference/` | Detailed procedures loaded when needed |
 | `skills/build/` | Generated rules; edit the sources instead |
 | `skills/skills/` | Bundled motion, writing, and workflow skills |
+| `skills/hooks/` | BLANK discovery gate and optional agent adapters |
 | `skills/sources.lock.json` | Public skills pinned to source commits |
 | `shell/`, `zshrc` | Portable Bash/Zsh setup |
 | `documents/requirements.txt` | Isolated document-generation libraries |

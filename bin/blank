@@ -96,6 +96,9 @@ def main():
     commands = parser.add_subparsers(dest='command', required=True)
     search = commands.add_parser('search', help='Search public BLANK registry and inspiration references')
     search.add_argument('query', nargs='+')
+    registry = commands.add_parser('registry-search', help='Search BLANK components, pages, or backend blocks')
+    registry.add_argument('query', nargs='+')
+    registry.add_argument('--section', choices=['all', 'components', 'pages', 'backend'], default='all')
     commands.add_parser('catalog', help='Read the authenticated registry catalog')
     source = commands.add_parser('source', help='Read an authenticated registry item and its source files')
     source.add_argument('name')
@@ -108,9 +111,14 @@ def main():
     login.add_argument('--headed', action='store_true', help='Show the browser window')
     args = parser.parse_args()
 
-    if args.command == 'search':
+    if args.command in {'search', 'registry-search'}:
         from urllib.parse import urlencode
-        fetch('/direction?' + urlencode({'q': ' '.join(args.query)}))
+        parameters = {'q': ' '.join(args.query)}
+        path = '/direction/discover'
+        if args.command == 'registry-search':
+            path = '/registry/search'
+            parameters['section'] = args.section
+        fetch(path + '?' + urlencode(parameters))
     elif args.command == 'catalog':
         fetch('/r/registry.json', authenticated=True)
     elif args.command == 'source':

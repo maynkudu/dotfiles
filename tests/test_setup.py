@@ -1,6 +1,7 @@
 import json
 import pathlib
 import runpy
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -21,6 +22,14 @@ class InstallTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             home = pathlib.Path(folder)
             self.run_installer(home, '--dry-run')
+            self.assertEqual(list(home.iterdir()), [])
+
+    def test_fresh_home_dry_run_shows_the_hooks_to_be_installed(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            result = self.run_installer(home, '--agents', 'codex', '--dry-run')
+            self.assertIn('PreToolUse', result.stdout)
+            self.assertIn('PostToolUse', result.stdout)
             self.assertEqual(list(home.iterdir()), [])
 
     def test_defaults_backups_and_idempotence(self):
@@ -57,6 +66,71 @@ class InstallTests(unittest.TestCase):
             subprocess.run(cmd, check=True, capture_output=True)
             self.assertEqual(content, (home / '.bashrc').read_text())
             self.assertEqual(len(list(home.glob('.bashrc.before-dotfiles-*'))), 1)
+
+    def test_hook_install_preserves_unrelated_handlers_and_settings(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            path = home / '.claude/settings.json'
+            path.parent.mkdir()
+            gate = ROOT / 'skills/hooks/blank-direction-gate'
+            foreign = {'type': 'command', 'command': 'printf keep'}
+            original = {'model': 'keep-current-model', 'permissions': {'allow': ['Read']},
+                        'hooks': {'PreToolUse': [{'matcher': 'Bash', 'hooks': [
+                            {'type': 'command', 'command': f'{gate} gate'}, foreign]}]}}
+            path.write_text(json.dumps(original))
+            self.run_installer(home, '--agents', 'claude')
+            first = path.read_text()
+            settings = json.loads(first)
+            self.assertEqual(settings['model'], original['model'])
+            self.assertIn('Read', settings['permissions']['allow'])
+            groups = settings['hooks']['PreToolUse']
+            self.assertIn({'matcher': 'Bash', 'hooks': [foreign]}, groups)
+            self.assertEqual(sum(str(gate) in hook.get('command', '') for group in groups for hook in group['hooks']), 1)
+            self.run_installer(home, '--agents', 'claude')
+            self.assertEqual(path.read_text(), first)
+            self.assertEqual(len(list(path.parent.glob('settings.json.before-dotfiles-*'))), 1)
+
+    def test_hook_install_does_not_write_through_an_external_symlink(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            original = home / 'external-settings.json'
+            original.write_text('{"model":"keep-current-model"}\n')
+            settings = home / '.claude/settings.json'
+            settings.parent.mkdir()
+            settings.symlink_to(original)
+            self.run_installer(home, '--agents', 'claude')
+            self.assertEqual(original.read_text(), '{"model":"keep-current-model"}\n')
+            self.assertFalse(settings.is_symlink())
+            self.assertIn('PreToolUse', json.loads(settings.read_text())['hooks'])
+            backups = list(settings.parent.glob('settings.json.before-dotfiles-*'))
+            self.assertEqual(len(backups), 1)
+            self.assertTrue(backups[0].is_symlink())
+
+    def test_optional_agent_adapters_are_installed_only_when_selected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            self.run_installer(home, '--agents', 'pi', 'opencode', 'grok')
+            self.assertEqual((home / '.pi/agent/extensions/blank-direction-gate.ts').resolve(),
+                             ROOT / 'skills/hooks/pi-blank-direction.ts')
+            self.assertEqual((home / '.config/opencode/plugins/blank-direction-gate.ts').resolve(),
+                             ROOT / 'skills/hooks/opencode-blank-direction.ts')
+            self.assertIn('PreToolUse', json.loads((home / '.grok/hooks/blank-direction-gate.json').read_text())['hooks'])
+            self.assertFalse((home / '.codex').exists())
+            self.assertFalse((home / '.claude').exists())
+
+    @unittest.skipUnless(shutil.which('codex'), 'Codex CLI is needed to verify its hook trust')
+    def test_codex_loads_and_trusts_the_installed_gate(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            self.run_installer(home, '--agents', 'codex')
+            args = ['install', '--home', str(home)]
+            with patch.object(sys, 'argv', args):
+                installer = runpy.run_path(str(ROOT / 'skills/bin/install'))
+            gate = str(ROOT / 'skills/hooks/blank-direction-gate')
+            hooks = [hook for hook in installer['codex_hook_hashes'](pathlib.Path(shutil.which('codex')))
+                     if gate in hook.get('command', '')]
+            self.assertEqual(len(hooks), 2)
+            self.assertTrue(all(hook['trustStatus'] == 'trusted' for hook in hooks))
 
     def test_skill_helpers_restore_executable_permissions_without_changing_content(self):
         source = {
