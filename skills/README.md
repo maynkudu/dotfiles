@@ -33,6 +33,11 @@ The bundled `animation-fundamentals` recipes and `aryan-voice` examples work wit
 access to the original private design collection. Historical prompt audits in
 `profile/` describe the original author, not maynkudu.
 
+The bundled `isometric-pixel-games` skill covers browser games, still illustrations,
+and pages built with the Pixel Plays renderer. It includes a stone-skipping starter,
+a page shell, technique references, and the engine's MIT license. Music from the
+source games is not licensed for reuse and is not bundled.
+
 The pstack collection is pinned to `cursor/plugins` 0.15.36. `bro` and `teach`
 keep their existing sources, and pstack's colliding `tdd` skill installs as
 `pstack-tdd`. Agent Browser and Agent Desktop are pinned as separate public skills.
