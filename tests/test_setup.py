@@ -58,6 +58,36 @@ class InstallTests(unittest.TestCase):
             self.assertEqual(content, (home / '.bashrc').read_text())
             self.assertEqual(len(list(home.glob('.bashrc.before-dotfiles-*'))), 1)
 
+    def test_skill_helpers_restore_executable_permissions_without_changing_content(self):
+        source = {
+            'repo': 't3dotgg/tstack',
+            'ref': '1085050f3baed1ac724caa4a8166145fb2ac88af',
+            'skills': [{'name': 'babysit-pr', 'path': 'skills/babysit-pr',
+                        'executables': ['scripts/pr-wait']}],
+        }
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            skill = home / '.agents/skills/babysit-pr'
+            helper = skill / 'scripts/pr-wait'
+            helper.parent.mkdir(parents=True)
+            helper.write_text('print("ready")\n')
+            helper.chmod(0o644)
+            (skill / 'SKILL.md').write_text('---\nname: babysit-pr\n---\n')
+            for dry_run in (True, False, False):
+                args = [str(ROOT / 'bin/setup'), '--skills', '--home', str(home)]
+                if dry_run:
+                    args.append('--dry-run')
+                with (
+                    patch.object(sys, 'argv', args),
+                    patch('json.loads', return_value={'sources': [source]}),
+                    patch('subprocess.run'),
+                    patch('builtins.print'),
+                ):
+                    setup = runpy.run_path(str(ROOT / 'bin/setup'))
+                    setup['main']()
+                self.assertEqual(helper.stat().st_mode & 0o777, 0o644 if dry_run else 0o755)
+                self.assertEqual(helper.read_text(), 'print("ready")\n')
+
     def test_webreel_patch_respects_version_dry_run_and_backups(self):
         original = 'const args = [\n                "--enable-begin-frame-control",\n];\n'
         for version, dry_run in [('0.1.4', True), ('0.1.4', False), ('0.1.5', False)]:

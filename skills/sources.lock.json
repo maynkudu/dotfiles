@@ -563,6 +563,51 @@
       ]
     },
     {
+      "repo": "t3dotgg/tstack",
+      "ref": "1085050f3baed1ac724caa4a8166145fb2ac88af",
+      "skills": [
+        {
+          "name": "babysit-pr",
+          "path": "skills/babysit-pr",
+          "executables": [
+            "scripts/pr-wait"
+          ]
+        },
+        {
+          "name": "council",
+          "path": "skills/council"
+        },
+        {
+          "name": "file-pr",
+          "path": "skills/file-pr"
+        },
+        {
+          "name": "full-send",
+          "path": "skills/full-send"
+        },
+        {
+          "name": "full-stop",
+          "path": "skills/full-stop"
+        },
+        {
+          "name": "leaving-pr-comments",
+          "path": "skills/leaving-pr-comments"
+        },
+        {
+          "name": "modernize",
+          "path": "skills/modernize"
+        },
+        {
+          "name": "sol-loop",
+          "path": "skills/sol-loop"
+        },
+        {
+          "name": "takeover",
+          "path": "skills/takeover"
+        }
+      ]
+    },
+    {
       "repo": "vercel-labs/agent-browser",
       "ref": "5868f7c05020e047c00e68e4abf9253cce864f41",
       "skills": [

@@ -115,6 +115,23 @@ skills = [
   "why",
 ]
 
+[t3dotgg_tstack]
+repo = "t3dotgg/tstack"
+url  = "https://github.com/t3dotgg/tstack.git"
+path = "skills"
+count = 9
+skills = [
+  "babysit-pr",
+  "council",
+  "file-pr",
+  "full-send",
+  "full-stop",
+  "leaving-pr-comments",
+  "modernize",
+  "sol-loop",
+  "takeover",
+]
+
 [software_mansion_argent]
 repo = "software-mansion/argent"
 url  = "https://github.com/software-mansion/argent.git"

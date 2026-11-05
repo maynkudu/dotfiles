@@ -37,6 +37,11 @@ The pstack collection is pinned to `cursor/plugins` 0.15.36. `bro` and `teach`
 keep their existing sources, and pstack's colliding `tdd` skill installs as
 `pstack-tdd`. Agent Browser and Agent Desktop are pinned as separate public skills.
 
+The nine tstack PR and review skills are pinned to `1085050`. `council` and
+`sol-loop` need additional model support when invoked; installation does not
+configure it. Executable helpers declared in `sources.lock.json` have their
+permissions restored after installation, including `babysit-pr/scripts/pr-wait`.
+
 ## Patches and budgets
 
 `bin/patch --skill-home ~/.agents/skills` reapplies declared upstream skill patches.

@@ -125,6 +125,15 @@ def main():
                 run([*base, '--path', *[entry['path'] for entry in plain]])
             for entry in renamed:
                 run([*base, '--path', entry['path'], '--name', entry['name']])
+            for entry in source['skills']:
+                for script in entry.get('executables', []):
+                    executable = shared / entry['name'] / script
+                    if args.dry_run:
+                        print(f'would make executable {executable}')
+                    else:
+                        mode = executable.stat().st_mode
+                        if mode & 0o111 != 0o111:
+                            executable.chmod(mode | 0o111)
         for name in cfg['skills']['local']:
             link(ROOT / 'skills/skills' / name, shared / name)
         # The vendored Cloudflare skills are useful in both active clients.
