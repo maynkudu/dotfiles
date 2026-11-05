@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interactive art"
+  short_description: "Build evolving scenes with elastic interaction"
+  default_prompt: "Use $interactive-art to build layered scenery that grows over time and responds to hover and dragging."

@@ -38,6 +38,11 @@ and pages built with the Pixel Plays renderer. It includes a stone-skipping star
 a page shell, technique references, and the engine's MIT license. Music from the
 source games is not licensed for reuse and is not bundled.
 
+The bundled `interactive-art` skill builds layered website scenes with growth,
+day/night cycles, and elastic interaction. It includes a Canvas runtime, an
+anchored-chain solver, an ornamental garden, an optional React component, and a
+helper that copies editable modules into a host project.
+
 The pstack collection is pinned to `cursor/plugins` 0.15.36. `bro` and `teach`
 keep their existing sources, and pstack's colliding `tdd` skill installs as
 `pstack-tdd`. Agent Browser and Agent Desktop are pinned as separate public skills.

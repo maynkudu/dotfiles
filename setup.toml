@@ -17,4 +17,4 @@ portless = "portless@0.15.12"
 shadcn = "shadcn@4.23.0"
 
 [skills]
-local = ["blank-mode", "aryan-voice", "animation-fundamentals", "router-design", "router-process", "subsystem-modeling", "blank-direction", "google-seo", "isometric-pixel-games"]
+local = ["blank-mode", "aryan-voice", "animation-fundamentals", "router-design", "router-process", "subsystem-modeling", "blank-direction", "google-seo", "isometric-pixel-games", "interactive-art"]
