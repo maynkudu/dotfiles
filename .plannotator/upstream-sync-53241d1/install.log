@@ -1,0 +1,10 @@
+link /home/maynkudu/.agents/skills/isometric-pixel-games -> /home/maynkudu/dotfiles/skills/skills/isometric-pixel-games
+link /home/maynkudu/.claude/skills/isometric-pixel-games -> /home/maynkudu/.agents/skills/isometric-pixel-games
+keep existing /home/maynkudu/.claude/skills/plannotator
+keep existing /home/maynkudu/.claude/skills/plannotator-annotate
+keep existing /home/maynkudu/.claude/skills/plannotator-last
+keep existing /home/maynkudu/.claude/skills/plannotator-review
+run: /usr/bin/python3 /home/maynkudu/dotfiles/skills/bin/patch --skill-home /home/maynkudu/.agents/skills
+
+nothing to do, already patched.
+Setup complete.

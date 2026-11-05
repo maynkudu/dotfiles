@@ -1,0 +1,75 @@
+{
+  "best": 18,
+  "canvas": [
+    360,
+    280
+  ],
+  "corners": [
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ]
+  ],
+  "reset": {
+    "left": 5,
+    "phase": "aim",
+    "total": 0
+  },
+  "shots": [
+    {
+      "left": 4,
+      "phase": "aim",
+      "power": 0.2,
+      "skips": 0
+    },
+    {
+      "left": 3,
+      "phase": "aim",
+      "power": 0.92,
+      "skips": 6
+    },
+    {
+      "left": 2,
+      "phase": "aim",
+      "power": 0.92,
+      "skips": 6
+    },
+    {
+      "left": 1,
+      "phase": "aim",
+      "power": 0.2,
+      "skips": 0
+    },
+    {
+      "left": 0,
+      "phase": "over",
+      "power": 0.92,
+      "skips": 6
+    }
+  ],
+  "stillExport": [
+    1080,
+    840
+  ],
+  "total": 18
+}

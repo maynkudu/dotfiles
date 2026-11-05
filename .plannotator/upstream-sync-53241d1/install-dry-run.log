@@ -1,0 +1,7 @@
+would run: /usr/bin/python3 /home/maynkudu/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo t3dotgg/tstack --ref 1085050f3baed1ac724caa4a8166145fb2ac88af --dest /home/maynkudu/.agents/skills --path skills/babysit-pr skills/council skills/file-pr skills/full-send skills/full-stop skills/leaving-pr-comments skills/modernize skills/sol-loop skills/takeover
+would make executable /home/maynkudu/.agents/skills/babysit-pr/scripts/pr-wait
+keep existing /home/maynkudu/.claude/skills/plannotator
+keep existing /home/maynkudu/.claude/skills/plannotator-annotate
+keep existing /home/maynkudu/.claude/skills/plannotator-last
+keep existing /home/maynkudu/.claude/skills/plannotator-review
+Dry run complete.

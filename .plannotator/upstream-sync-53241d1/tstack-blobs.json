@@ -1,0 +1,58 @@
+[
+  {
+    "path": "skills/babysit-pr/SKILL.md",
+    "blob": "7afd153f2b918b8768c895fe9dff0390da8d7d29"
+  },
+  {
+    "path": "skills/babysit-pr/scripts/pr-wait",
+    "blob": "33d45e5e3828e8dd9f159aee98b8974ebeb56098"
+  },
+  {
+    "path": "skills/council/SKILL.md",
+    "blob": "764ccccd32c950d795c40ab7cd1d31a0bda49c1a"
+  },
+  {
+    "path": "skills/file-pr/SKILL.md",
+    "blob": "c2dea189cec7e24131b7afea412fe445230c107a"
+  },
+  {
+    "path": "skills/full-send/SKILL.md",
+    "blob": "d4f76065131ea57e288446a546b0e37c81847519"
+  },
+  {
+    "path": "skills/full-send/agents/openai.yaml",
+    "blob": "93a19aae4e566b531b95b7aed37df7c3d5c8313e"
+  },
+  {
+    "path": "skills/full-stop/SKILL.md",
+    "blob": "9ea773794a5667e83343fba1002ae5abf94c1878"
+  },
+  {
+    "path": "skills/full-stop/agents/openai.yaml",
+    "blob": "fe4b5e7605ef9f69690fcaee2018b593de734a30"
+  },
+  {
+    "path": "skills/leaving-pr-comments/SKILL.md",
+    "blob": "be310670461f49bab3dbdf427a1fba1a6380a380"
+  },
+  {
+    "path": "skills/leaving-pr-comments/agents/openai.yaml",
+    "blob": "aea24ef867ffc43b64141740dc1a0e2afd74e17c"
+  },
+  {
+    "path": "skills/modernize/SKILL.md",
+    "blob": "3ace16d4629f936a83a2ec359ac5dc7b0bf318c0"
+  },
+  {
+    "path": "skills/modernize/agents/openai.yaml",
+    "blob": "c2e52704b2365490c491fdb023baec20aa7e9d36"
+  },
+  {
+    "path": "skills/sol-loop/SKILL.md",
+    "blob": "6b6892db436c5dfc3443f06569aaca89d7d1f902"
+  },
+  {
+    "path": "skills/takeover/SKILL.md",
+    "blob": "17805d62d097569feb33917afcacdb7207828672"
+  }
+]

@@ -1,0 +1,10 @@
+test_defaults_backups_and_idempotence (test_setup.InstallTests.test_defaults_backups_and_idempotence) ... ok
+test_dry_run_does_not_create_directories (test_setup.InstallTests.test_dry_run_does_not_create_directories) ... ok
+test_shell_preserves_existing_configuration (test_setup.InstallTests.test_shell_preserves_existing_configuration) ... ok
+test_skill_helpers_restore_executable_permissions_without_changing_content (test_setup.InstallTests.test_skill_helpers_restore_executable_permissions_without_changing_content) ... ok
+test_webreel_patch_respects_version_dry_run_and_backups (test_setup.InstallTests.test_webreel_patch_respects_version_dry_run_and_backups) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.326s
+
+OK
