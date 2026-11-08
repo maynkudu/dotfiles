@@ -71,7 +71,7 @@ The setup runs this after installing skills. The explicit directory keeps the op
 scoped. Review deletion declarations in `vendored/` before applying them to an
 existing collection. Missing skills are skipped, not fetched by the patcher.
 
-Codex's generated file has a 24,576-character budget, with long verification and
+Codex's generated file has a 28,672-character budget, with long verification and
 writing procedures in `reference/`. Grok retains its 10,000-character cap. The build
 validates all outputs before writing any file.
 

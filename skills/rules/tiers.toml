@@ -11,7 +11,7 @@
 # Hard caps in characters. 0 means no cap. bin/build fails before writing when a
 # rendered file exceeds its cap. Grok truncates AGENTS.md at 10000.
 grok = 10000
-codex = 24576
+codex = 28672
 claude = 0
 pi = 0
 opencode = 0
