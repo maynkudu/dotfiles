@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interactive garden prototype</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--foreground, #253b42); font-family: var(--font-sans, system-ui, sans-serif); }
+.garden { position: relative; aspect-ratio: 1000 / 680; overflow: hidden; border-radius: var(--radius, 10px); }
+canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+.time { position: absolute; top: 18px; left: 20px; color: #eee6ce; font-size: 13px; text-shadow: 0 1px 5px #14343a; pointer-events: none; }
+.record-point { position: absolute; width: 1px; height: 1px; pointer-events: none; }
+#pull-target { left: 90%; top: 65%; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 14px 0 0; }
+button, select { color: var(--foreground, #253b42); background: var(--secondary, #e9efed); border: 1px solid var(--border, #a1b4ad); border-radius: var(--radius, 6px); padding: 8px 12px; min-height: 40px; font: inherit; font-size: 13px; cursor: pointer; }
+button:focus-visible, select:focus-visible { outline: 2px solid var(--ring, #cab879); outline-offset: 3px; }
+label { color: var(--muted-foreground, #56645f); font-size: 13px; margin-left: auto; }
+.hint { margin: 12px 0 0; font-size: 13px; line-height: 1.5; color: var(--muted-foreground, #56645f); }
+@media (max-width: 520px) { .garden { aspect-ratio: 4 / 5; } label { margin-left: 0; } .time { top: 14px; left: 14px; } }
+</style>
+</head>
+<body>
+<div class="garden"><canvas id="garden" role="img" aria-label="An ornamental lotus garden. Buds open as time passes, with a repeating day and night cycle. Use the Bend lotus button to pull a flower from the keyboard."></canvas><span class="time" id="time">Day</span><span class="record-point" id="flower-target" aria-hidden="true"></span><span class="record-point" id="pull-target" aria-hidden="true"></span></div>
+<div class="controls">
+<button type="button" id="pause" aria-pressed="false">Pause</button>
+<button type="button" id="bend">Bend lotus</button>
+<button type="button" id="grow">Advance 20 seconds</button>
+<button type="button" id="reset">Start again</button>
+<label for="speed">Time</label><select id="speed"><option value="1">1x</option><option value="3" selected>3x</option><option value="6">6x</option></select>
+</div>
+<p class="hint">Hover over a flower, or hold and pull it. The stem returns when you let go.</p>
+<script type="module">
+/* GARDEN_ENGINE */
+const canvas = document.getElementById('garden');
+let shownSecond = -1;
+let garden;
+const flowerTarget = document.getElementById('flower-target');
+garden = createGarden(canvas, { timeScale: 3, onFrame(state) {
+  const seconds = Math.floor(state.elapsed);
+  if (shownSecond !== seconds) {
+    shownSecond = seconds;
+    document.getElementById('time').textContent = `${state.name}  ${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+  }
+  if (garden) {
+    const point = garden.snapshot().plants[3].screen;
+    flowerTarget.style.left = `${point.x}px`; flowerTarget.style.top = `${point.y}px`;
+  }
+} });
+let paused = false, direction = 1;
+document.getElementById('pause').addEventListener('click', event => {
+  paused = !paused; paused ? garden.pause() : garden.resume();
+  event.currentTarget.textContent = paused ? 'Resume' : 'Pause'; event.currentTarget.setAttribute('aria-pressed', String(paused));
+});
+document.getElementById('bend').addEventListener('click', () => { garden.bend('flower-4', direction); direction *= -1; });
+document.getElementById('grow').addEventListener('click', () => garden.seek(garden.snapshot().elapsed + 20));
+document.getElementById('reset').addEventListener('click', () => garden.seek(0));
+document.getElementById('speed').addEventListener('change', event => garden.setTimeScale(Number(event.currentTarget.value)));
+addEventListener('pagehide', () => garden.destroy(), { once: true });
+window.garden = garden;
+</script>
+</body>
+</html>

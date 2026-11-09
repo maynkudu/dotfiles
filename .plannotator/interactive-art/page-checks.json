@@ -1,0 +1,56 @@
+{
+  "hover": {
+    "bloom": 1,
+    "growth": 1,
+    "id": "flower-4",
+    "maxPull": 125.8,
+    "maxSegmentError": 0.00018541204876043604,
+    "rest": {
+      "x": 621.3221170875037,
+      "y": 242
+    },
+    "root": {
+      "x": 578,
+      "y": 612
+    },
+    "tip": {
+      "x": 604.1122721880437,
+      "y": 240.9769444899459
+    }
+  },
+  "extreme_pull": {
+    "limit": 125.8,
+    "maxDistance": 125.8000000000001,
+    "maxSegmentError": 0.00047512019718476406,
+    "rootMoved": false
+  },
+  "release": {
+    "drag": null,
+    "settledMaxDistance": 1.8419915654033017
+  },
+  "time_scale_does_not_stop_physics": true,
+  "keyboard": true,
+  "pause_releases_drag": true,
+  "growth": {
+    "early_bloom": 0,
+    "late_bloom": 1
+  },
+  "repeated_day_night": true,
+  "pause": {
+    "elapsed": 0,
+    "renders": 0
+  },
+  "reduced_motion": {
+    "disabled": true,
+    "elapsed": 0,
+    "renders": 0
+  },
+  "reduced_motion_time_control": true,
+  "offscreen_pause": true,
+  "mobile_layout": {
+    "canvasTouch": "pan-y",
+    "overflow": false,
+    "targetTouch": "none",
+    "targets": 6
+  }
+}

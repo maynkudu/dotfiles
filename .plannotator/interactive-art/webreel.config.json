@@ -1,0 +1,22 @@
+{
+  "$schema": "https://webreel.dev/schema/v1.json",
+  "outDir": "videos",
+  "viewport": { "width": 1000, "height": 800 },
+  "videos": {
+    "garden-interaction": {
+      "url": "file:///home/maynkudu/dotfiles/.plannotator/interactive-art/prototype/preview.html",
+      "output": "garden-interaction.mp4",
+      "waitFor": "#garden",
+      "steps": [
+        { "action": "pause", "ms": 1200 },
+        { "action": "drag", "from": { "selector": "#flower-target" }, "to": { "selector": "#pull-target" }, "delay": 2200 },
+        { "action": "moveTo", "selector": "#time", "delay": 1600 },
+        { "action": "click", "selector": "#grow", "delay": 2200 },
+        { "action": "click", "selector": "#grow", "delay": 3500 },
+        { "action": "click", "selector": "#bend", "delay": 2400 },
+        { "action": "click", "selector": "#reset", "delay": 700 },
+        { "action": "select", "selector": "#speed", "value": "6", "delay": 10000 }
+      ]
+    }
+  }
+}

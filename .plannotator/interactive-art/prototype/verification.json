@@ -1,0 +1,55 @@
+{
+  "hover": {
+    "displacement": 16.991576137924312,
+    "root": {
+      "x": 578,
+      "y": 612
+    }
+  },
+  "drag_samples": {
+    "limit": 125.8,
+    "maxDistance": 125.80000000000008,
+    "maxSegmentError": 0.0010137896911651678,
+    "rootMoved": false
+  },
+  "release": {
+    "drag": null,
+    "settledMaxDistance": 1.6933466556823005
+  },
+  "keyboard_bend": true,
+  "growth": {
+    "early": 0,
+    "late": 1
+  },
+  "cycle": {
+    "day": 1,
+    "night": 0,
+    "repeat": 1
+  },
+  "pause": {
+    "elapsed": 0,
+    "renders": 0
+  },
+  "reduced_motion": {
+    "elapsed": 0,
+    "reduced": true,
+    "renders": 0
+  },
+  "preference_resumed": true,
+  "phone_viewport": {
+    "bitmap": [
+      780,
+      975
+    ],
+    "height": 487.5,
+    "overflow": false,
+    "width": 390
+  },
+  "cleanup": {
+    "destroyed": true,
+    "renders": 0,
+    "running": false
+  },
+  "browser_errors": "",
+  "browser_console": ""
+}

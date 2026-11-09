@@ -1,0 +1,52 @@
+{
+  "mobile_focus_targets": [
+    "flower-2",
+    "flower-3",
+    "flower-4",
+    "flower-5"
+  ],
+  "mobile_keyboard": true,
+  "independent_instances": true,
+  "local_cleanup": {
+    "siblingRunning": true,
+    "stopped": true,
+    "targets": 0
+  },
+  "saved_progress": {
+    "invalidRejected": true,
+    "same": true
+  },
+  "repeated_mount_cleanup": {
+    "allDestroyed": true,
+    "remainingTargets": 6
+  },
+  "hidden_tab": {
+    "elapsed": 0,
+    "hiddenAfter": true,
+    "hiddenBefore": true,
+    "renders": 0
+  },
+  "layer_exports": {
+    "size": [
+      1000,
+      680
+    ],
+    "layers": [
+      "sky",
+      "celestial",
+      "landscape",
+      "water",
+      "pads",
+      "stems",
+      "leaves",
+      "blossoms",
+      "foreground",
+      "grain"
+    ],
+    "plants_alpha": [
+      0,
+      255
+    ],
+    "maximum_channel_difference": 3
+  }
+}
