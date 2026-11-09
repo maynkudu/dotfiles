@@ -1,0 +1,119 @@
+{
+  "retrieved_date_utc": "2026-11-09",
+  "scope": "Apple first-party sources for fluid interaction, springs, and iOS 26 Liquid Glass. Ten substantive sources. Catalogs and incidental linked icon pages are discovery records, not additional evidence sources. No videos were played or controls operated.",
+  "context7": {
+    "library_id": "/websites/developer_apple_swiftui",
+    "commands": 2,
+    "quota_failure": false,
+    "result_path": "ctx7-swiftui.txt"
+  },
+  "sources": [
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2018/803/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2018/803/",
+      "retrieved_at_utc": "2026-11-09T11:31:25.648671+00:00",
+      "status": 200,
+      "bytes": 301390,
+      "raw_path": "wwdc2018-803.html",
+      "id": "wwdc2018-803",
+      "citation_url": "https://developer.apple.com/videos/play/wwdc2018/803/",
+      "transcript_path": "wwdc2018-803.transcript.txt",
+      "excerpt_path": "wwdc2018-803.excerpts.txt"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2023/10158/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2023/10158/",
+      "retrieved_at_utc": "2026-11-09T11:31:25.038469+00:00",
+      "status": 200,
+      "bytes": 165264,
+      "raw_path": "wwdc2023-10158.html",
+      "id": "wwdc2023-10158",
+      "citation_url": "https://developer.apple.com/videos/play/wwdc2023/10158/",
+      "transcript_path": "wwdc2023-10158.transcript.txt",
+      "excerpt_path": "wwdc2023-10158.excerpts.txt"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2023/10156/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2023/10156/",
+      "retrieved_at_utc": "2026-11-09T11:34:01.261269+00:00",
+      "bytes": 186352,
+      "raw_path": "wwdc2023-10156.html",
+      "id": "wwdc2023-10156",
+      "citation_url": "https://developer.apple.com/videos/play/wwdc2023/10156/",
+      "transcript_path": "wwdc2023-10156.transcript.txt",
+      "excerpt_path": "wwdc2023-10156.excerpts.txt"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2025/219/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2025/219/",
+      "retrieved_at_utc": "2026-11-09T11:31:25.926436+00:00",
+      "status": 200,
+      "bytes": 156313,
+      "raw_path": "wwdc2025-219.html",
+      "id": "wwdc2025-219",
+      "citation_url": "https://developer.apple.com/videos/play/wwdc2025/219/",
+      "transcript_path": "wwdc2025-219.transcript.txt",
+      "excerpt_path": "wwdc2025-219.excerpts.txt"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2025/356/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2025/356/",
+      "retrieved_at_utc": "2026-11-09T11:32:24.154213+00:00",
+      "raw_path": "wwdc2025-356.html",
+      "bytes": 151042,
+      "id": "wwdc2025-356",
+      "citation_url": "https://developer.apple.com/videos/play/wwdc2025/356/",
+      "transcript_path": "wwdc2025-356.transcript.txt",
+      "excerpt_path": "wwdc2025-356.excerpts.txt"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2025/323/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2025/323/",
+      "retrieved_at_utc": "2026-11-09T11:34:01.169765+00:00",
+      "bytes": 183731,
+      "raw_path": "wwdc2025-323.html",
+      "id": "wwdc2025-323",
+      "citation_url": "https://developer.apple.com/videos/play/wwdc2025/323/",
+      "transcript_path": "wwdc2025-323.transcript.txt",
+      "excerpt_path": "wwdc2025-323.excerpts.txt"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2025/284/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2025/284/",
+      "retrieved_at_utc": "2026-11-09T11:34:01.181883+00:00",
+      "bytes": 201718,
+      "raw_path": "wwdc2025-284.html",
+      "id": "wwdc2025-284",
+      "citation_url": "https://developer.apple.com/videos/play/wwdc2025/284/",
+      "transcript_path": "wwdc2025-284.transcript.txt",
+      "excerpt_path": "wwdc2025-284.excerpts.txt"
+    },
+    {
+      "url": "https://developer.apple.com/tutorials/data/documentation/swiftui/applying-liquid-glass-to-custom-views.json",
+      "final_url": "https://developer.apple.com/tutorials/data/documentation/swiftui/applying-liquid-glass-to-custom-views.json",
+      "retrieved_at_utc": "2026-11-09T11:34:01.278362+00:00",
+      "bytes": 40112,
+      "raw_path": "doc-custom-liquid-glass.json",
+      "id": "doc-custom-liquid-glass",
+      "citation_url": "https://developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views"
+    },
+    {
+      "url": "https://developer.apple.com/tutorials/data/documentation/swiftui/glasseffectcontainer.json",
+      "final_url": "https://developer.apple.com/tutorials/data/documentation/swiftui/glasseffectcontainer.json",
+      "retrieved_at_utc": "2026-11-09T11:34:01.187739+00:00",
+      "bytes": 20643,
+      "raw_path": "doc-glass-effect-container.json",
+      "id": "doc-glass-effect-container",
+      "citation_url": "https://developer.apple.com/documentation/swiftui/glasseffectcontainer"
+    },
+    {
+      "url": "https://developer.apple.com/tutorials/data/documentation/swiftui/animation/spring(_:blendduration:).json",
+      "final_url": "https://developer.apple.com/tutorials/data/documentation/swiftui/animation/spring(_:blendduration:).json",
+      "retrieved_at_utc": "2026-11-09T11:34:01.245094+00:00",
+      "bytes": 22858,
+      "raw_path": "doc-spring-persistence.json",
+      "id": "doc-spring-persistence",
+      "citation_url": "https://developer.apple.com/documentation/swiftui/animation/spring(_:blendduration:)"
+    }
+  ]
+}

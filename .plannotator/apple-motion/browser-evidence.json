@@ -1,0 +1,665 @@
+[
+  {
+    "scenario": "upper endpoint while dragging",
+    "state": {
+      "brightness": {
+        "dragging": true,
+        "edge": -1,
+        "rawOvershoot": -110,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": -26.76497695852535,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 100
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "release after stationary hold",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": -1,
+        "rawOvershoot": -38.12008242974164,
+        "rawVelocity": 663.1414222988213,
+        "releaseVelocity": 0,
+        "renderedOvershoot": -14.592255815698271,
+        "renderedVelocity": 176.67726759405102,
+        "settling": true,
+        "value": 100
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": true,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "lower endpoint while dragging",
+    "state": {
+      "brightness": {
+        "dragging": true,
+        "edge": 1,
+        "rawOvershoot": 120,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 27.78947368421053,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "snap flick release",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": 1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": true,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Right",
+        "dragging": false,
+        "position": 200.71704856301452,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 473.654345588615,
+        "renderedPosition": 194.97752096977973,
+        "settling": true,
+        "target": 190,
+        "velocity": -60.7161461057736
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "before snap regrab",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": 1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": true,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Right",
+        "dragging": false,
+        "position": 190.0427863634658,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 473.654345588615,
+        "renderedPosition": 190.02351520704343,
+        "settling": true,
+        "target": 190,
+        "velocity": -4.862631238756264
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "snap regrab",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": 1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Right",
+        "dragging": true,
+        "position": 189.9288695723854,
+        "prediction": 189.9288695723854,
+        "railTravel": 190,
+        "releaseVelocity": 473.654345588615,
+        "renderedPosition": 189.9288695723854,
+        "settling": false,
+        "target": 190,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "lost pointer capture",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": 1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": true,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 108.64542070266722,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 108.64542070266722,
+        "settling": true,
+        "target": 95,
+        "velocity": -212.0202863257446
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "merged circles",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": 1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 38,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 38,
+        "value": 0,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "separated circles",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": 1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": false,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 148,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 148,
+        "value": 100,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "reduced motion interrupts replay",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": -1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 100
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": true,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "reduced motion keyboard",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": -1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": true,
+        "sequenceRunning": false,
+        "systemReduced": false
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "hot system reduced motion",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": -1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": true,
+        "sequenceRunning": false,
+        "systemReduced": true
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 95,
+        "prediction": null,
+        "railTravel": 190,
+        "releaseVelocity": 0,
+        "renderedPosition": 95,
+        "settling": false,
+        "target": 95,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  },
+  {
+    "scenario": "390 pixel layout",
+    "state": {
+      "brightness": {
+        "dragging": false,
+        "edge": -1,
+        "rawOvershoot": 0,
+        "rawVelocity": 0,
+        "releaseVelocity": 0,
+        "renderedOvershoot": 0,
+        "renderedVelocity": 0,
+        "settling": false,
+        "value": 0
+      },
+      "lifecycle": {
+        "destroyed": false,
+        "hidden": false,
+        "rafPending": false,
+        "reduced": true,
+        "sequenceRunning": false,
+        "systemReduced": true
+      },
+      "snap": {
+        "destination": "Center",
+        "dragging": false,
+        "position": 130,
+        "prediction": null,
+        "railTravel": 260,
+        "releaseVelocity": 0,
+        "renderedPosition": 130,
+        "settling": false,
+        "target": 130,
+        "velocity": 0
+      },
+      "tuning": {
+        "omegaRadiansPerSecond": 20,
+        "predictionDecayPerSecond": 8,
+        "rubberCoefficient": 0.55,
+        "rubberLimitPixels": 48,
+        "zeta": 0.85
+      },
+      "union": {
+        "gap": 126,
+        "renderer": "polynomial smooth-union SDF, radius 32 px, blend 18 px",
+        "settling": false,
+        "target": 126,
+        "value": 80,
+        "velocity": 0
+      }
+    }
+  }
+]

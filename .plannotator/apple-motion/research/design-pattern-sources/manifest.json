@@ -1,0 +1,132 @@
+{
+  "completed_utc": "2026-11-09T12:29:47.514806+00:00",
+  "main_sources": 10,
+  "reused_shared_layout_sources": 1,
+  "evidence_level": "source and transcript reads only",
+  "context7_library": "/websites/developer_apple_design_human-interface-guidelines",
+  "context7_quota_error": false,
+  "sources": [
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/buttons",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/buttons.json",
+      "retrieved_utc": "2026-11-09T12:23:02.535352+00:00",
+      "status": 200,
+      "title": "Buttons",
+      "sha256": "fb450f96dd7a201a0203852782252942ee6d72978e0baaec1cb4c400568fed91",
+      "source_modified": "Thu, 06 Aug 2026 02:58:13 GMT",
+      "raw_path": "hig-buttons.json",
+      "text_path": "hig-buttons.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/popovers",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/popovers.json",
+      "retrieved_utc": "2026-11-09T12:23:02.444178+00:00",
+      "status": 200,
+      "title": "Popovers",
+      "sha256": "ae4c7d2c637fd6a11918b9cd41a0e8a3bb05b9d9e083a999a264d077898cfee5",
+      "source_modified": "Thu, 15 Oct 2026 05:20:27 GMT",
+      "raw_path": "hig-popovers.json",
+      "text_path": "hig-popovers.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/progress-indicators",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/progress-indicators.json",
+      "retrieved_utc": "2026-11-09T12:23:02.426695+00:00",
+      "status": 200,
+      "title": "Progress indicators",
+      "sha256": "76a299d47f154a13b38568a52054f96d5f784739a6aecfe1a82d6ff3a042aa7c",
+      "source_modified": "Thu, 06 Aug 2026 02:58:13 GMT",
+      "raw_path": "hig-progress-indicators.json",
+      "text_path": "hig-progress-indicators.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/segmented-controls",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/segmented-controls.json",
+      "retrieved_utc": "2026-11-09T12:23:01.949599+00:00",
+      "status": 200,
+      "title": "Segmented controls",
+      "sha256": "58316edb97f3e1b141e4c86d4671ebc994f5feb68576379f94f5f4be29537d88",
+      "source_modified": "Thu, 06 Aug 2026 02:58:13 GMT",
+      "raw_path": "hig-segmented-controls.json",
+      "text_path": "hig-segmented-controls.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/sheets",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/sheets.json",
+      "retrieved_utc": "2026-11-09T12:23:02.517556+00:00",
+      "status": 200,
+      "title": "Sheets",
+      "sha256": "712c71429272551f520925adab0fdaa8c998dc532fadca7ce63e53dfee4b5f9c",
+      "source_modified": "Thu, 15 Oct 2026 05:20:27 GMT",
+      "raw_path": "hig-sheets.json",
+      "text_path": "hig-sheets.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/sliders",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/sliders.json",
+      "retrieved_utc": "2026-11-09T12:23:02.238936+00:00",
+      "status": 200,
+      "title": "Sliders",
+      "sha256": "d557c0acf0362a586460bed995d1fdc6a605117d5051d6d4dcbe42eeb27e273f",
+      "source_modified": "Thu, 06 Aug 2026 02:58:13 GMT",
+      "raw_path": "hig-sliders.json",
+      "text_path": "hig-sliders.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/toggles",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/toggles.json",
+      "retrieved_utc": "2026-11-09T12:23:02.457978+00:00",
+      "status": 200,
+      "title": "Toggles",
+      "sha256": "bed6ecd8ea69e785eed940803ae0cfe12f6b2120ee1072f5b6b34d1b618df753",
+      "source_modified": "Thu, 20 Aug 2026 23:04:54 GMT",
+      "raw_path": "hig-toggles.json",
+      "text_path": "hig-toggles.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/toolbars",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/toolbars.json",
+      "retrieved_utc": "2026-11-09T12:23:02.063242+00:00",
+      "status": 200,
+      "title": "Toolbars",
+      "sha256": "4f1147642ab0561dcb2d4b074be970a537e2072be41e061314d1e234b4cdc6f7",
+      "source_modified": "Thu, 20 Aug 2026 23:04:54 GMT",
+      "raw_path": "hig-toolbars.json",
+      "text_path": "hig-toolbars.txt",
+      "hash_verified": true
+    },
+    {
+      "source_url": "https://developer.apple.com/videos/play/wwdc2025/356/",
+      "reused_from": "../apple-primary-sources/wwdc2025-356.transcript.txt",
+      "retrieved_utc": "2026-11-09T11:32:24.154213+00:00",
+      "transcript_sha256": "2587cbd959d2f2d17bb81f495b1257849663bf26d880fc58e6cba9b6762f4d0c",
+      "inspected": "full transcript"
+    },
+    {
+      "source_url": "https://developer.apple.com/videos/play/wwdc2025/323/",
+      "reused_from": "../apple-primary-sources/wwdc2025-323.transcript.txt",
+      "retrieved_utc": "2026-11-09T11:34:01.169765+00:00",
+      "transcript_sha256": "d0ddf66b27c3ae12b03096d1e38c0836d894ea8663520500ec779fa0a7a48531",
+      "inspected": "full transcript"
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/layout",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/layout.json",
+      "retrieved_utc": "2026-11-09T12:20:41.144089+00:00",
+      "status": 200,
+      "title": "Layout",
+      "sha256": "a82834079070ec5a7209085b5b26821e737ab127bca5ff9795b3f457b5990cd3",
+      "source_modified": null,
+      "latest_listed_change_date": "2026-09-09",
+      "reused_from": "../design-foundation-sources/hig-layout.json",
+      "inspected": "shared layout context"
+    }
+  ]
+}

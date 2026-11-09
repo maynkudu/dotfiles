@@ -1,0 +1,26 @@
+[
+  {
+    "file": "iq-distance-functions.html",
+    "url": "https://iquilezles.org/articles/distfunctions/",
+    "final_url": "https://iquilezles.org/articles/distfunctions/",
+    "status": 200,
+    "bytes": 62797,
+    "retrieved_utc": "2026-11-09T11:33:20.448353+00:00"
+  },
+  {
+    "file": "iq-smooth-minimum.html",
+    "url": "https://iquilezles.org/articles/smin/",
+    "final_url": "https://iquilezles.org/articles/smin/",
+    "status": 200,
+    "bytes": 60907,
+    "retrieved_utc": "2026-11-09T11:33:22.709750+00:00"
+  },
+  {
+    "file": "muller-2003-surface-tension.pdf",
+    "url": "https://matthias-research.github.io/pages/publications/sca03.pdf",
+    "final_url": "https://matthias-research.github.io/pages/publications/sca03.pdf",
+    "status": 200,
+    "bytes": 2725897,
+    "retrieved_utc": "2026-11-09T11:33:26.133052+00:00"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "compose-value-based.html",
+    "url": "https://developer.android.com/develop/ui/compose/animation/value-based",
+    "final_url": "https://developer.android.com/develop/ui/compose/animation/value-based",
+    "status": 200,
+    "bytes": 443176,
+    "retrieved_utc": "2026-11-09T11:34:24.453017+00:00"
+  },
+  {
+    "file": "flutter-spring-simulation.html",
+    "url": "https://api.flutter.dev/flutter/physics/SpringSimulation-class.html",
+    "final_url": "https://api.flutter.dev/flutter/physics/SpringSimulation-class.html",
+    "status": 200,
+    "bytes": 15986,
+    "retrieved_utc": "2026-11-09T11:34:23.357989+00:00"
+  },
+  {
+    "file": "motion-react-values.html",
+    "url": "https://motion.dev/docs/react-motion-value",
+    "final_url": "https://motion.dev/docs/react-motion-value",
+    "status": 200,
+    "bytes": 125667,
+    "retrieved_utc": "2026-11-09T11:34:23.115840+00:00"
+  },
+  {
+    "file": "reanimated-spring.ts",
+    "url": "https://raw.githubusercontent.com/software-mansion/react-native-reanimated/main/packages/react-native-reanimated/src/animation/spring/spring.ts",
+    "final_url": "https://raw.githubusercontent.com/software-mansion/react-native-reanimated/main/packages/react-native-reanimated/src/animation/spring/spring.ts",
+    "status": 200,
+    "bytes": 7978,
+    "retrieved_utc": "2026-11-09T11:34:23.155295+00:00"
+  },
+  {
+    "file": "bourke-implicit-surfaces.html",
+    "url": "https://paulbourke.net/geometry/implicitsurf/",
+    "final_url": "https://paulbourke.net/geometry/implicitsurf/",
+    "status": 200,
+    "bytes": 10505,
+    "retrieved_utc": "2026-11-09T11:34:26.816553+00:00"
+  }
+]

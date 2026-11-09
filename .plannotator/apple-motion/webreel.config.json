@@ -1,0 +1,21 @@
+{
+  "$schema": "https://webreel.dev/schema/v1.json",
+  "outDir": "./videos",
+  "viewport": { "width": 1040, "height": 700 },
+  "clickDwell": 0,
+  "videos": {
+    "motion-mechanisms": {
+      "url": "file:///home/maynkudu/dotfiles/.plannotator/apple-motion/lab.html",
+      "output": "proposed-motion-mechanisms.mp4",
+      "fps": 60,
+      "steps": [
+        { "action": "wait", "selector": "#play" },
+        { "action": "click", "selector": "#play" },
+        { "action": "pause", "ms": 3000 },
+        { "action": "click", "selector": "#reduce-motion" },
+        { "action": "click", "selector": "#play" },
+        { "action": "pause", "ms": 500 }
+      ]
+    }
+  }
+}

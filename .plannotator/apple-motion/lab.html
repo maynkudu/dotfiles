@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion mechanisms</title>
+<style>
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { color: var(--foreground, #202633); font: 14px/1.45 system-ui, sans-serif; }
+button, input { font: inherit; }
+button { color: inherit; border: 1px solid var(--border, #d8dce5); border-radius: 9px; background: var(--card, #fff); padding: 7px 11px; cursor: pointer; }
+button:hover, button:active { background: var(--muted, #edf0f6); }
+:focus-visible { outline: 3px solid var(--chart-1, #4263d8); outline-offset: 4px; }
+.lab { max-width: 1000px; margin: 0 auto; }
+.toolbar, .settings, .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.toolbar { flex-wrap: wrap; margin-bottom: 16px; }
+.settings { flex-wrap: wrap; }
+h1 { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: -.025em; }
+h2 { margin: 0; font-size: 15px; font-weight: 600; }
+.preference { display: flex; align-items: center; gap: 6px; }
+input { accent-color: var(--chart-1, #4263d8); }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.panel { min-width: 0; border: 1px solid var(--border, #d8dce5); border-radius: 16px; background: var(--card, #fff); padding: 18px; }
+output { font-size: 13px; font-variant-numeric: tabular-nums; }
+.help { font-size: 12px; opacity: .72; margin: 8px 0 0; }
+.stage { height: 230px; position: relative; margin-top: 10px; }
+.brightness-control { width: 160px; height: 230px; margin: 0 auto; position: relative; border-radius: 12px; cursor: ns-resize; touch-action: none; user-select: none; }
+.brightness-shell { position: absolute; left: 33px; top: 32px; width: 94px; height: 164px; border-radius: 31px; overflow: hidden; background: color-mix(in srgb, var(--foreground, #202633) 14%, var(--card, #fff)); }
+.brightness-fill { position: absolute; bottom: 0; width: 100%; height: 65%; background: var(--chart-1, #4263d8); }
+.sun { position: absolute; left: 63px; top: 148px; width: 34px; height: 34px; color: var(--foreground, #202633); pointer-events: none; }
+.brightness-caption { position: absolute; top: 207px; width: 100%; text-align: center; font-size: 12px; pointer-events: none; }
+.snap-control { position: absolute; inset: 0 0 54px; border-radius: 12px; cursor: ew-resize; touch-action: pan-y; user-select: none; }
+.rail { position: absolute; left: 16px; right: 16px; top: 60px; height: 68px; }
+.rail-line { position: absolute; top: 31px; left: 32px; right: 32px; height: 2px; background: var(--border, #d8dce5); }
+.detent { position: absolute; top: 27px; width: 10px; height: 10px; border: 2px solid var(--border, #d8dce5); background: var(--card, #fff); border-radius: 50%; transform: translateX(-50%); }
+.detent-left { left: 32px; } .detent-center { left: 50%; } .detent-right { left: calc(100% - 32px); }
+.snap-item { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 19px; color: #fff; background: var(--chart-1, #4263d8); position: absolute; top: 0; left: 0; box-shadow: 0 5px 12px #00000016; pointer-events: none; }
+.snap-item svg { width: 28px; height: 28px; }
+.prediction { position: absolute; width: 2px; height: 14px; top: 79px; background: var(--chart-1, #4263d8); opacity: .75; }
+.snap-caption { position: absolute; top: 158px; width: 100%; text-align: center; font-size: 12px; opacity: .72; }
+.detent-buttons { position: absolute; left: 0; right: 0; bottom: 0; display: flex; gap: 6px; }
+.detent-buttons button { flex: 1; padding-inline: 4px; font-size: 12px; }
+.detent-buttons button[aria-pressed="true"] { border-color: var(--chart-1, #4263d8); color: var(--chart-1, #4263d8); }
+.circles { height: 158px; color: var(--chart-1, #4263d8); position: relative; }
+canvas { width: 100%; height: 154px; display: block; }
+.circle-label { position: absolute; top: 66px; color: #fff; font-weight: 600; transform: translateX(-50%); pointer-events: none; }
+.circle-range { display: block; width: 100%; margin: 5px 0 10px; }
+.circle-buttons { display: flex; justify-content: center; gap: 8px; }
+.footer { display: flex; gap: 12px; justify-content: space-between; flex-wrap: wrap; margin-top: 13px; font-size: 12px; opacity: .72; }
+.footer p { margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } .panel { padding: 16px; } .stage { max-width: 360px; margin-left: auto; margin-right: auto; } }
+</style>
+</head>
+<body>
+<main class="lab">
+<header class="toolbar"><h1>Motion mechanisms</h1><div class="settings"><label class="preference"><input id="reduce-motion" type="checkbox"> Reduce motion</label><button id="play" type="button">Play sequence</button></div></header>
+<div class="grid">
+<section class="panel" aria-labelledby="brightness-title">
+  <div class="panel-head"><h2 id="brightness-title">Elastic brightness</h2><output id="brightness-value" aria-hidden="true">65%</output></div>
+  <div class="stage"><div id="brightness" class="brightness-control" role="slider" tabindex="0" aria-label="Brightness" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65" aria-describedby="brightness-help">
+    <div id="brightness-shell" class="brightness-shell" aria-hidden="true"><div id="brightness-fill" class="brightness-fill"></div></div>
+    <svg class="sun" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="16" r="5"/><path d="M16 2v4M16 26v4M2 16h4M26 16h4M6.1 6.1l2.8 2.8M23.1 23.1l2.8 2.8M6.1 25.9l2.8-2.8M23.1 8.9l2.8-2.8"/></svg>
+    <span class="brightness-caption" aria-hidden="true">Brightness</span>
+  </div></div>
+  <p id="brightness-help" class="help">Drag past either end. Arrow keys adjust the value.</p>
+</section>
+<section class="panel" aria-labelledby="snap-title">
+  <div class="panel-head"><h2 id="snap-title">Predicted snap</h2><output id="snap-value" aria-hidden="true">Center</output></div>
+  <div class="stage">
+    <div id="snap" class="snap-control" role="slider" tabindex="0" aria-label="Snap position" aria-valuemin="1" aria-valuemax="3" aria-valuenow="2" aria-valuetext="Center" aria-describedby="snap-help">
+      <div id="rail" class="rail" aria-hidden="true"><div class="rail-line"></div><i class="detent detent-left"></i><i class="detent detent-center"></i><i class="detent detent-right"></i><div id="snap-item" class="snap-item"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="5" width="18" height="18" rx="4"/><path d="M10 10h8M10 14h8M10 18h5" stroke-linecap="round"/></svg></div><div id="prediction" class="prediction" hidden></div></div>
+      <span id="snap-caption" class="snap-caption" aria-hidden="true">Grab again while it settles</span>
+    </div>
+    <div class="detent-buttons" role="group" aria-label="Snap destinations"><button type="button" data-detent="0" aria-pressed="false">Left</button><button type="button" data-detent="1" aria-pressed="true">Center</button><button type="button" data-detent="2" aria-pressed="false">Right</button></div>
+  </div>
+  <p id="snap-help" class="help">Release speed selects the destination. Use arrows or buttons.</p>
+</section>
+<section class="panel" aria-labelledby="union-title">
+  <div class="panel-head"><h2 id="union-title">Merging shapes</h2><output id="union-value" aria-hidden="true">80%</output></div>
+  <div class="stage">
+    <div id="circles" class="circles" aria-hidden="true"><canvas id="union-canvas" width="280" height="154"></canvas><span id="label-a" class="circle-label">A</span><span id="label-b" class="circle-label">B</span></div>
+    <label class="sr-only" for="separation">Circle separation</label><input id="separation" class="circle-range" type="range" min="0" max="100" value="80" aria-describedby="union-help">
+    <div class="circle-buttons"><button id="merge" type="button">Merge</button><button id="separate" type="button">Separate</button></div>
+  </div>
+  <p id="union-help" class="help">Smooth-union shape approximation. Labels keep their shape.</p>
+</section>
+</div>
+<footer class="footer"><p>Example spring tuning. Original mechanism proof.</p><p id="motion-status">System motion preference applies.</p></footer>
+<div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</main>
+<script>
+(() => {
+  'use strict';
+  const byId = id => document.getElementById(id);
+  const brightnessControl = byId('brightness'), snapControl = byId('snap');
+  const rail = byId('rail'), canvas = byId('union-canvas');
+  const context = canvas.getContext('2d');
+  const separation = byId('separation'), reduceInput = byId('reduce-motion');
+  const systemPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  const detentButtons = [...document.querySelectorAll('[data-detent]')];
+  const names = ['Left', 'Center', 'Right'];
+  const OMEGA = 20, ZETA = .85, TRAVEL = 164, RUBBER_LIMIT = 48, RUBBER_COEFFICIENT = .55, DECAY = 8;
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const spring = x => ({ x, v: 0, target: x, active: false });
+  const brightness = { value: 65, overshoot: spring(0), edge: -1, inputSlope: 0, releaseVelocity: 0, drag: null };
+  const snap = { position: spring(0), destination: 1, drag: null, prediction: null, releaseVelocity: 0 };
+  const union = { gap: spring(126), value: 80 };
+  let railTravel = 0, frame = null, previousTime = null, sequenceTimers = [], sequenceRunning = false, destroyed = false;
+  let rasterGap = NaN, rasterColor = '';
+
+  function rubberband(distance, limit = RUBBER_LIMIT, coefficient = RUBBER_COEFFICIENT) {
+    return Math.sign(distance) * limit * coefficient * Math.abs(distance) / (limit + coefficient * Math.abs(distance));
+  }
+  function rubberDerivative(distance, limit = RUBBER_LIMIT, coefficient = RUBBER_COEFFICIENT) {
+    return coefficient * limit * limit / (limit + coefficient * Math.abs(distance)) ** 2;
+  }
+  function settle(state) { state.x = state.target; state.v = 0; state.active = false; }
+  // Exact underdamped solution. omega is rad/s, position is px and velocity is px/s.
+  function springStep(state, seconds) {
+    const a = ZETA * OMEGA, b = OMEGA * Math.sqrt(1 - ZETA * ZETA), y = state.x - state.target;
+    const decay = Math.exp(-a * seconds), sine = Math.sin(b * seconds), cosine = Math.cos(b * seconds);
+    const nextX = state.target + decay * (y * cosine + (state.v + a * y) / b * sine);
+    const nextV = decay * (state.v * cosine - (a * state.v + OMEGA * OMEGA * y) / b * sine);
+    state.x = nextX; state.v = nextV;
+    if (Math.abs(state.x - state.target) < .05 && Math.abs(state.v) < .5) settle(state);
+  }
+  const reduced = () => reduceInput.checked || systemPreference.matches;
+  const springs = () => [brightness.overshoot, snap.position, union.gap];
+  function wake() {
+    if (!destroyed && frame === null && !document.hidden && !reduced() && springs().some(state => state.active)) {
+      previousTime = null; frame = requestAnimationFrame(tick);
+    }
+  }
+  function tick(timestamp) {
+    frame = null;
+    if (document.hidden || destroyed || reduced()) return;
+    const seconds = previousTime === null ? 0 : clamp((timestamp - previousTime) / 1000, 0, .064);
+    previousTime = timestamp;
+    for (const state of springs()) if (state.active) springStep(state, seconds);
+    render();
+    if (springs().some(state => state.active)) frame = requestAnimationFrame(tick);
+    else previousTime = null;
+  }
+  function animate(state, target, velocity = state.v) {
+    state.target = target; state.v = velocity; state.active = true;
+    if (reduced()) settle(state);
+    render(); wake();
+  }
+  function boundedPosition(raw) {
+    if (raw < 0) return rubberband(raw, 32);
+    if (raw > railTravel) return railTravel + rubberband(raw - railTravel, 32);
+    return raw;
+  }
+  function nearestDetent(position) { return railTravel > 0 ? clamp(Math.round(position / railTravel * 2), 0, 2) : 0; }
+  function chooseDetent(index, velocity = snap.position.v) {
+    snap.destination = clamp(index, 0, 2);
+    animate(snap.position, railTravel * snap.destination / 2, velocity);
+  }
+  function drawUnion() {
+    if (!context) return;
+    const width = canvas.width, height = canvas.height, gap = union.gap.x, color = getComputedStyle(byId('circles')).color;
+    if (Math.abs(gap - rasterGap) < .03 && color === rasterColor) return;
+    rasterGap = gap; rasterColor = color;
+    context.clearRect(0, 0, width, height); context.fillStyle = color; context.fillRect(0, 0, 1, 1);
+    const rgb = context.getImageData(0, 0, 1, 1).data, pixels = context.createImageData(width, height);
+    const left = width / 2 - gap / 2, right = width / 2 + gap / 2, radius = 32, smoothing = 18;
+    for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+      const a = Math.hypot(x + .5 - left, y + .5 - 77) - radius;
+      const b = Math.hypot(x + .5 - right, y + .5 - 77) - radius;
+      const h = clamp(.5 + .5 * (b - a) / smoothing, 0, 1);
+      const distance = b * (1 - h) + a * h - smoothing * h * (1 - h), offset = (y * width + x) * 4;
+      pixels.data[offset] = rgb[0]; pixels.data[offset + 1] = rgb[1]; pixels.data[offset + 2] = rgb[2];
+      pixels.data[offset + 3] = Math.round(clamp(.5 - distance, 0, 1) * 255);
+    }
+    context.putImageData(pixels, 0, 0);
+  }
+  function render() {
+    const over = reduced() ? 0 : rubberband(brightness.overshoot.x), stretch = 1 + over * brightness.edge / TRAVEL;
+    const shell = byId('brightness-shell');
+    shell.style.transformOrigin = brightness.edge < 0 ? 'center bottom' : 'center top';
+    shell.style.transform = `scale(${1 / stretch}, ${stretch})`;
+    byId('brightness-fill').style.height = `${brightness.value}%`;
+    brightnessControl.setAttribute('aria-valuenow', String(Math.round(brightness.value)));
+    byId('brightness-value').textContent = `${Math.round(brightness.value)}%`;
+    byId('snap-item').style.transform = `translateX(${boundedPosition(snap.position.x)}px)`;
+    byId('snap-value').textContent = names[snap.destination];
+    snapControl.setAttribute('aria-valuenow', String(snap.destination + 1)); snapControl.setAttribute('aria-valuetext', names[snap.destination]);
+    for (const button of detentButtons) button.setAttribute('aria-pressed', String(Number(button.dataset.detent) === snap.destination));
+    const prediction = byId('prediction'); prediction.hidden = snap.prediction === null;
+    if (snap.prediction !== null) prediction.style.left = `${clamp(snap.prediction, 0, railTravel) + 32}px`;
+    byId('snap-caption').textContent = snap.drag ? `Release target: ${names[nearestDetent(snap.prediction ?? snap.position.x)]}` : 'Grab again while it settles';
+    byId('union-value').textContent = `${Math.round(union.value)}%`; separation.value = String(union.value);
+    const labelPercent = union.gap.x / canvas.width * 50;
+    byId('label-a').style.left = `${50 - labelPercent}%`; byId('label-b').style.left = `${50 + labelPercent}%`;
+    drawUnion();
+  }
+  function startSamples(position, timestamp) { return { samples: [{ position, timestamp }], lastMoved: null }; }
+  function addSample(history, position, timestamp) {
+    const last = history.samples[history.samples.length - 1];
+    if (timestamp < last.timestamp) return;
+    if (position !== last.position) history.lastMoved = timestamp;
+    if (timestamp === last.timestamp) last.position = position;
+    else history.samples.push({ position, timestamp });
+    while (history.samples.length > 2 && history.samples[0].timestamp < timestamp - 100) history.samples.shift();
+  }
+  // Reject a stale movement before calculating velocity in px/s.
+  function releaseVelocity(history, timestamp) {
+    if (history.lastMoved === null || timestamp - history.lastMoved > 80) return 0;
+    const samples = history.samples.filter(sample => timestamp - sample.timestamp <= 100);
+    if (samples.length < 2) return 0;
+    const first = samples[0], last = samples[samples.length - 1], seconds = (last.timestamp - first.timestamp) / 1000;
+    return seconds > .003 ? clamp((last.position - first.position) / seconds, -2500, 2500) : 0;
+  }
+  function stopSequence() {
+    const wasRunning = sequenceRunning;
+    for (const timer of sequenceTimers) clearTimeout(timer);
+    sequenceTimers = []; sequenceRunning = false; byId('play').textContent = 'Play sequence';
+    if (wasRunning && !brightness.overshoot.active && brightness.overshoot.x !== 0) animate(brightness.overshoot, 0, 0);
+  }
+  function bindDrag(element, state, axis, onStart, onMove, onEnd) {
+    const coordinate = event => axis === 'x' ? event.clientX : event.clientY;
+    function end(event, cancelled) {
+      const drag = state.drag;
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      if (!cancelled) { addSample(drag.history, coordinate(event), event.timeStamp); onMove(coordinate(event) - drag.startPointer, drag); }
+      const velocity = cancelled ? 0 : releaseVelocity(drag.history, event.timeStamp);
+      state.drag = null; onEnd(velocity);
+      if (element.hasPointerCapture(event.pointerId)) element.releasePointerCapture(event.pointerId);
+    }
+    element.addEventListener('pointerdown', event => {
+      if (state.drag || !event.isPrimary || event.button !== 0) return;
+      stopSequence(); element.focus({ preventScroll: true });
+      state.drag = { pointerId: event.pointerId, startPointer: coordinate(event), history: startSamples(coordinate(event), event.timeStamp) };
+      onStart(state.drag); element.setPointerCapture(event.pointerId); render();
+    });
+    element.addEventListener('pointermove', event => {
+      const drag = state.drag;
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      addSample(drag.history, coordinate(event), event.timeStamp); onMove(coordinate(event) - drag.startPointer, drag); render();
+    });
+    element.addEventListener('pointerup', event => end(event, false));
+    element.addEventListener('pointercancel', event => end(event, true));
+    element.addEventListener('lostpointercapture', event => end(event, true));
+  }
+  bindDrag(brightnessControl, brightness, 'y', drag => {
+    brightness.overshoot.active = false; brightness.overshoot.v = 0;
+    drag.caughtCompression = brightness.overshoot.x * brightness.edge < 0 ? brightness.overshoot.x : 0;
+    drag.startPosition = (1 - brightness.value / 100) * TRAVEL + (drag.caughtCompression ? 0 : brightness.overshoot.x);
+    brightness.inputSlope = drag.caughtCompression ? 0 : brightness.overshoot.x === 0 ? 0 : 1;
+  }, (delta, drag) => {
+    const raw = drag.startPosition + delta, bounded = clamp(raw, 0, TRAVEL);
+    const caught = drag.caughtCompression * Math.exp(-Math.abs(delta) / 12);
+    brightness.value = (1 - bounded / TRAVEL) * 100; brightness.overshoot.x = raw - bounded + caught;
+    if (raw < 0) brightness.edge = -1;
+    else if (raw > TRAVEL) brightness.edge = 1;
+    brightness.inputSlope = (raw < 0 || raw > TRAVEL ? 1 : 0) - caught * Math.sign(delta) / 12;
+  }, velocity => {
+    brightness.releaseVelocity = velocity * brightness.inputSlope;
+    animate(brightness.overshoot, 0, brightness.releaseVelocity);
+  });
+  bindDrag(snapControl, snap, 'x', drag => {
+    snap.position.active = false; snap.position.v = 0; drag.startPosition = snap.position.x; snap.prediction = snap.position.x;
+  }, (delta, drag) => {
+    snap.position.x = drag.startPosition + delta;
+    const timestamp = drag.history.samples[drag.history.samples.length - 1].timestamp;
+    snap.prediction = snap.position.x + releaseVelocity(drag.history, timestamp) / DECAY;
+  }, velocity => {
+    snap.releaseVelocity = velocity; snap.prediction = null;
+    chooseDetent(nearestDetent(snap.position.x + velocity / DECAY), velocity);
+  });
+  function releaseDrag(element, state) {
+    if (!state.drag) return;
+    const pointerId = state.drag.pointerId; state.drag = null;
+    if (element.hasPointerCapture(pointerId)) element.releasePointerCapture(pointerId);
+  }
+  function keyboardValue(event, current, step, min, max) {
+    if (['ArrowUp', 'ArrowRight'].includes(event.key)) return current + step;
+    if (['ArrowDown', 'ArrowLeft'].includes(event.key)) return current - step;
+    if (event.key === 'PageUp') return current + step * 10;
+    if (event.key === 'PageDown') return current - step * 10;
+    if (event.key === 'Home') return min;
+    if (event.key === 'End') return max;
+    return null;
+  }
+  brightnessControl.addEventListener('keydown', event => {
+    const value = keyboardValue(event, brightness.value, 5, 0, 100); if (value === null) return;
+    event.preventDefault(); stopSequence(); releaseDrag(brightnessControl, brightness);
+    brightness.value = clamp(value, 0, 100); brightness.overshoot.target = 0; settle(brightness.overshoot); render();
+  });
+  snapControl.addEventListener('keydown', event => {
+    const value = keyboardValue(event, snap.destination, 1, 0, 2); if (value === null) return;
+    event.preventDefault(); stopSequence(); releaseDrag(snapControl, snap); snap.prediction = null; chooseDetent(clamp(value, 0, 2));
+  });
+  for (const button of detentButtons) button.addEventListener('click', () => {
+    stopSequence(); releaseDrag(snapControl, snap); snap.prediction = null; chooseDetent(Number(button.dataset.detent));
+  });
+  function setSeparation(value, direct = false) {
+    union.value = clamp(value, 0, 100); const target = 38 + union.value * 1.1;
+    if (direct) { union.gap.target = target; settle(union.gap); render(); }
+    else animate(union.gap, target);
+  }
+  separation.addEventListener('input', () => { stopSequence(); setSeparation(Number(separation.value), true); });
+  byId('merge').addEventListener('click', () => { stopSequence(); setSeparation(0); });
+  byId('separate').addEventListener('click', () => { stopSequence(); setSeparation(100); });
+  function suspend() {
+    stopSequence(); releaseDrag(brightnessControl, brightness); releaseDrag(snapControl, snap); snap.prediction = null;
+    brightness.overshoot.target = 0; for (const state of springs()) settle(state);
+    if (frame !== null) cancelAnimationFrame(frame); frame = null; previousTime = null;
+  }
+  function syncPreference() {
+    if (reduced()) suspend();
+    byId('motion-status').textContent = systemPreference.matches ? 'Reduced motion is on in system settings.' : reduced() ? 'Reduced motion is on.' : 'System motion preference applies.';
+    render();
+  }
+  reduceInput.addEventListener('change', syncPreference); systemPreference.addEventListener('change', syncPreference);
+  function reset() {
+    suspend(); brightness.value = 65; brightness.edge = -1; brightness.releaseVelocity = 0; snap.destination = 1; snap.position.target = railTravel / 2; settle(snap.position);
+    snap.releaseVelocity = 0; union.value = 80; union.gap.target = 126; settle(union.gap); render();
+  }
+  function playSequence() {
+    reset(); if (document.hidden) return;
+    if (reduced()) {
+      brightness.value = 100; chooseDetent(2, 0); setSeparation(100);
+      byId('announcement').textContent = 'Sequence finished with reduced motion.'; render(); return;
+    }
+    sequenceRunning = true; byId('play').textContent = 'Replay sequence'; brightness.value = 100; brightness.overshoot.x = -140; render();
+    const later = (delay, action) => sequenceTimers.push(setTimeout(() => { if (sequenceRunning && !document.hidden) action(); }, delay));
+    later(220, () => animate(brightness.overshoot, 0, -280));
+    later(760, () => { snap.position.x = railTravel * .2; chooseDetent(2, 600); });
+    later(1380, () => setSeparation(0)); later(2140, () => setSeparation(100));
+    later(2800, () => { stopSequence(); byId('announcement').textContent = 'Sequence finished.'; });
+  }
+  byId('play').addEventListener('click', playSequence);
+  function resize() {
+    const nextTravel = Math.max(0, rail.clientWidth - 64);
+    if (nextTravel !== railTravel) {
+      const ratio = railTravel > 0 ? nextTravel / railTravel : 0;
+      snap.position.x = railTravel > 0 ? snap.position.x * ratio : nextTravel / 2; snap.position.v *= ratio;
+      railTravel = nextTravel; snap.position.target = railTravel * snap.destination / 2;
+      if (snap.drag) {
+        const lastPointer = snap.drag.history.samples[snap.drag.history.samples.length - 1].position;
+        snap.drag.startPosition = snap.position.x; snap.drag.startPointer = lastPointer;
+      }
+      if (snap.prediction !== null) snap.prediction *= ratio;
+    }
+    const nextWidth = Math.max(1, Math.min(360, Math.round(byId('circles').clientWidth)));
+    if (canvas.width !== nextWidth) { canvas.width = nextWidth; rasterGap = NaN; }
+    render();
+  }
+  const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(rail); resizeObserver.observe(byId('circles'));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) suspend(); else { resize(); syncPreference(); } });
+  window.addEventListener('pagehide', () => { suspend(); destroyed = true; resizeObserver.disconnect(); });
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) { destroyed = false; resizeObserver.observe(rail); resizeObserver.observe(byId('circles')); resize(); syncPreference(); }
+  });
+  window.motionLab = {
+    inspect: () => ({
+      brightness: { value: brightness.value, edge: brightness.edge, rawOvershoot: brightness.overshoot.x, renderedOvershoot: reduced() ? 0 : rubberband(brightness.overshoot.x), rawVelocity: brightness.overshoot.v, releaseVelocity: brightness.releaseVelocity, renderedVelocity: reduced() ? 0 : rubberDerivative(brightness.overshoot.x) * brightness.overshoot.v, dragging: Boolean(brightness.drag), settling: brightness.overshoot.active },
+      snap: { position: snap.position.x, renderedPosition: boundedPosition(snap.position.x), velocity: snap.position.v, target: snap.position.target, destination: names[snap.destination], prediction: snap.prediction, releaseVelocity: snap.releaseVelocity, railTravel, dragging: Boolean(snap.drag), settling: snap.position.active },
+      union: { value: union.value, gap: union.gap.x, target: union.gap.target, velocity: union.gap.v, settling: union.gap.active, renderer: 'polynomial smooth-union SDF, radius 32 px, blend 18 px' },
+      lifecycle: { rafPending: frame !== null, hidden: document.hidden, reduced: reduced(), systemReduced: systemPreference.matches, sequenceRunning, destroyed },
+      tuning: { omegaRadiansPerSecond: OMEGA, zeta: ZETA, rubberLimitPixels: RUBBER_LIMIT, rubberCoefficient: RUBBER_COEFFICIENT, predictionDecayPerSecond: DECAY }
+    }),
+    reset, playSequence, math: { springStep, rubberband, rubberDerivative, releaseVelocity, startSamples, addSample }
+  };
+  resize(); syncPreference();
+  if (!context) byId('union-help').textContent = 'Canvas is unavailable. The separation control remains usable.';
+})();
+</script>
+</body>
+</html>

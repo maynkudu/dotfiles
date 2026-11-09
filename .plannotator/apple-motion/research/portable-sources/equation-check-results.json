@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "evidence_scope": "Numeric equations only. No rendered UI or framework execution.",
+  "maximum_finite_difference_error": 2.5780322321367066e-10,
+  "release_example": {
+    "raw_position_px": 324.0,
+    "raw_velocity_px_per_s": 800.0,
+    "visual_velocity_px_per_s": 335.9794732912209,
+    "cap_px": 24
+  },
+  "critical_retarget_position_error": 0.0,
+  "critical_retarget_velocity_error": 0.0,
+  "maximum_area_ratio_error": 0.0,
+  "hysteresis_threshold_px": {
+    "forward": 58,
+    "backward": 42
+  },
+  "smooth_union_midpoint_touch_gap_px": 16.0
+}

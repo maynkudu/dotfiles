@@ -1,0 +1,112 @@
+{
+  "retrieval_date": "2026-11-09",
+  "source_count": 11,
+  "scope": "Official design foundations research, including one parent-authorized SF Symbols rights follow-up.",
+  "sources": [
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/typography",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/typography.json",
+      "retrieved_utc": "2026-11-09T12:20:41.676985+00:00",
+      "status": 200,
+      "title": "Typography",
+      "sha256": "85bf7dc78d41a6e5e16d4055f3bdadf7bac4f7d5cb2206514c8b82d5d24631ed",
+      "source_modified": null,
+      "latest_listed_change_date": "2025-12-16"
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/layout",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/layout.json",
+      "retrieved_utc": "2026-11-09T12:20:41.144089+00:00",
+      "status": 200,
+      "title": "Layout",
+      "sha256": "a82834079070ec5a7209085b5b26821e737ab127bca5ff9795b3f457b5990cd3",
+      "source_modified": null,
+      "latest_listed_change_date": "2026-09-09"
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/color",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/color.json",
+      "retrieved_utc": "2026-11-09T12:20:41.792819+00:00",
+      "status": 200,
+      "title": "Color",
+      "sha256": "262ce33cb88d41ac0238bf1e3f59b7957e8ddb030379c41b35a6cbdb9ab11a39",
+      "source_modified": null,
+      "latest_listed_change_date": "2025-12-16"
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/materials",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/materials.json",
+      "retrieved_utc": "2026-11-09T12:20:40.910501+00:00",
+      "status": 200,
+      "title": "Materials",
+      "sha256": "10761eacdb0f81947e4cd4dde0ec06dc0c0b8325cd581c5fa889df2d5f45e8c9",
+      "source_modified": null,
+      "latest_listed_change_date": "2025-09-09"
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/accessibility.json",
+      "retrieved_utc": "2026-11-09T12:20:41.819573+00:00",
+      "status": 200,
+      "title": "Accessibility",
+      "sha256": "be49ec0b34397f356a1e3fd8c7ad323713198515523947097913cb9c57da699b",
+      "source_modified": null,
+      "latest_listed_change_date": "2025-06-09"
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/icons",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/icons.json",
+      "retrieved_utc": "2026-11-09T12:20:41.686211+00:00",
+      "status": 200,
+      "title": "Icons",
+      "sha256": "680a5a407b3fb5f3595368cb6c328e2e8ff0f767a25381da6ad1f42a9a3d99a6",
+      "source_modified": null,
+      "latest_listed_change_date": "2025-06-09"
+    },
+    {
+      "source_url": "https://developer.apple.com/design/human-interface-guidelines/sf-symbols",
+      "artifact_url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/sf-symbols.json",
+      "retrieved_utc": "2026-11-09T12:20:41.472594+00:00",
+      "status": 200,
+      "title": "SF Symbols",
+      "sha256": "c6a4283022ea87ffe9f54b49255d94f10a57c35a360144c2e65d348300259506",
+      "source_modified": null,
+      "latest_listed_change_date": "2025-07-28"
+    },
+    {
+      "source_url": "https://developer.apple.com/fonts/",
+      "artifact_path": "apple-fonts.html",
+      "retrieved_utc": "2026-11-09T12:20:42.530342+00:00",
+      "sha256": "6019554ea50687c33b5c174aa51205467c301b5751d37f79ef4441d94a4d7132",
+      "latest_listed_change_date": null,
+      "date_note": "Page contains no source publication or revision date for the inspected claim."
+    },
+    {
+      "source_url": "https://developer.apple.com/sf-symbols/",
+      "artifact_path": "apple-sf-symbols.html",
+      "retrieved_utc": "2026-11-09T12:25:33.004271+00:00",
+      "sha256": "42d2d2beec6ef776959ae4a5f634b20bf60168b22e76e83869104abdc82fe3a7",
+      "latest_listed_change_date": null,
+      "date_note": "Page contains no source publication or revision date for the inspected claim."
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2025/356/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2025/356/",
+      "retrieved_at_utc": "2026-11-09T11:32:24.154213+00:00",
+      "raw_path": "wwdc2025-356.html",
+      "bytes": 151042,
+      "artifact_path": "../apple-primary-sources/wwdc2025-356.transcript.txt",
+      "source_label": "WWDC25 session 356"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2025/219/",
+      "final_url": "https://developer.apple.com/videos/play/wwdc2025/219/",
+      "retrieved_at_utc": "2026-11-09T11:31:25.926436+00:00",
+      "status": 200,
+      "bytes": 156313,
+      "raw_path": "wwdc2025-219.html",
+      "artifact_path": "../apple-primary-sources/wwdc2025-219.transcript.txt",
+      "source_label": "WWDC25 session 219"
+    }
+  ]
+}
