@@ -1,5 +1,5 @@
 # Compatible with Bash and Zsh. Keep standard commands available under their names.
-for dotfiles_bin in "$HOME/.local/bin" "$HOME/.bun/bin" "$HOME/.cargo/bin" "$HOME/.local/share/fnm"; do
+for dotfiles_bin in "$HOME/.local/bin" "$HOME/.bun/bin" "$HOME/.cargo/bin" "$HOME/.elan/bin" "$HOME/.local/share/fnm"; do
   [ -d "$dotfiles_bin" ] || continue
   case ":$PATH:" in
     *":$dotfiles_bin:"*) ;;
