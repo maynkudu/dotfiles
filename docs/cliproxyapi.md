@@ -221,27 +221,43 @@ curl -s -w '\n%{http_code}\n' -X POST http://127.0.0.1:8317/v1/messages \
 reload logs `config successfully reloaded, triggering client reload` followed by
 `full client load complete - N clients`.
 
-## Account and usage state
+## Account state: `usage`
 
-`usage` reads Claude, Codex, and xAI grants in `auth-dir`. Codex grants use the live
-usage endpoint. Claude and xAI have no public usage endpoint, so the command reports
-grant state plus cooldown and OAuth failures recorded in `cpa.log`.
+`usage` shows every `claude-*`, `codex-*` and `xai-*` grant at the top level of
+`auth-dir`. Claude rows come from `api.anthropic.com/api/oauth/usage` (the
+endpoint behind Claude Code's `/usage`): the 5h session bar, the weekly bar,
+any per-model weekly limit, plus extra usage and the weekly per-surface split in
+details. The same call with `?cedar_ember=1` returns the plan tier and any
+limit-reset grants. It needs the `claude-cli/<version> (external, cli)`
+User-Agent, or it answers `ineligible: surface`. Codex rows come from the live
+`wham/usage` windows and reset credits. Grok rows come from
+`cli-chat-proxy.grok.com/v1/billing?format=credits` with the xai token: the
+weekly credit percent, its period end, and the per-product split. A row whose
+usage fetch failed (a 429, for example) falls back to the gateway's quota
+cooldown and oauth blocks from the `cpa.log` tail, and details say so.
+The top line shows status.claude.ai and status.openai.com. status.x.ai blocks
+scripted requests, so grok reads `unreachable`.
 
 ```bash
-usage              # pooled paid accounts
-usage name         # filter by email or filename
-usage --all        # include free-tier and disabled grants
-usage --json       # machine-readable state for every grant
-usage --check      # exit 1 if any displayed grant is unusable
+usage              # TUI in a terminal, plain text when piped
+usage name         # filter by email or filename substring
+usage --all        # include removed and free-tier grants
+usage --json       # every grant, hidden ones marked by hidden_by
+usage --check      # exit 1 if a shown grant cannot serve requests
 ```
 
-The script lives at `~/dotfiles/bin/usage` and is on `PATH` via
-`~/.local/bin/usage`. It never prints tokens. Free-tier Codex and disabled grants
-stay hidden in the default view.
+In the TUI: `a` shows hidden grants, `r` refreshes (it also refreshes every
+60s), `m` turns the bar motion off, arrows select a row for details, `q` quits.
 
-A failed Codex fetch can mean the grant expired before the proxy refreshed it. Restart the
-proxy with the service manager used on the machine and retry. Do not poll the upstream usage
-endpoint repeatedly.
+`bin/usage` launches `tools/usage` (bun + OpenTUI) and runs `bun install` there
+when `node_modules` is missing. `bun test` in that directory covers log parsing,
+status rules and the 80/100/140-column layouts; `bun run preview 80 --all`
+prints a fixture frame. It never prints tokens.
+
+A codex `ERROR` row with a 401 means the grant's access token expired and the
+proxy has not refreshed it yet. Restart the
+proxy with the service manager used on the machine and retry. Do not poll the
+upstream usage endpoints repeatedly.
 
 ## Gotchas
 
