@@ -1,0 +1,8 @@
+  - src/components/snap-rail/SnapRail.tsx
+  - src/components/snap-rail/create-snap-rail.ts
+  - src/components/snap-rail/motion.ts
+  - src/components/snap-rail/snap-rail.css
+- Checking registry.
+✔ Checking registry.
+- Updating files.
+✔ Created 4 files:

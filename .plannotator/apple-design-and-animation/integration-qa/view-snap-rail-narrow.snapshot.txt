@@ -1,0 +1,15 @@
+- region "Snap rail preview" [ref=e1]
+  - heading "Snap rail" [level=2, ref=e10]
+  - slider "Snap position" [ref=e11]: 1
+  - button "Left" [ref=e12]
+  - button "Center" [ref=e13]
+  - button "Right" [ref=e14]
+- region "Snap rail controls" [ref=e2]
+  - heading "Release" [level=2, ref=e3]
+  - slider "Projection time" [ref=e4]: 0.119999997317791
+  - slider "Preview hysteresis" [ref=e5]: 8
+  - checkbox "Reduce motion" [checked=false, ref=e6]
+  - checkbox "Disable control" [checked=false, ref=e7]
+  - button "Play sequence" [ref=e8]
+  - button "Reset" [ref=e9]
+- button "Open Next.js Dev Tools" [expanded=false, ref=e15]

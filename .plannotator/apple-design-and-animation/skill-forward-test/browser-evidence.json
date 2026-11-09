@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "browser": "Agent Browser, owned Chromium session skill-forward-test",
+  "checks": [
+    "The HTML spring and skill sampler return identical position and velocity for forward motion and opposing-velocity reversal.",
+    "Empty and invalid numeric input preserve the semantic value and block Save. Enter restores empty input, clamps range and rounds to 0.1.",
+    "Native slider Home, End and ArrowRight operate the -2 to 2 grid and synchronize numeric entry and accessible value.",
+    "Real mouse drags beyond both slider endpoints retain bounded -2 and 2 semantic values.",
+    "Save commits both draft values. Later edits leave saved values intact. Restore returns both controls and preview to the last save.",
+    "Real radio clicks reverse active motion with unchanged position and velocity. Preserved opposing velocity 16.310999 intervals/s.",
+    "Native radio ArrowRight changes the selected placement and targets the same spring.",
+    "Hot reduced-motion preference stops the JavaScript spring. Startup reduced motion and later choices select the destination immediately.",
+    "Local file upload loads a selected image through an owned object URL.",
+    "320px viewport and 200% rem text fixture retain controls without horizontal viewport overflow. Enlarged placement labels stack and do not clip.",
+    "Dark-theme rendering captured at 320px.",
+    "Browser reported no runtime page errors."
+  ],
+  "interrupted": {
+    "after": {
+      "position": 0.5627029480695993,
+      "velocity": 16.31099885319678
+    },
+    "before": {
+      "position": 0.5627029480695993,
+      "velocity": 16.31099885319678
+    },
+    "target": 0,
+    "time": 3.3012999999970196
+  },
+  "narrow": {
+    "overflows": [],
+    "scrollWidth": 320,
+    "width": 320
+  },
+  "enlarged": {
+    "overflows": [],
+    "scrollWidth": 320,
+    "width": 320
+  },
+  "errors": {
+    "errors": [],
+    "lifecycle": {
+      "effectiveLaunch": {
+        "browserLaunched": true,
+        "engine": "chrome",
+        "launchHash": 7489585755497366000
+      },
+      "launched": false,
+      "relaunchedBrowser": false,
+      "restartedBackground": false,
+      "restoreStatus": "not_configured",
+      "reused": true,
+      "saveStatus": "not_attempted"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+  - src/components/elastic-slider/ElasticSlider.tsx
+  - src/components/elastic-slider/create-elastic-slider.ts
+  - src/components/elastic-slider/slider-math.ts
+  - src/components/elastic-slider/elastic-slider.css
+- Checking registry.
+✔ Checking registry.
+- Updating files.
+✔ Created 4 files:

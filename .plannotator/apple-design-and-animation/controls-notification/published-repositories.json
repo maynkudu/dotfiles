@@ -1,0 +1,42 @@
+[
+  {
+    "isPrivate": true,
+    "nameWithOwner": "maynkudu/apple-design-and-animation-system",
+    "url": "https://github.com/maynkudu/apple-design-and-animation-system",
+    "head": "154638985f2b32c01049a23481f0d59516006556",
+    "remoteMatches": true,
+    "clean": true
+  },
+  {
+    "isPrivate": true,
+    "nameWithOwner": "maynkudu/modulo-elastic-slider",
+    "url": "https://github.com/maynkudu/modulo-elastic-slider",
+    "head": "2141ba6049c8234384b30c4419cfc442c896b1ae",
+    "remoteMatches": true,
+    "clean": true
+  },
+  {
+    "isPrivate": true,
+    "nameWithOwner": "maynkudu/modulo-snap-rail",
+    "url": "https://github.com/maynkudu/modulo-snap-rail",
+    "head": "0f74e74b25e15cedfbccaf613b2dcf557ba1f490",
+    "remoteMatches": true,
+    "clean": true
+  },
+  {
+    "isPrivate": true,
+    "nameWithOwner": "maynkudu/modulo-liquid-cluster",
+    "url": "https://github.com/maynkudu/modulo-liquid-cluster",
+    "head": "864372993d59eda5eb237a09f734c199c5116e54",
+    "remoteMatches": true,
+    "clean": true
+  },
+  {
+    "isPrivate": false,
+    "nameWithOwner": "maynkudu/modulo",
+    "url": "https://github.com/maynkudu/modulo",
+    "head": "86d3cdf3f7d1c23f6215864729405bb579fe3440",
+    "remoteMatches": true,
+    "clean": true
+  }
+]

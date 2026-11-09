@@ -1,0 +1,7 @@
+  - src/components/liquid-cluster/LiquidCluster.tsx
+  - src/components/liquid-cluster/create-liquid-cluster.ts
+  - src/components/liquid-cluster/liquid-cluster.css
+- Checking registry.
+✔ Checking registry.
+- Updating files.
+✔ Created 3 files:

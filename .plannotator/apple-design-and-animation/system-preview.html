@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion library</title>
+<style>
+:root { color-scheme: light; --ink:#20242c; --secondary:#626977; --accent:#315bcc; --line:#e0e4e9; --base:#f6f7f9; --control:rgba(255,255,255,.78); --radius:22px; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; background:#e9edf3; color:var(--ink); font:14px/1.45 system-ui,sans-serif; padding:40px 28px; }
+button,input,select { font:inherit; color:inherit; }
+button { cursor:pointer; }
+button,select { border:1px solid var(--line); background:#fff; border-radius:10px; min-height:40px; padding:8px 12px; }
+button:hover { background:#eef1f6; } button:active { background:#e2e8f3; }
+button:disabled { cursor:default; color:#78808e; background:#f0f2f5; border-color:#e4e7ed; }
+:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+[hidden] { display:none !important; }
+h1,h2,h3,p { margin:0; }
+h1 { font-size:25px; letter-spacing:-.045em; font-weight:650; } h2 { font-size:17px; letter-spacing:-.025em; font-weight:620; } h3 { font-size:14px; font-weight:600; }
+.app { max-width:1200px; min-height:740px; margin:auto; display:grid; grid-template-columns:206px minmax(0,1fr); border:1px solid #d9dfe8; border-radius:var(--radius); background:var(--base); overflow:hidden; box-shadow:0 24px 65px #192b4c12,0 3px 12px #192b4c08; }
+.sidebar { padding:30px 16px 20px; background:rgba(247,249,252,.8); backdrop-filter:blur(22px); border-right:1px solid var(--line); display:flex; flex-direction:column; gap:27px; }
+.brand { padding:0 12px; font-size:17px; line-height:1.3; font-weight:650; letter-spacing:-.04em; }
+nav { display:grid; gap:5px; } nav a { display:flex; align-items:center; justify-content:space-between; gap:8px; text-decoration:none; color:var(--secondary); padding:11px 13px; border-radius:11px; min-height:44px; }
+nav a[aria-current=page] { background:#e3eaf8; color:#234799; font-weight:600; } nav a:hover { background:#e9edf4; }
+.count { font-size:12px; font-variant-numeric:tabular-nums; }
+.side-bottom { margin-top:auto; padding:0 12px; color:var(--secondary); font-size:12px; }
+.workspace { min-width:0; display:flex; flex-direction:column; }
+.toolbar { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:18px 27px; border-bottom:1px solid var(--line); background:rgba(255,255,255,.65); backdrop-filter:blur(18px); min-height:81px; }
+.toolbar-title { font-size:15px; font-weight:600; white-space:nowrap; }
+.search { display:flex; align-items:center; max-width:270px; width:100%; min-width:0; border:1px solid #dae0e9; border-radius:11px; background:#f3f5f8; }
+.toolbar .primary { flex-shrink:0; white-space:nowrap; }
+.search input { padding:10px 12px; width:100%; min-width:0; border:0; border-radius:inherit; background:transparent; outline-offset:0; }
+.primary { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:550; border-radius:999px; padding-inline:18px; }
+.primary:hover { background:#244cb8; } .primary:active { background:#1b409f; }
+.body { padding:30px 28px 24px; min-width:0; }
+.library-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:23px; }
+.library-head p { color:var(--secondary); margin-top:5px; font-size:13px; }
+.view-switch { display:flex; padding:4px; gap:3px; margin:0; border:1px solid #dce2eb; border-radius:14px; background:var(--control); backdrop-filter:blur(12px); }
+.view-switch legend { position:absolute; width:1px; height:1px; clip-path:inset(50%); overflow:hidden; }
+.view-switch label { position:relative; display:flex; align-items:center; justify-content:center; min-height:32px; padding:5px 12px; border-radius:10px; cursor:pointer; color:var(--secondary); }
+.view-switch input { position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer; }
+.view-switch label:has(input:checked) { background:#e9edf5; color:var(--ink); font-weight:550; box-shadow:0 1px 3px #1427440b; }
+.view-switch label:has(input:focus-visible) { outline:3px solid var(--accent); outline-offset:2px; }
+.presets { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; margin-bottom:30px; }
+.preset { text-align:left; background:transparent; border:1px solid transparent; padding:5px; border-radius:17px; min-width:0; }
+.preset:hover { background:#e9edf4; } .preset[aria-pressed=true] { border-color:#a6b9ed; background:#edf2fc; }
+.art { height:93px; display:grid; place-items:center; border-radius:12px; background:#e3eafa; margin-bottom:10px; }
+.preset:nth-child(2) .art { background:#e6e9f2; } .preset:nth-child(3) .art { background:#e8e5f4; }
+.thumb-brightness { height:62px; width:35px; background:#bacced; border-radius:12px; position:relative; overflow:hidden; }
+.thumb-brightness:after { content:''; position:absolute; inset:23px 0 0; background:#4b6cc5; }
+.thumb-snap { width:105px; height:4px; background:#bbc5db; position:relative; border-radius:10px; }
+.thumb-snap:after { content:''; position:absolute; width:37px; height:37px; top:-17px; left:35px; background:#6074aa; border-radius:12px; }
+.thumb-merge { width:90px; height:45px; position:relative; } .thumb-merge:before,.thumb-merge:after { content:''; position:absolute; top:0; width:48px; height:48px; border-radius:50%; background:#8571b3; } .thumb-merge:after { right:0; }
+.preset strong { display:block; font-size:13px; padding:0 5px; font-weight:600; } .preset small { display:block; color:var(--secondary); padding:3px 5px 5px; font-size:12px; }
+.presets.list { grid-template-columns:1fr; gap:7px; } .presets.list .preset { display:grid; grid-template-columns:76px 1fr; align-items:center; gap:12px; } .presets.list .art { height:58px; margin:0; grid-row:span 2; } .presets.list .preset strong { align-self:end; } .presets.list .preset small { align-self:start; } .presets.list .art>div { transform:scale(.6); }
+.editor { display:grid; grid-template-columns:minmax(0,1fr) 228px; border-top:1px solid var(--line); padding-top:24px; gap:27px; }
+.preview-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.preview-head p { color:var(--secondary); font-size:12px; margin-top:4px; }
+.favorite { min-height:36px; font-size:12px; padding:6px 10px; background:var(--control); }
+.favorite[aria-pressed=true] { background:#e4ebfa; color:#244999; }
+.preview-stage { margin-top:16px; min-height:288px; border-radius:17px; background:#eef1f7; display:grid; place-items:center; padding:18px 8px; }
+.mechanism { width:100%; max-width:320px; --foreground:#20242c; --card:#fff; --border:#c9d2e1; --chart-1:#4b6cc5; }
+.stage { height:230px; position:relative; }
+.brightness-control { width:160px; height:230px; margin:auto; position:relative; border-radius:12px; cursor:ns-resize; touch-action:none; user-select:none; }
+.brightness-shell { position:absolute; left:33px; top:32px; width:94px; height:164px; border-radius:31px; overflow:hidden; background:#ccd6e9; box-shadow:inset 0 1px 2px #ffffffa0,0 7px 15px #283f6812; }
+.brightness-fill { position:absolute; bottom:0; width:100%; height:65%; background:var(--chart-1); }
+.brightness-caption { position:absolute; top:207px; width:100%; text-align:center; font-size:12px; color:var(--secondary); pointer-events:none; }
+.snap-control { position:absolute; inset:0 0 54px; border-radius:12px; cursor:ew-resize; touch-action:pan-y; user-select:none; }
+.rail { position:absolute; left:16px; right:16px; top:60px; height:68px; }
+.rail-line { position:absolute; top:31px; left:32px; right:32px; height:2px; background:var(--border); }
+.detent { position:absolute; top:27px; width:10px; height:10px; border:2px solid var(--border); background:var(--card); border-radius:50%; transform:translateX(-50%); }
+.detent-left { left:32px; } .detent-center { left:50%; } .detent-right { left:calc(100% - 32px); }
+.snap-item { width:64px; height:64px; display:grid; place-items:center; border-radius:19px; color:#fff; background:var(--chart-1); position:absolute; top:0; left:0; box-shadow:0 5px 12px #00000016; pointer-events:none; font-size:18px; }
+.prediction { position:absolute; width:2px; height:14px; top:79px; background:var(--chart-1); opacity:.75; }
+.snap-caption { position:absolute; top:158px; width:100%; text-align:center; font-size:12px; color:var(--secondary); }
+.detent-buttons { position:absolute; left:0; right:0; bottom:0; display:flex; gap:6px; } .detent-buttons button { flex:1; padding-inline:4px; font-size:12px; }
+.detent-buttons button[aria-pressed=true] { border-color:var(--accent); color:var(--accent); background:#eef2fc; }
+.circles { height:158px; color:var(--chart-1); position:relative; margin-top:12px; }
+canvas { width:100%; height:154px; display:block; }
+.circle-label { position:absolute; top:66px; color:#fff; font-weight:600; transform:translateX(-50%); pointer-events:none; }
+.circle-buttons { display:flex; justify-content:center; gap:8px; margin-top:20px; }
+.inspector { border-left:1px solid var(--line); padding-left:24px; min-width:0; }
+.inspector h3 { margin-bottom:19px; }
+.field { display:block; margin-bottom:20px; } .field-top { display:flex; justify-content:space-between; gap:8px; margin-bottom:10px; }
+output { font-size:12px; font-variant-numeric:tabular-nums; color:var(--secondary); }
+input[type=range] { width:100%; accent-color:var(--accent); margin:0; min-height:30px; }
+.preference { display:flex; gap:9px; align-items:center; font-size:13px; min-height:36px; margin:20px 0 16px; } input[type=checkbox] { accent-color:var(--accent); width:16px; height:16px; }
+.inspector-actions { display:grid; gap:9px; } .inspector-actions button { width:100%; }
+.value-entry { margin-top:11px; display:flex; align-items:center; gap:6px; color:var(--secondary); font-size:12px; }
+.value-entry input { width:70px; padding:6px 8px; border:1px solid #d6dde8; border-radius:8px; background:#fff; }
+.state-line { color:var(--secondary); font-size:12px; margin-top:17px; min-height:35px; }
+.empty { color:var(--secondary); padding:18px 0; }
+dialog { width:min(420px,calc(100vw - 32px)); border:1px solid #d8dfeb; border-radius:22px; padding:25px; color:var(--ink); box-shadow:0 25px 90px #172c4730; }
+dialog::backdrop { background:#21304a45; backdrop-filter:blur(3px); }
+dialog h2 { font-size:21px; margin-bottom:18px; } dialog p { color:var(--secondary); font-size:13px; margin-bottom:22px; } dialog .dialog-actions { display:flex; justify-content:flex-end; gap:9px; }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media(max-width:1100px) { body { padding:20px; } .app { grid-template-columns:170px minmax(0,1fr); } .toolbar { padding-inline:23px; } .body { padding-inline:23px; } .editor { grid-template-columns:minmax(0,1fr) 195px; gap:20px; } .inspector { padding-left:20px; } }
+@media(max-width:820px) { body { padding:0; } .app { border:0; border-radius:0; grid-template-columns:1fr; min-height:100vh; box-shadow:none; } .sidebar { padding:18px 22px 12px; gap:15px; border-right:0; border-bottom:1px solid var(--line); } .brand { padding:0; } nav { display:flex; gap:8px; } nav a { padding:9px 12px; } .side-bottom { display:none; } .toolbar { min-height:74px; } .toolbar-title { display:none; } .search { max-width:none; } }
+@media(max-width:540px) { .body { padding:25px 18px; } .toolbar { padding:15px 18px; gap:10px; } .toolbar .primary { padding-inline:14px; } .library-head { align-items:flex-start; } h1 { font-size:23px; } .presets { gap:7px; margin-bottom:24px; } .preset { padding:3px; border-radius:14px; } .preset strong { font-size:11px; padding-inline:3px; } .preset small { font-size:11px; padding-inline:3px; } .art { height:72px; border-radius:9px; } .art>div { transform:scale(.8); } .editor { grid-template-columns:1fr; gap:22px; padding-top:22px; } .inspector { border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:21px; } .preview-stage { min-height:272px; } .inspector-actions { grid-template-columns:1fr 1fr; } .preference { margin:13px 0; } }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; } }
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more) { .sidebar,.toolbar,.view-switch { background:#fff; backdrop-filter:none; } :root { --secondary:#434b59; --line:#a9b3c2; } }
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" aria-label="Library navigation"><div class="brand">Motion library</div><nav aria-label="Presets"><a href="#library" aria-current="page">All presets <span class="count">3</span></a><a href="#favorites">Favorites <span id="favorite-count" class="count">1</span></a></nav><div class="side-bottom">Personal collection</div></aside>
+<div class="workspace">
+<header class="toolbar"><span class="toolbar-title">Personal collection</span><label class="search"><span class="sr-only">Search presets</span><input id="search" type="search" placeholder="Search presets" autocomplete="off"></label><button id="export-open" class="primary" type="button">Export preset</button></header>
+<main class="body" id="library">
+<div class="library-head"><div><h1 id="library-title">All presets</h1><p id="library-count">3 saved presets</p></div><fieldset class="view-switch"><legend>Library view</legend><label><input type="radio" name="view" value="grid" checked>Grid</label><label><input type="radio" name="view" value="list">List</label></fieldset></div>
+<div id="presets" class="presets"><button class="preset" type="button" data-preset="brightness" aria-pressed="true"><span class="art" aria-hidden="true"><div class="thumb-brightness"></div></span><strong>Elastic brightness</strong><small>Control</small></button><button class="preset" type="button" data-preset="snap" aria-pressed="false"><span class="art" aria-hidden="true"><div class="thumb-snap"></div></span><strong>Predicted snap</strong><small>Placement</small></button><button class="preset" type="button" data-preset="union" aria-pressed="false"><span class="art" aria-hidden="true"><div class="thumb-merge"></div></span><strong>Joined shapes</strong><small>Grouping</small></button></div>
+<p id="empty" class="empty" hidden>No presets found.</p>
+<section class="editor" aria-labelledby="selected-title">
+<div><header class="preview-head"><div><h2 id="selected-title">Elastic brightness</h2><p>Preview</p></div><button id="favorite" class="favorite" type="button" aria-pressed="true">Favorite</button></header>
+<div class="preview-stage">
+<section id="brightness-panel" class="mechanism" aria-label="Elastic brightness preview"><div class="stage"><div id="brightness" class="brightness-control" role="slider" tabindex="0" aria-label="Preview brightness" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65"><div id="brightness-shell" class="brightness-shell" aria-hidden="true"><div id="brightness-fill" class="brightness-fill"></div></div><span class="brightness-caption" aria-hidden="true">Brightness</span></div></div></section>
+<section id="snap-panel" class="mechanism" aria-label="Predicted snap preview" hidden><div class="stage"><div id="snap" class="snap-control" role="slider" tabindex="0" aria-label="Snap position" aria-valuemin="1" aria-valuemax="3" aria-valuenow="2" aria-valuetext="Center"><div id="rail" class="rail" aria-hidden="true"><div class="rail-line"></div><i class="detent detent-left"></i><i class="detent detent-center"></i><i class="detent detent-right"></i><div id="snap-item" class="snap-item">A</div><div id="prediction" class="prediction" hidden></div></div><span id="snap-caption" class="snap-caption" aria-hidden="true">Center</span></div><div class="detent-buttons" role="group" aria-label="Snap destinations"><button type="button" data-detent="0" aria-pressed="false">Left</button><button type="button" data-detent="1" aria-pressed="true">Center</button><button type="button" data-detent="2" aria-pressed="false">Right</button></div></div></section>
+<section id="union-panel" class="mechanism" aria-label="Joined shapes preview" hidden><div class="stage"><div id="circles" class="circles" aria-hidden="true"><canvas id="union-canvas" width="280" height="154"></canvas><span id="label-a" class="circle-label">A</span><span id="label-b" class="circle-label">B</span></div><div class="circle-buttons"><button id="merge" type="button">Join</button><button id="separate" type="button">Separate</button></div></div></section>
+</div></div>
+<aside class="inspector" aria-label="Preset settings"><h3>Settings</h3>
+<div id="brightness-settings"><label class="field" for="brightness-range"><span class="field-top"><span>Brightness</span><output id="brightness-value" aria-hidden="true">65%</output></span><input id="brightness-range" type="range" min="0" max="100" value="65"></label><label class="value-entry" for="brightness-number">Value <input id="brightness-number" type="number" min="0" max="100" value="65">%</label></div>
+<div id="snap-settings" hidden><label class="field" for="snap-select"><span class="field-top"><span>Position</span><output id="snap-value" aria-hidden="true">Center</output></span><select id="snap-select"><option value="0">Left</option><option value="1" selected>Center</option><option value="2">Right</option></select></label></div>
+<div id="union-settings" hidden><label class="field" for="separation"><span class="field-top"><span>Separation</span><output id="union-value" aria-hidden="true">80%</output></span><input id="separation" type="range" min="0" max="100" value="80"></label></div>
+<label class="preference"><input id="reduce-motion" type="checkbox">Reduce motion</label>
+<div class="inspector-actions"><button id="save" type="button" disabled>Save changes</button><button id="restore" type="button" disabled>Restore saved</button></div><p class="state-line" id="save-state" role="status">Saved</p>
+</aside>
+</section>
+</main>
+</div>
+</div>
+<dialog id="export-dialog" aria-labelledby="export-title"><h2 id="export-title">Export preset</h2><p id="export-description">Download the current preset settings as JSON.</p><form method="dialog" class="dialog-actions"><button value="cancel">Cancel</button><button id="download" class="primary" type="button">Download JSON</button></form></dialog>
+<div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+<div hidden><button id="play" type="button">Play sequence</button><span id="motion-status"></span><span id="union-help"></span></div>
+<script>
+(() => {
+  'use strict';
+  const byId = id => document.getElementById(id);
+  const brightnessControl = byId('brightness'), snapControl = byId('snap');
+  const rail = byId('rail'), canvas = byId('union-canvas');
+  const context = canvas.getContext('2d');
+  const separation = byId('separation'), reduceInput = byId('reduce-motion');
+  const systemPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  const detentButtons = [...document.querySelectorAll('[data-detent]')];
+  const names = ['Left', 'Center', 'Right'];
+  const OMEGA = 20, ZETA = .85, TRAVEL = 164, RUBBER_LIMIT = 48, RUBBER_COEFFICIENT = .55, DECAY = 8;
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const spring = x => ({ x, v: 0, target: x, active: false });
+  const brightness = { value: 65, overshoot: spring(0), edge: -1, inputSlope: 0, releaseVelocity: 0, drag: null };
+  const snap = { position: spring(0), destination: 1, drag: null, prediction: null, releaseVelocity: 0 };
+  const union = { gap: spring(126), value: 80 };
+  let railTravel = 0, frame = null, previousTime = null, sequenceTimers = [], sequenceRunning = false, destroyed = false;
+  let rasterGap = NaN, rasterColor = '';
+
+  function rubberband(distance, limit = RUBBER_LIMIT, coefficient = RUBBER_COEFFICIENT) {
+    return Math.sign(distance) * limit * coefficient * Math.abs(distance) / (limit + coefficient * Math.abs(distance));
+  }
+  function rubberDerivative(distance, limit = RUBBER_LIMIT, coefficient = RUBBER_COEFFICIENT) {
+    return coefficient * limit * limit / (limit + coefficient * Math.abs(distance)) ** 2;
+  }
+  function settle(state) { state.x = state.target; state.v = 0; state.active = false; }
+  // Exact underdamped solution. omega is rad/s, position is px and velocity is px/s.
+  function springStep(state, seconds) {
+    const a = ZETA * OMEGA, b = OMEGA * Math.sqrt(1 - ZETA * ZETA), y = state.x - state.target;
+    const decay = Math.exp(-a * seconds), sine = Math.sin(b * seconds), cosine = Math.cos(b * seconds);
+    const nextX = state.target + decay * (y * cosine + (state.v + a * y) / b * sine);
+    const nextV = decay * (state.v * cosine - (a * state.v + OMEGA * OMEGA * y) / b * sine);
+    state.x = nextX; state.v = nextV;
+    if (Math.abs(state.x - state.target) < .05 && Math.abs(state.v) < .5) settle(state);
+  }
+  const reduced = () => reduceInput.checked || systemPreference.matches;
+  const springs = () => [brightness.overshoot, snap.position, union.gap];
+  function wake() {
+    if (!destroyed && frame === null && !document.hidden && !reduced() && springs().some(state => state.active)) {
+      previousTime = null; frame = requestAnimationFrame(tick);
+    }
+  }
+  function tick(timestamp) {
+    frame = null;
+    if (document.hidden || destroyed || reduced()) return;
+    const seconds = previousTime === null ? 0 : clamp((timestamp - previousTime) / 1000, 0, .064);
+    previousTime = timestamp;
+    for (const state of springs()) if (state.active) springStep(state, seconds);
+    render();
+    if (springs().some(state => state.active)) frame = requestAnimationFrame(tick);
+    else previousTime = null;
+  }
+  function animate(state, target, velocity = state.v) {
+    state.target = target; state.v = velocity; state.active = true;
+    if (reduced()) settle(state);
+    render(); wake();
+  }
+  function boundedPosition(raw) {
+    if (raw < 0) return rubberband(raw, 32);
+    if (raw > railTravel) return railTravel + rubberband(raw - railTravel, 32);
+    return raw;
+  }
+  function nearestDetent(position) { return railTravel > 0 ? clamp(Math.round(position / railTravel * 2), 0, 2) : 0; }
+  function chooseDetent(index, velocity = snap.position.v) {
+    snap.destination = clamp(index, 0, 2);
+    animate(snap.position, railTravel * snap.destination / 2, velocity);
+  }
+  function drawUnion() {
+    if (!context) return;
+    const width = canvas.width, height = canvas.height, gap = union.gap.x, color = getComputedStyle(byId('circles')).color;
+    if (Math.abs(gap - rasterGap) < .03 && color === rasterColor) return;
+    rasterGap = gap; rasterColor = color;
+    context.clearRect(0, 0, width, height); context.fillStyle = color; context.fillRect(0, 0, 1, 1);
+    const rgb = context.getImageData(0, 0, 1, 1).data, pixels = context.createImageData(width, height);
+    const left = width / 2 - gap / 2, right = width / 2 + gap / 2, radius = 32, smoothing = 18;
+    for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+      const a = Math.hypot(x + .5 - left, y + .5 - 77) - radius;
+      const b = Math.hypot(x + .5 - right, y + .5 - 77) - radius;
+      const h = clamp(.5 + .5 * (b - a) / smoothing, 0, 1);
+      const distance = b * (1 - h) + a * h - smoothing * h * (1 - h), offset = (y * width + x) * 4;
+      pixels.data[offset] = rgb[0]; pixels.data[offset + 1] = rgb[1]; pixels.data[offset + 2] = rgb[2];
+      pixels.data[offset + 3] = Math.round(clamp(.5 - distance, 0, 1) * 255);
+    }
+    context.putImageData(pixels, 0, 0);
+  }
+  function render() {
+    const over = reduced() ? 0 : rubberband(brightness.overshoot.x), stretch = 1 + over * brightness.edge / TRAVEL;
+    const shell = byId('brightness-shell');
+    shell.style.transformOrigin = brightness.edge < 0 ? 'center bottom' : 'center top';
+    shell.style.transform = `scale(${1 / stretch}, ${stretch})`;
+    byId('brightness-fill').style.height = `${brightness.value}%`;
+    brightnessControl.setAttribute('aria-valuenow', String(Math.round(brightness.value)));
+    byId('brightness-value').textContent = `${Math.round(brightness.value)}%`;
+    byId('snap-item').style.transform = `translateX(${boundedPosition(snap.position.x)}px)`;
+    byId('snap-value').textContent = names[snap.destination];
+    snapControl.setAttribute('aria-valuenow', String(snap.destination + 1)); snapControl.setAttribute('aria-valuetext', names[snap.destination]);
+    for (const button of detentButtons) button.setAttribute('aria-pressed', String(Number(button.dataset.detent) === snap.destination));
+    const prediction = byId('prediction'); prediction.hidden = snap.prediction === null;
+    if (snap.prediction !== null) prediction.style.left = `${clamp(snap.prediction, 0, railTravel) + 32}px`;
+    byId('snap-caption').textContent = snap.drag ? names[nearestDetent(snap.prediction ?? snap.position.x)] : names[snap.destination];
+    byId('union-value').textContent = `${Math.round(union.value)}%`; separation.value = String(union.value);
+    const labelPercent = union.gap.x / canvas.width * 50;
+    byId('label-a').style.left = `${50 - labelPercent}%`; byId('label-b').style.left = `${50 + labelPercent}%`;
+    drawUnion();
+    window.dispatchEvent(new Event('motionchange'));
+  }
+  function startSamples(position, timestamp) { return { samples: [{ position, timestamp }], lastMoved: null }; }
+  function addSample(history, position, timestamp) {
+    const last = history.samples[history.samples.length - 1];
+    if (timestamp < last.timestamp) return;
+    if (position !== last.position) history.lastMoved = timestamp;
+    if (timestamp === last.timestamp) last.position = position;
+    else history.samples.push({ position, timestamp });
+    while (history.samples.length > 2 && history.samples[0].timestamp < timestamp - 100) history.samples.shift();
+  }
+  // Reject a stale movement before calculating velocity in px/s.
+  function releaseVelocity(history, timestamp) {
+    if (history.lastMoved === null || timestamp - history.lastMoved > 80) return 0;
+    const samples = history.samples.filter(sample => timestamp - sample.timestamp <= 100);
+    if (samples.length < 2) return 0;
+    const first = samples[0], last = samples[samples.length - 1], seconds = (last.timestamp - first.timestamp) / 1000;
+    return seconds > .003 ? clamp((last.position - first.position) / seconds, -2500, 2500) : 0;
+  }
+  function stopSequence() {
+    const wasRunning = sequenceRunning;
+    for (const timer of sequenceTimers) clearTimeout(timer);
+    sequenceTimers = []; sequenceRunning = false; byId('play').textContent = 'Play sequence';
+    if (wasRunning && !brightness.overshoot.active && brightness.overshoot.x !== 0) animate(brightness.overshoot, 0, 0);
+  }
+  function bindDrag(element, state, axis, onStart, onMove, onEnd) {
+    const coordinate = event => axis === 'x' ? event.clientX : event.clientY;
+    function end(event, cancelled) {
+      const drag = state.drag;
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      if (!cancelled) { addSample(drag.history, coordinate(event), event.timeStamp); onMove(coordinate(event) - drag.startPointer, drag); }
+      const velocity = cancelled ? 0 : releaseVelocity(drag.history, event.timeStamp);
+      state.drag = null; onEnd(velocity);
+      if (element.hasPointerCapture(event.pointerId)) element.releasePointerCapture(event.pointerId);
+    }
+    element.addEventListener('pointerdown', event => {
+      if (state.drag || !event.isPrimary || event.button !== 0) return;
+      stopSequence(); element.focus({ preventScroll: true });
+      state.drag = { pointerId: event.pointerId, startPointer: coordinate(event), history: startSamples(coordinate(event), event.timeStamp) };
+      onStart(state.drag); element.setPointerCapture(event.pointerId); render();
+    });
+    element.addEventListener('pointermove', event => {
+      const drag = state.drag;
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      addSample(drag.history, coordinate(event), event.timeStamp); onMove(coordinate(event) - drag.startPointer, drag); render();
+    });
+    element.addEventListener('pointerup', event => end(event, false));
+    element.addEventListener('pointercancel', event => end(event, true));
+    element.addEventListener('lostpointercapture', event => end(event, true));
+  }
+  bindDrag(brightnessControl, brightness, 'y', drag => {
+    brightness.overshoot.active = false; brightness.overshoot.v = 0;
+    drag.caughtCompression = brightness.overshoot.x * brightness.edge < 0 ? brightness.overshoot.x : 0;
+    drag.startPosition = (1 - brightness.value / 100) * TRAVEL + (drag.caughtCompression ? 0 : brightness.overshoot.x);
+    brightness.inputSlope = drag.caughtCompression ? 0 : brightness.overshoot.x === 0 ? 0 : 1;
+  }, (delta, drag) => {
+    const raw = drag.startPosition + delta, bounded = clamp(raw, 0, TRAVEL);
+    const caught = drag.caughtCompression * Math.exp(-Math.abs(delta) / 12);
+    brightness.value = (1 - bounded / TRAVEL) * 100; brightness.overshoot.x = raw - bounded + caught;
+    if (raw < 0) brightness.edge = -1;
+    else if (raw > TRAVEL) brightness.edge = 1;
+    brightness.inputSlope = (raw < 0 || raw > TRAVEL ? 1 : 0) - caught * Math.sign(delta) / 12;
+  }, velocity => {
+    brightness.releaseVelocity = velocity * brightness.inputSlope;
+    animate(brightness.overshoot, 0, brightness.releaseVelocity);
+  });
+  bindDrag(snapControl, snap, 'x', drag => {
+    snap.position.active = false; snap.position.v = 0; drag.startPosition = snap.position.x; snap.prediction = snap.position.x;
+  }, (delta, drag) => {
+    snap.position.x = drag.startPosition + delta;
+    const timestamp = drag.history.samples[drag.history.samples.length - 1].timestamp;
+    snap.prediction = snap.position.x + releaseVelocity(drag.history, timestamp) / DECAY;
+  }, velocity => {
+    snap.releaseVelocity = velocity; snap.prediction = null;
+    chooseDetent(nearestDetent(snap.position.x + velocity / DECAY), velocity);
+  });
+  function releaseDrag(element, state) {
+    if (!state.drag) return;
+    const pointerId = state.drag.pointerId; state.drag = null;
+    if (element.hasPointerCapture(pointerId)) element.releasePointerCapture(pointerId);
+  }
+  function keyboardValue(event, current, step, min, max) {
+    if (['ArrowUp', 'ArrowRight'].includes(event.key)) return current + step;
+    if (['ArrowDown', 'ArrowLeft'].includes(event.key)) return current - step;
+    if (event.key === 'PageUp') return current + step * 10;
+    if (event.key === 'PageDown') return current - step * 10;
+    if (event.key === 'Home') return min;
+    if (event.key === 'End') return max;
+    return null;
+  }
+  brightnessControl.addEventListener('keydown', event => {
+    const value = keyboardValue(event, brightness.value, 5, 0, 100); if (value === null) return;
+    event.preventDefault(); stopSequence(); releaseDrag(brightnessControl, brightness);
+    brightness.value = clamp(value, 0, 100); brightness.overshoot.target = 0; settle(brightness.overshoot); render();
+  });
+  snapControl.addEventListener('keydown', event => {
+    const value = keyboardValue(event, snap.destination, 1, 0, 2); if (value === null) return;
+    event.preventDefault(); stopSequence(); releaseDrag(snapControl, snap); snap.prediction = null; chooseDetent(clamp(value, 0, 2));
+  });
+  for (const button of detentButtons) button.addEventListener('click', () => {
+    stopSequence(); releaseDrag(snapControl, snap); snap.prediction = null; chooseDetent(Number(button.dataset.detent));
+  });
+  function setSeparation(value, direct = false) {
+    union.value = clamp(value, 0, 100); const target = 38 + union.value * 1.1;
+    if (direct) { union.gap.target = target; settle(union.gap); render(); }
+    else animate(union.gap, target);
+  }
+  separation.addEventListener('input', () => { stopSequence(); setSeparation(Number(separation.value), true); });
+  byId('merge').addEventListener('click', () => { stopSequence(); setSeparation(0); });
+  byId('separate').addEventListener('click', () => { stopSequence(); setSeparation(100); });
+  function suspend() {
+    stopSequence(); releaseDrag(brightnessControl, brightness); releaseDrag(snapControl, snap); snap.prediction = null;
+    brightness.overshoot.target = 0; for (const state of springs()) settle(state);
+    if (frame !== null) cancelAnimationFrame(frame); frame = null; previousTime = null;
+  }
+  function syncPreference() {
+    if (reduced()) suspend();
+    byId('motion-status').textContent = systemPreference.matches ? 'Reduced motion is on in system settings.' : reduced() ? 'Reduced motion is on.' : 'System motion preference applies.';
+    render();
+  }
+  reduceInput.addEventListener('change', syncPreference); systemPreference.addEventListener('change', syncPreference);
+  function reset() {
+    suspend(); brightness.value = 65; brightness.edge = -1; brightness.releaseVelocity = 0; snap.destination = 1; snap.position.target = railTravel / 2; settle(snap.position);
+    snap.releaseVelocity = 0; union.value = 80; union.gap.target = 126; settle(union.gap); render();
+  }
+  function playSequence() {
+    reset(); if (document.hidden) return;
+    if (reduced()) {
+      brightness.value = 100; chooseDetent(2, 0); setSeparation(100);
+      byId('announcement').textContent = 'Sequence finished with reduced motion.'; render(); return;
+    }
+    sequenceRunning = true; byId('play').textContent = 'Replay sequence'; brightness.value = 100; brightness.overshoot.x = -140; render();
+    const later = (delay, action) => sequenceTimers.push(setTimeout(() => { if (sequenceRunning && !document.hidden) action(); }, delay));
+    later(220, () => animate(brightness.overshoot, 0, -280));
+    later(760, () => { snap.position.x = railTravel * .2; chooseDetent(2, 600); });
+    later(1380, () => setSeparation(0)); later(2140, () => setSeparation(100));
+    later(2800, () => { stopSequence(); byId('announcement').textContent = 'Sequence finished.'; });
+  }
+  byId('play').addEventListener('click', playSequence);
+  function resize() {
+    const nextTravel = Math.max(0, rail.clientWidth - 64);
+    if (nextTravel !== railTravel) {
+      const ratio = railTravel > 0 ? nextTravel / railTravel : 0;
+      snap.position.x = railTravel > 0 ? snap.position.x * ratio : nextTravel / 2; snap.position.v *= ratio;
+      railTravel = nextTravel; snap.position.target = railTravel * snap.destination / 2;
+      if (snap.drag) {
+        const lastPointer = snap.drag.history.samples[snap.drag.history.samples.length - 1].position;
+        snap.drag.startPosition = snap.position.x; snap.drag.startPointer = lastPointer;
+      }
+      if (snap.prediction !== null) snap.prediction *= ratio;
+    }
+    const nextWidth = Math.max(1, Math.min(360, Math.round(byId('circles').clientWidth)));
+    if (canvas.width !== nextWidth) { canvas.width = nextWidth; rasterGap = NaN; }
+    render();
+  }
+  const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(rail); resizeObserver.observe(byId('circles'));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) suspend(); else { resize(); syncPreference(); } });
+  window.addEventListener('pagehide', () => { suspend(); destroyed = true; resizeObserver.disconnect(); });
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) { destroyed = false; resizeObserver.observe(rail); resizeObserver.observe(byId('circles')); resize(); syncPreference(); }
+  });
+  window.motionLab = {
+    inspect: () => ({
+      brightness: { value: brightness.value, edge: brightness.edge, rawOvershoot: brightness.overshoot.x, renderedOvershoot: reduced() ? 0 : rubberband(brightness.overshoot.x), rawVelocity: brightness.overshoot.v, releaseVelocity: brightness.releaseVelocity, renderedVelocity: reduced() ? 0 : rubberDerivative(brightness.overshoot.x) * brightness.overshoot.v, dragging: Boolean(brightness.drag), settling: brightness.overshoot.active },
+      snap: { position: snap.position.x, renderedPosition: boundedPosition(snap.position.x), velocity: snap.position.v, target: snap.position.target, destination: names[snap.destination], prediction: snap.prediction, releaseVelocity: snap.releaseVelocity, railTravel, dragging: Boolean(snap.drag), settling: snap.position.active },
+      union: { value: union.value, gap: union.gap.x, target: union.gap.target, velocity: union.gap.v, settling: union.gap.active, renderer: 'polynomial smooth-union SDF, radius 32 px, blend 18 px' },
+      lifecycle: { rafPending: frame !== null, hidden: document.hidden, reduced: reduced(), systemReduced: systemPreference.matches, sequenceRunning, destroyed },
+      tuning: { omegaRadiansPerSecond: OMEGA, zeta: ZETA, rubberLimitPixels: RUBBER_LIMIT, rubberCoefficient: RUBBER_COEFFICIENT, predictionDecayPerSecond: DECAY }
+    }),
+    setBrightness: value => { stopSequence(); releaseDrag(brightnessControl, brightness); brightness.value = clamp(value, 0, 100); brightness.overshoot.target = 0; settle(brightness.overshoot); render(); },
+    setSnap: index => { stopSequence(); releaseDrag(snapControl, snap); snap.prediction = null; chooseDetent(index); },
+    setSeparation: value => { stopSequence(); setSeparation(value); },
+    reset, playSequence, math: { springStep, rubberband, rubberDerivative, releaseVelocity, startSamples, addSample }
+  };
+  resize(); syncPreference();
+  if (!context) byId('union-help').textContent = 'Canvas is unavailable. The separation control remains usable.';
+})();
+</script>
+<script>
+(() => {
+'use strict';
+const byId=id=>document.getElementById(id);
+const titles={brightness:'Elastic brightness',snap:'Predicted snap',union:'Joined shapes'};
+const saved={brightness:65,snap:1,union:80}, favorites=new Set(['brightness']);
+let selected='brightness', destination='library', savedMessage='Saved';
+const buttons=[...document.querySelectorAll('[data-preset]')];
+function valueOf(key) { const state=window.motionLab.inspect(); return key==='brightness'?state.brightness.value:key==='snap'?['Left','Center','Right'].indexOf(state.snap.destination):state.union.value; }
+function syncSettings() {
+const state=window.motionLab.inspect();
+byId('brightness-range').value=String(Math.round(state.brightness.value));
+if(document.activeElement!==byId('brightness-number'))byId('brightness-number').value=String(Math.round(state.brightness.value));
+byId('snap-select').value=String(['Left','Center','Right'].indexOf(state.snap.destination));
+const dirty=Math.abs(valueOf(selected)-saved[selected])>.001;
+byId('save').disabled=!dirty; byId('restore').disabled=!dirty;
+byId('save-state').textContent=dirty?'Unsaved changes':savedMessage;
+}
+function filterPresets() {
+const query=byId('search').value.trim().toLowerCase();let count=0;
+for(const button of buttons){const key=button.dataset.preset;button.hidden=!(titles[key].toLowerCase().includes(query)&&(destination!=='favorites'||favorites.has(key))); if(!button.hidden)count++;}
+byId('library-count').textContent=count+' '+(count===1?'saved preset':'saved presets');
+byId('empty').hidden=count!==0;byId('favorite-count').textContent=String(favorites.size);
+}
+function selectPreset(key) {
+selected=key;savedMessage='Saved';
+for(const button of buttons)button.setAttribute('aria-pressed',String(button.dataset.preset===key));
+for(const name of Object.keys(titles)){byId(name+'-panel').hidden=name!==key;byId(name+'-settings').hidden=name!==key;}
+byId('selected-title').textContent=titles[key];byId('favorite').setAttribute('aria-pressed',String(favorites.has(key)));syncSettings();
+}
+for(const button of buttons)button.addEventListener('click',()=>selectPreset(button.dataset.preset));
+byId('search').addEventListener('input',filterPresets);
+for(const radio of document.querySelectorAll('[name=view]'))radio.addEventListener('change',()=>byId('presets').classList.toggle('list',radio.value==='list'&&radio.checked));
+function navigate(){destination=location.hash==='#favorites'?'favorites':'library';for(const link of document.querySelectorAll('nav a')){if(link.hash==='#'+destination)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');}byId('library-title').textContent=destination==='favorites'?'Favorites':'All presets';filterPresets();}
+window.addEventListener('hashchange',navigate);
+byId('favorite').addEventListener('click',()=>{if(favorites.has(selected))favorites.delete(selected);else favorites.add(selected);byId('favorite').setAttribute('aria-pressed',String(favorites.has(selected)));filterPresets();});
+byId('brightness-range').addEventListener('input',event=>window.motionLab.setBrightness(Number(event.target.value)));
+byId('brightness-number').addEventListener('input',event=>{if(event.target.value!==''&&event.target.validity.valid)window.motionLab.setBrightness(Number(event.target.value));});
+byId('brightness-number').addEventListener('change',event=>{window.motionLab.setBrightness(Number(event.target.value)||0);event.target.value=String(Math.round(window.motionLab.inspect().brightness.value));});
+byId('snap-select').addEventListener('change',event=>window.motionLab.setSnap(Number(event.target.value)));
+byId('save').addEventListener('click',()=>{saved[selected]=valueOf(selected);savedMessage='Saved';syncSettings();});
+byId('restore').addEventListener('click',()=>{if(selected==='brightness')window.motionLab.setBrightness(saved[selected]);else if(selected==='snap')window.motionLab.setSnap(saved[selected]);else window.motionLab.setSeparation(saved[selected]);});
+byId('export-open').addEventListener('click',()=>{byId('export-title').textContent='Export '+titles[selected].toLowerCase();byId('export-dialog').showModal();});
+byId('export-dialog').addEventListener('close',()=>byId('export-open').focus());
+byId('download').addEventListener('click',()=>{const preset={name:titles[selected],mechanism:selected,value:valueOf(selected),tuning:window.motionLab.inspect().tuning};const blob=new Blob([JSON.stringify(preset,null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=selected+'-preset.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);byId('export-dialog').close();byId('announcement').textContent='Preset download started.';});
+window.addEventListener('motionchange',syncSettings);
+window.systemPreview={inspect:()=>({selected,destination,saved:{...saved},favorites:[...favorites],view:byId('presets').classList.contains('list')?'list':'grid',...window.motionLab.inspect()})};
+navigate();selectPreset(selected);
+})();
+</script>
+</body>
+</html>

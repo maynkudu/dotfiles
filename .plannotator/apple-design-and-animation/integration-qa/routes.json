@@ -1,0 +1,498 @@
+[
+  {
+    "fullLink": [
+      {
+        "href": "/view/elastic-slider",
+        "label": "View full, opens in a new tab",
+        "target": "_blank"
+      }
+    ],
+    "heading": "Elastic slider",
+    "locked": true,
+    "pageWidth": 1360,
+    "previewRegions": [
+      {
+        "h": 443.875,
+        "label": "Elastic Slider preview",
+        "w": 826
+      },
+      {
+        "h": 1036.875,
+        "label": "Elastic Slider properties",
+        "w": 1118
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Level",
+        "rect": {
+          "left": 456,
+          "right": 776
+        },
+        "value": "65"
+      }
+    ],
+    "sourcePassword": true,
+    "tablist": false,
+    "text": "Skip to component\nHome\nComponents\nRegistry\nMint\nSound on\nHome\nComponents\nElastic Slider\nElastic slider\n\nA bounded slider with elastic endpoint stretch, rigid content, and interruptible settling.\n\nView full\nView source\nPreview\nElastic Slider\nHorizontal\nLevel\n65\nControls\nOrientation\nHorizontal\nVertical\nValue\n65\n\nDrag past either end. Arrow keys adjust the value. Release to commit.\n\nReplay\nReset\nDisabled\nReduce motion\n\nNo committed change\n\nInstallation\nnpm\npnpm\nyarn\nbun\nCopy\nbunx shadcn@latest add @modulo/elastic-slider\n\nRequires an active Modulo key and a project configured for shadcn.\n\nRegistry setup\nUsage\nimport { ElasticSlider } from \"@/components/elastic-slider/ElasticSlider\";\n\nexport default function Example() {\n  return <ElasticSlider label=\"Brightness\" defaultValue={65} orientation=\"vertical\" />;\n}\n\nReact and scoped CSS. No animation package required.\n\nRegistry JSONDownload thumbnailDownload preview GIFDownload preview video\nInteraction\n\nDrag horizontally or vertically. The value stays within its bounds while the shell stretches at either end. Labels, content, and input targets keep their shape.\n\nArrow keys adjust one step. Page Up and Page Down adjust ten steps. Home and End select the bounds. Step rounding starts at the minimum.\n\nChanges arrive during adjustment. A successful pointer release or keyboard release commits the requested value. Cancellation settles the shell without a commit. Controlled values remain owned by the parent.\n\nReduced motion preserves value adjustment without elastic stretching. Preference changes, hidden tabs, and unmounting stop pending animation and replay.\n\nAPI\nProp\tType\tDefault\nlabel\nVisible and accessible name for the value.\n\tstring\tRequired\nvalue / defaultValue\nUse value with onValueChange for controlled state, or defaultValue for local state.\n\tnumber\tmin\nmin / max\nFinite ordered semantic bounds.\n\tnumber\t0 / 100\nstep\nValue increment counted from min, or continuous pointer values with any.\n\tnumber | \"any\"\t1\norientation\nInput direction and shell layout.\n\t\"horizontal\" | \"vertical\"\t\"horizontal\"\ndisabled\nBlocks pointer and keyboard changes.\n\tboolean\tfalse\nreducedMotion\nRequests a still alternate path. The system preference also applies.\n\tboolean\tfalse\nonValueChange\nBounded normalized value requests. Required with controlled value.\n\t(value: number) => void\tOptional\nonValueCommit\nSuccessful user adjustment. Cancellation does not commit.\n\t(value: number) => void\tOptional\nformatValue\nFormats the displayed and accessible value.\n\t(value: number) => string\tOptional\nchildren\nRigid decorative content outside shell deformation.\n\tReactNode\tOptional\nonReady\nController on mount and null on cleanup. Keep callback stable.\n\t(controller | null) => void\tOptional\nController methods\nSource\n\nEnter an active Modulo key to view the source.\n\nKey\nUnlock source\nModulo\nInstallation guide",
+    "title": "Elastic slider | Modulo",
+    "url": "http://modulo.localhost:1355/components/elastic-slider",
+    "viewport": [
+      1360,
+      1000
+    ],
+    "errors": "",
+    "artifact": "components-elastic-slider-desktop.png"
+  },
+  {
+    "fullLink": [
+      {
+        "href": "/view/snap-rail",
+        "label": "View full, opens in a new tab",
+        "target": "_blank"
+      }
+    ],
+    "heading": "Snap rail",
+    "locked": true,
+    "pageWidth": 1360,
+    "previewRegions": [
+      {
+        "h": 454.1875,
+        "label": "Snap rail preview",
+        "w": 826
+      },
+      {
+        "h": 454.1875,
+        "label": "Snap rail controls",
+        "w": 290
+      },
+      {
+        "h": 887.4375,
+        "label": "Snap rail properties",
+        "w": 1118
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Snap position",
+        "rect": {
+          "left": 286,
+          "right": 946
+        },
+        "value": "1"
+      }
+    ],
+    "sourcePassword": true,
+    "tablist": false,
+    "text": "Skip to component\nHome\nComponents\nRegistry\nMint\nSound on\nHome\nComponents\nSnap rail\nSnap rail\n\nA draggable rail with velocity-projected detents and continuous spring retargeting.\n\nView full\nView source\nPreview\nSnap rail\nDrag to select\nCenter\nLeft\nCenter\nRight\n\nCenter selected\n\nRelease\nProjection time\n120 ms\nPreview hysteresis\n8 px\n\nFlick toward a destination. Grab the item again while it settles.\n\nReduce motion\nDisable control\nPlay sequence\nReset\nInstallation\nnpm\npnpm\nyarn\nbun\nCopy\nbunx shadcn@latest add @modulo/snap-rail\n\nRequires an active Modulo key and a project configured for shadcn.\n\nRegistry setup\nUsage\nimport { SnapRail } from \"@/components/snap-rail/SnapRail\";\n\nconst detents = [\n  { id: \"left\", label: \"Left\", position: 0 },\n  { id: \"center\", label: \"Center\", position: 140 },\n  { id: \"right\", label: \"Right\", position: 280 },\n];\n\nexport default function Example() {\n  return <SnapRail ariaLabel=\"Placement\" detents={detents} defaultSelectedId=\"center\" />;\n}\n\nReact and browser Pointer Events. All four source files install together. No animation package required.\n\nRegistry JSONDownload thumbnailDownload preview GIFDownload preview video\nInteraction\n\nDrag the item horizontally. Release speed projects a destination, then the item springs to the nearest detent. Grab it again to interrupt. A hold before release discards stale flick speed.\n\nUse the destination buttons, arrow keys, Home or End. Labels stay rigid. Cancellation returns to the selected detent without committing. Reduced motion selects the destination immediately. Hidden and offscreen previews stop animation.\n\nThe spring tuning and projection are original examples. They are not Apple implementation constants.\n\nAPI\nProp\tType\tDefault\ndetents\nStable IDs, labels, and increasing finite relative positions mapped across the track.\n\treadonly SnapDetent[]\tRequired\nariaLabel\nAccessible name of the placement control.\n\tstring\t\"Snap position\"\nselectedId / defaultSelectedId\nControlled selection or initial local selection.\n\tstring\tFirst detent\nonSelectionChange\nSelection requests. Required with controlled selectedId.\n\t(id: string) => void\tOptional\nonSelectionCommit\nSuccessful user destination request.\n\t(id: string) => void\tOptional\nonSelectionCancel\nCanceled pointer interaction without a commit.\n\t() => void\tOptional\ndecaySeconds\nProjection time constant in seconds.\n\tnumber\t0.12\nhysteresis\nPreview midpoint margin in pixels.\n\tnumber\t8\nomega / dampingRatio\nIllustrative spring tuning, not Apple constants.\n\tnumber\t20 / 0.85\ndisabled / reducedMotion\nInput availability and still alternate path.\n\tboolean\tfalse\nonReady\nController on mount and null on cleanup. Keep callback stable.\n\t(controller | null) => void\tOptional\nSelection and controller\nSource\n\nEnter an active Modulo key to view the source.\n\nKey\nUnlock source\nModulo\nInstallation guide",
+    "title": "Snap rail | Modulo",
+    "url": "http://modulo.localhost:1355/components/snap-rail",
+    "viewport": [
+      1360,
+      1000
+    ],
+    "errors": "",
+    "artifact": "components-snap-rail-desktop.png"
+  },
+  {
+    "fullLink": [
+      {
+        "href": "/view/liquid-cluster",
+        "label": "View full, opens in a new tab",
+        "target": "_blank"
+      }
+    ],
+    "heading": "Liquid cluster",
+    "locked": true,
+    "pageWidth": 1360,
+    "previewRegions": [
+      {
+        "h": 420,
+        "label": "Liquid cluster preview",
+        "w": 826
+      },
+      {
+        "h": 853.125,
+        "label": "Liquid cluster properties",
+        "w": 1118
+      }
+    ],
+    "sliders": [],
+    "sourcePassword": true,
+    "tablist": false,
+    "text": "Skip to component\nHome\nComponents\nRegistry\nMint\nSound on\nHome\nComponents\nLiquid cluster\nLiquid cluster\n\nIndependent labeled buttons with a shared geometric background that joins and separates.\n\nView full\nView source\nPreview\nWorkspace\nOutline\nNotes\nAssets\n\nNotes selected\n\nCluster\nSeparation\n65%\nJoin\nSeparate\nOpaque background\nReduce motion\nDisable actions\nSecond group\nReplay\nReset\nInstallation\nnpm\npnpm\nyarn\nbun\nCopy\nbunx shadcn@latest add @modulo/liquid-cluster\n\nRequires an active Modulo key and a project configured for shadcn.\n\nRegistry setup\nUsage\nimport { LiquidCluster } from \"@/components/liquid-cluster/LiquidCluster\";\n\nconst items = [{ id: \"left\", label: \"Left\" }, { id: \"center\", label: \"Center\" }, { id: \"right\", label: \"Right\" }];\n\nexport default function Example() {\n  return <LiquidCluster ariaLabel=\"Alignment\" items={items} defaultSelectedId=\"center\" defaultSeparation={0.65} />;\n}\n\nReact and Canvas 2D. All three source files install together. No animation package required.\n\nRegistry JSONDownload thumbnailDownload preview GIFDownload preview video\nInteraction\n\nChoose a labeled action with a click, Enter, or Space. Each button keeps its own target, accessible name, and selection state while the background shapes join.\n\nSeparation ranges from 0 for joined shapes to 1 for separated shapes. Available space determines the gap in pixels. Join and Separate update the same value. A new value retargets the current spring.\n\nReduced motion applies the final geometry directly. Opaque background removes transparency and the shared shadow. Native buttons remain available if Canvas cannot render or the labels need to wrap.\n\nThe background uses geometric smooth-union blending. It is an original adaptation of proximity merging, with no physical fluid simulation or optical refraction.\n\nAPI\nProp\tType\tDefault\nitems\nUnique IDs, labels, and optional per-item disabled state.\n\treadonly LiquidClusterItem[]\tRequired\nariaLabel\nAccessible name of the related button group.\n\tstring\tRequired\nseparation / defaultSeparation\nNormalized gap from 0 to 1. Controlled separation requires onSeparationChange.\n\tnumber\t0.65\nonSeparationChange\nRequested normalized separation.\n\t(value: number) => void\tOptional\nselectedId / defaultSelectedId\nControlled or initial local active button. Controlled selection requires onSelect.\n\tstring | null\tnull\nonSelect\nIndependent button activation.\n\t(id: string) => void\tOptional\ndisabled\nDisables all native button targets.\n\tboolean\tfalse\nopaque\nRequests an opaque material adaptation.\n\tboolean\tfalse\nreducedMotion\nDisables automatic settling. System preference also applies.\n\tboolean\tfalse\nonReady\nController on mount and null on cleanup. Keep callback stable.\n\t(controller | null) => void\tOptional\nController methods\nSource\n\nEnter an active Modulo key to view the source.\n\nKey\nUnlock source\nModulo\nInstallation guide",
+    "title": "Liquid cluster | Modulo",
+    "url": "http://modulo.localhost:1355/components/liquid-cluster",
+    "viewport": [
+      1360,
+      1000
+    ],
+    "errors": "",
+    "artifact": "components-liquid-cluster-desktop.png"
+  },
+  {
+    "fullLink": [],
+    "locked": false,
+    "pageWidth": 1360,
+    "previewRegions": [
+      {
+        "h": 420,
+        "label": "Elastic Slider preview",
+        "w": 720
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Level",
+        "rect": {
+          "left": 520,
+          "right": 840
+        },
+        "value": "65"
+      }
+    ],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Elastic Slider\nHorizontal\nLevel\n65\nControls\nOrientation\nHorizontal\nVertical\nValue\n65\n\nDrag past either end. Arrow keys adjust the value. Release to commit.\n\nReplay\nReset\nDisabled\nReduce motion\n\nNo committed change",
+    "title": "Elastic slider | Modulo",
+    "url": "http://modulo.localhost:1355/view/elastic-slider",
+    "viewport": [
+      1360,
+      1000
+    ],
+    "errors": "",
+    "artifact": "view-elastic-slider-desktop.png"
+  },
+  {
+    "fullLink": [],
+    "locked": false,
+    "pageWidth": 1360,
+    "previewRegions": [
+      {
+        "h": 320,
+        "label": "Snap rail preview",
+        "w": 720
+      },
+      {
+        "h": 432.09375,
+        "label": "Snap rail controls",
+        "w": 720
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Snap position",
+        "rect": {
+          "left": 350,
+          "right": 1010
+        },
+        "value": "1"
+      }
+    ],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Snap rail\nDrag to select\nCenter\nLeft\nCenter\nRight\n\nCenter selected\n\nRelease\nProjection time\n120 ms\nPreview hysteresis\n8 px\n\nFlick toward a destination. Grab the item again while it settles.\n\nReduce motion\nDisable control\nPlay sequence\nReset",
+    "title": "Snap rail | Modulo",
+    "url": "http://modulo.localhost:1355/view/snap-rail",
+    "viewport": [
+      1360,
+      1000
+    ],
+    "errors": "",
+    "artifact": "view-snap-rail-desktop.png"
+  },
+  {
+    "fullLink": [],
+    "locked": false,
+    "pageWidth": 1360,
+    "previewRegions": [
+      {
+        "h": 420,
+        "label": "Liquid cluster preview",
+        "w": 720
+      }
+    ],
+    "sliders": [],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Workspace\nOutline\nNotes\nAssets\n\nNotes selected\n\nCluster\nSeparation\n65%\nJoin\nSeparate\nOpaque background\nReduce motion\nDisable actions\nSecond group\nReplay\nReset",
+    "title": "Liquid cluster | Modulo",
+    "url": "http://modulo.localhost:1355/view/liquid-cluster",
+    "viewport": [
+      1360,
+      1000
+    ],
+    "errors": "",
+    "artifact": "view-liquid-cluster-desktop.png"
+  },
+  {
+    "fullLink": [
+      {
+        "href": "/view/elastic-slider",
+        "label": "View full, opens in a new tab",
+        "target": "_blank"
+      }
+    ],
+    "heading": "Elastic slider",
+    "locked": true,
+    "pageWidth": 390,
+    "previewRegions": [
+      {
+        "h": 360,
+        "label": "Elastic Slider preview",
+        "w": 348
+      },
+      {
+        "h": 1118.875,
+        "label": "Elastic Slider properties",
+        "w": 350
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Level",
+        "rect": {
+          "left": 69,
+          "right": 321
+        },
+        "value": "65"
+      }
+    ],
+    "sourcePassword": true,
+    "tablist": false,
+    "text": "Skip to component\nHome\nComponents\nRegistry\nMint\nSound on\nHome\nComponents\nElastic Slider\nElastic slider\n\nA bounded slider with elastic endpoint stretch, rigid content, and interruptible settling.\n\nView full\nView source\nPreview\nElastic Slider\nHorizontal\nLevel\n65\nControls\nOrientation\nHorizontal\nVertical\nValue\n65\n\nDrag past either end. Arrow keys adjust the value. Release to commit.\n\nReplay\nReset\nDisabled\nReduce motion\n\nNo committed change\n\nInstallation\nnpm\npnpm\nyarn\nbun\nCopy\nbunx shadcn@latest add @modulo/elastic-slider\n\nRequires an active Modulo key and a project configured for shadcn.\n\nRegistry setup\nUsage\nimport { ElasticSlider } from \"@/components/elastic-slider/ElasticSlider\";\n\nexport default function Example() {\n  return <ElasticSlider label=\"Brightness\" defaultValue={65} orientation=\"vertical\" />;\n}\n\nReact and scoped CSS. No animation package required.\n\nRegistry JSONDownload thumbnailDownload preview GIFDownload preview video\nInteraction\n\nDrag horizontally or vertically. The value stays within its bounds while the shell stretches at either end. Labels, content, and input targets keep their shape.\n\nArrow keys adjust one step. Page Up and Page Down adjust ten steps. Home and End select the bounds. Step rounding starts at the minimum.\n\nChanges arrive during adjustment. A successful pointer release or keyboard release commits the requested value. Cancellation settles the shell without a commit. Controlled values remain owned by the parent.\n\nReduced motion preserves value adjustment without elastic stretching. Preference changes, hidden tabs, and unmounting stop pending animation and replay.\n\nAPI\nProp\tType\tDefault\nlabel\nVisible and accessible name for the value.\n\tstring\tRequired\nvalue / defaultValue\nUse value with onValueChange for controlled state, or defaultValue for local state.\n\tnumber\tmin\nmin / max\nFinite ordered semantic bounds.\n\tnumber\t0 / 100\nstep\nValue increment counted from min, or continuous pointer values with any.\n\tnumber | \"any\"\t1\norientation\nInput direction and shell layout.\n\t\"horizontal\" | \"vertical\"\t\"horizontal\"\ndisabled\nBlocks pointer and keyboard changes.\n\tboolean\tfalse\nreducedMotion\nRequests a still alternate path. The system preference also applies.\n\tboolean\tfalse\nonValueChange\nBounded normalized value requests. Required with controlled value.\n\t(value: number) => void\tOptional\nonValueCommit\nSuccessful user adjustment. Cancellation does not commit.\n\t(value: number) => void\tOptional\nformatValue\nFormats the displayed and accessible value.\n\t(value: number) => string\tOptional\nchildren\nRigid decorative content outside shell deformation.\n\tReactNode\tOptional\nonReady\nController on mount and null on cleanup. Keep callback stable.\n\t(controller | null) => void\tOptional\nController methods\nSource\n\nEnter an active Modulo key to view the source.\n\nKey\nUnlock source\nModulo\nInstallation guide",
+    "title": "Elastic slider | Modulo",
+    "url": "http://modulo.localhost:1355/components/elastic-slider",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "components-elastic-slider-narrow.png"
+  },
+  {
+    "fullLink": [
+      {
+        "href": "/view/snap-rail",
+        "label": "View full, opens in a new tab",
+        "target": "_blank"
+      }
+    ],
+    "heading": "Snap rail",
+    "locked": true,
+    "pageWidth": 390,
+    "previewRegions": [
+      {
+        "h": 306,
+        "label": "Snap rail preview",
+        "w": 348
+      },
+      {
+        "h": 439.1875,
+        "label": "Snap rail controls",
+        "w": 348
+      },
+      {
+        "h": 1012.125,
+        "label": "Snap rail properties",
+        "w": 350
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Snap position",
+        "rect": {
+          "left": 35,
+          "right": 355
+        },
+        "value": "1"
+      }
+    ],
+    "sourcePassword": true,
+    "tablist": false,
+    "text": "Skip to component\nHome\nComponents\nRegistry\nMint\nSound on\nHome\nComponents\nSnap rail\nSnap rail\n\nA draggable rail with velocity-projected detents and continuous spring retargeting.\n\nView full\nView source\nPreview\nSnap rail\nDrag to select\nCenter\nLeft\nCenter\nRight\n\nCenter selected\n\nRelease\nProjection time\n120 ms\nPreview hysteresis\n8 px\n\nFlick toward a destination. Grab the item again while it settles.\n\nReduce motion\nDisable control\nPlay sequence\nReset\nInstallation\nnpm\npnpm\nyarn\nbun\nCopy\nbunx shadcn@latest add @modulo/snap-rail\n\nRequires an active Modulo key and a project configured for shadcn.\n\nRegistry setup\nUsage\nimport { SnapRail } from \"@/components/snap-rail/SnapRail\";\n\nconst detents = [\n  { id: \"left\", label: \"Left\", position: 0 },\n  { id: \"center\", label: \"Center\", position: 140 },\n  { id: \"right\", label: \"Right\", position: 280 },\n];\n\nexport default function Example() {\n  return <SnapRail ariaLabel=\"Placement\" detents={detents} defaultSelectedId=\"center\" />;\n}\n\nReact and browser Pointer Events. All four source files install together. No animation package required.\n\nRegistry JSONDownload thumbnailDownload preview GIFDownload preview video\nInteraction\n\nDrag the item horizontally. Release speed projects a destination, then the item springs to the nearest detent. Grab it again to interrupt. A hold before release discards stale flick speed.\n\nUse the destination buttons, arrow keys, Home or End. Labels stay rigid. Cancellation returns to the selected detent without committing. Reduced motion selects the destination immediately. Hidden and offscreen previews stop animation.\n\nThe spring tuning and projection are original examples. They are not Apple implementation constants.\n\nAPI\nProp\tType\tDefault\ndetents\nStable IDs, labels, and increasing finite relative positions mapped across the track.\n\treadonly SnapDetent[]\tRequired\nariaLabel\nAccessible name of the placement control.\n\tstring\t\"Snap position\"\nselectedId / defaultSelectedId\nControlled selection or initial local selection.\n\tstring\tFirst detent\nonSelectionChange\nSelection requests. Required with controlled selectedId.\n\t(id: string) => void\tOptional\nonSelectionCommit\nSuccessful user destination request.\n\t(id: string) => void\tOptional\nonSelectionCancel\nCanceled pointer interaction without a commit.\n\t() => void\tOptional\ndecaySeconds\nProjection time constant in seconds.\n\tnumber\t0.12\nhysteresis\nPreview midpoint margin in pixels.\n\tnumber\t8\nomega / dampingRatio\nIllustrative spring tuning, not Apple constants.\n\tnumber\t20 / 0.85\ndisabled / reducedMotion\nInput availability and still alternate path.\n\tboolean\tfalse\nonReady\nController on mount and null on cleanup. Keep callback stable.\n\t(controller | null) => void\tOptional\nSelection and controller\nSource\n\nEnter an active Modulo key to view the source.\n\nKey\nUnlock source\nModulo\nInstallation guide",
+    "title": "Snap rail | Modulo",
+    "url": "http://modulo.localhost:1355/components/snap-rail",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "components-snap-rail-narrow.png"
+  },
+  {
+    "fullLink": [
+      {
+        "href": "/view/liquid-cluster",
+        "label": "View full, opens in a new tab",
+        "target": "_blank"
+      }
+    ],
+    "heading": "Liquid cluster",
+    "locked": true,
+    "pageWidth": 390,
+    "previewRegions": [
+      {
+        "h": 351.5,
+        "label": "Liquid cluster preview",
+        "w": 348
+      },
+      {
+        "h": 962.9375,
+        "label": "Liquid cluster properties",
+        "w": 350
+      }
+    ],
+    "sliders": [],
+    "sourcePassword": true,
+    "tablist": false,
+    "text": "Skip to component\nHome\nComponents\nRegistry\nMint\nSound on\nHome\nComponents\nLiquid cluster\nLiquid cluster\n\nIndependent labeled buttons with a shared geometric background that joins and separates.\n\nView full\nView source\nPreview\nWorkspace\nOutline\nNotes\nAssets\n\nNotes selected\n\nCluster\nSeparation\n65%\nJoin\nSeparate\nOpaque background\nReduce motion\nDisable actions\nSecond group\nReplay\nReset\nInstallation\nnpm\npnpm\nyarn\nbun\nCopy\nbunx shadcn@latest add @modulo/liquid-cluster\n\nRequires an active Modulo key and a project configured for shadcn.\n\nRegistry setup\nUsage\nimport { LiquidCluster } from \"@/components/liquid-cluster/LiquidCluster\";\n\nconst items = [{ id: \"left\", label: \"Left\" }, { id: \"center\", label: \"Center\" }, { id: \"right\", label: \"Right\" }];\n\nexport default function Example() {\n  return <LiquidCluster ariaLabel=\"Alignment\" items={items} defaultSelectedId=\"center\" defaultSeparation={0.65} />;\n}\n\nReact and Canvas 2D. All three source files install together. No animation package required.\n\nRegistry JSONDownload thumbnailDownload preview GIFDownload preview video\nInteraction\n\nChoose a labeled action with a click, Enter, or Space. Each button keeps its own target, accessible name, and selection state while the background shapes join.\n\nSeparation ranges from 0 for joined shapes to 1 for separated shapes. Available space determines the gap in pixels. Join and Separate update the same value. A new value retargets the current spring.\n\nReduced motion applies the final geometry directly. Opaque background removes transparency and the shared shadow. Native buttons remain available if Canvas cannot render or the labels need to wrap.\n\nThe background uses geometric smooth-union blending. It is an original adaptation of proximity merging, with no physical fluid simulation or optical refraction.\n\nAPI\nProp\tType\tDefault\nitems\nUnique IDs, labels, and optional per-item disabled state.\n\treadonly LiquidClusterItem[]\tRequired\nariaLabel\nAccessible name of the related button group.\n\tstring\tRequired\nseparation / defaultSeparation\nNormalized gap from 0 to 1. Controlled separation requires onSeparationChange.\n\tnumber\t0.65\nonSeparationChange\nRequested normalized separation.\n\t(value: number) => void\tOptional\nselectedId / defaultSelectedId\nControlled or initial local active button. Controlled selection requires onSelect.\n\tstring | null\tnull\nonSelect\nIndependent button activation.\n\t(id: string) => void\tOptional\ndisabled\nDisables all native button targets.\n\tboolean\tfalse\nopaque\nRequests an opaque material adaptation.\n\tboolean\tfalse\nreducedMotion\nDisables automatic settling. System preference also applies.\n\tboolean\tfalse\nonReady\nController on mount and null on cleanup. Keep callback stable.\n\t(controller | null) => void\tOptional\nController methods\nSource\n\nEnter an active Modulo key to view the source.\n\nKey\nUnlock source\nModulo\nInstallation guide",
+    "title": "Liquid cluster | Modulo",
+    "url": "http://modulo.localhost:1355/components/liquid-cluster",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "components-liquid-cluster-narrow.png"
+  },
+  {
+    "fullLink": [],
+    "locked": false,
+    "pageWidth": 390,
+    "previewRegions": [
+      {
+        "h": 360,
+        "label": "Elastic Slider preview",
+        "w": 350
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Level",
+        "rect": {
+          "left": 68,
+          "right": 322
+        },
+        "value": "65"
+      }
+    ],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Elastic Slider\nHorizontal\nLevel\n65\nControls\nOrientation\nHorizontal\nVertical\nValue\n65\n\nDrag past either end. Arrow keys adjust the value. Release to commit.\n\nReplay\nReset\nDisabled\nReduce motion\n\nNo committed change",
+    "title": "Elastic slider | Modulo",
+    "url": "http://modulo.localhost:1355/view/elastic-slider",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "view-elastic-slider-narrow.png"
+  },
+  {
+    "fullLink": [],
+    "locked": false,
+    "pageWidth": 390,
+    "previewRegions": [
+      {
+        "h": 306,
+        "label": "Snap rail preview",
+        "w": 350
+      },
+      {
+        "h": 439.1875,
+        "label": "Snap rail controls",
+        "w": 350
+      }
+    ],
+    "sliders": [
+      {
+        "label": "Snap position",
+        "rect": {
+          "left": 34,
+          "right": 356
+        },
+        "value": "1"
+      }
+    ],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Snap rail\nDrag to select\nCenter\nLeft\nCenter\nRight\n\nCenter selected\n\nRelease\nProjection time\n120 ms\nPreview hysteresis\n8 px\n\nFlick toward a destination. Grab the item again while it settles.\n\nReduce motion\nDisable control\nPlay sequence\nReset",
+    "title": "Snap rail | Modulo",
+    "url": "http://modulo.localhost:1355/view/snap-rail",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "view-snap-rail-narrow.png"
+  },
+  {
+    "fullLink": [],
+    "locked": false,
+    "pageWidth": 390,
+    "previewRegions": [
+      {
+        "h": 351.5,
+        "label": "Liquid cluster preview",
+        "w": 350
+      }
+    ],
+    "sliders": [],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Workspace\nOutline\nNotes\nAssets\n\nNotes selected\n\nCluster\nSeparation\n65%\nJoin\nSeparate\nOpaque background\nReduce motion\nDisable actions\nSecond group\nReplay\nReset",
+    "title": "Liquid cluster | Modulo",
+    "url": "http://modulo.localhost:1355/view/liquid-cluster",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "view-liquid-cluster-narrow.png"
+  },
+  {
+    "fullLink": [],
+    "heading": "Components",
+    "locked": false,
+    "pageWidth": 390,
+    "previewRegions": [],
+    "sliders": [],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Skip to components\nHome\nComponents\nRegistry\nMint\nSound on\nComponents\nSearch components\nSort components\nNewest first\nOldest first\nName A to Z\n2026\n2048\n09 Nov\n2026\nElastic slider\n09 Nov\n2026\nSnap rail\n09 Nov\n2026\nLiquid cluster\n09 Nov\n2026\nDiwali/26\n08 Nov\n2026\nTextured glass\n08 Nov\n2026\nRoot Infection\n07 Nov\n2026\nNilkamal\n07 Nov\n2026\nInteractive art\n06 Nov\n\n9 components\n\nModulo\nInstallation guide",
+    "title": "Components | Modulo",
+    "url": "http://modulo.localhost:1355/components",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "components-narrow.png"
+  },
+  {
+    "fullLink": [],
+    "heading": "interfaces for ",
+    "locked": false,
+    "pageWidth": 390,
+    "previewRegions": [
+      {
+        "h": 627.90625,
+        "label": "Component gallery",
+        "w": 350
+      }
+    ],
+    "sliders": [],
+    "sourcePassword": false,
+    "tablist": false,
+    "text": "Skip to previews\nHome\nComponents\nRegistry\nMint\nSound on\ninterfaces for\n2048\nSnap rail\nDiwali/26\nRoot Infection\nInteractive art\nElastic slider\nLiquid cluster\nTextured glass\nNilkamal\nModulo\nInstallation guide",
+    "title": "Modulo | Interactive React components",
+    "url": "http://modulo.localhost:1355/",
+    "viewport": [
+      390,
+      844
+    ],
+    "errors": "",
+    "artifact": "gallery-narrow.png"
+  }
+]

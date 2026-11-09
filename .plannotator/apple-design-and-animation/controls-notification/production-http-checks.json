@@ -1,0 +1,29 @@
+[
+  {
+    "url": "https://modulo-maynkudu.vercel.app/components/elastic-slider",
+    "status": 200,
+    "labelPresent": true
+  },
+  {
+    "url": "https://modulo-maynkudu.vercel.app/r/elastic-slider.json",
+    "anonymousStatus": 401
+  },
+  {
+    "url": "https://modulo-maynkudu.vercel.app/components/snap-rail",
+    "status": 200,
+    "labelPresent": true
+  },
+  {
+    "url": "https://modulo-maynkudu.vercel.app/r/snap-rail.json",
+    "anonymousStatus": 401
+  },
+  {
+    "url": "https://modulo-maynkudu.vercel.app/components/liquid-cluster",
+    "status": 200,
+    "labelPresent": true
+  },
+  {
+    "url": "https://modulo-maynkudu.vercel.app/r/liquid-cluster.json",
+    "anonymousStatus": 401
+  }
+]

@@ -1,0 +1,485 @@
+{
+  "origin": "http://modulo-install-check.localhost:1355",
+  "handlerCwd": "/home/maynkudu/Code/Projects/modulo",
+  "cli": "Installed shadcn 4.23.0",
+  "consumerDependencies": "Reused existing Modulo node_modules through a temporary symlink. No fresh dependency resolution claimed.",
+  "results": [
+    {
+      "component": "mint",
+      "check": "Disposable passphrase opens a mint session through the real handler",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Anonymous source is denied",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Real mint handler creates an active key",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Active bearer downloads protected source without caching",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Active key opens a source session through the real handler",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Existing source session downloads the manifest",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Source session reports unlocked",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Invalid explicit bearer cannot fall back to an active session",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Actual installed Shadcn CLI installs the @modulo entry with an env bearer",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Installed file count equals the protected manifest",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/ElasticSlider.tsx downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/ElasticSlider.tsx installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/ElasticSlider.tsx internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/create-elastic-slider.ts downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/create-elastic-slider.ts installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/create-elastic-slider.ts internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/slider-math.ts downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/slider-math.ts installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/slider-math.ts internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/elastic-slider.css downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "components/elastic-slider/elastic-slider.css installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Installed consumer passes strict TypeScript",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Real mint revocation succeeds",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Next bearer request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Next existing source-session request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Revoked session reports locked",
+      "passed": true
+    },
+    {
+      "component": "elastic-slider",
+      "check": "Revoked key cannot create another source session",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Anonymous source is denied",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Real mint handler creates an active key",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Active bearer downloads protected source without caching",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Active key opens a source session through the real handler",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Existing source session downloads the manifest",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Source session reports unlocked",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Invalid explicit bearer cannot fall back to an active session",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Actual installed Shadcn CLI installs the @modulo entry with an env bearer",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Installed file count equals the protected manifest",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/SnapRail.tsx downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/SnapRail.tsx installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/SnapRail.tsx internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/create-snap-rail.ts downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/create-snap-rail.ts installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/create-snap-rail.ts internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/motion.ts downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/motion.ts installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/motion.ts internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/snap-rail.css downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "components/snap-rail/snap-rail.css installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Installed consumer passes strict TypeScript",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Real mint revocation succeeds",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Next bearer request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Next existing source-session request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Revoked session reports locked",
+      "passed": true
+    },
+    {
+      "component": "snap-rail",
+      "check": "Revoked key cannot create another source session",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Anonymous source is denied",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Real mint handler creates an active key",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Active bearer downloads protected source without caching",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Active key opens a source session through the real handler",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Existing source session downloads the manifest",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Source session reports unlocked",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Invalid explicit bearer cannot fall back to an active session",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Actual installed Shadcn CLI installs the @modulo entry with an env bearer",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Installed file count equals the protected manifest",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/LiquidCluster.tsx downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/LiquidCluster.tsx installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/LiquidCluster.tsx internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/create-liquid-cluster.ts downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/create-liquid-cluster.ts installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/create-liquid-cluster.ts internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/liquid-cluster.css downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/liquid-cluster.css installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Installed consumer passes strict TypeScript",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Real mint revocation succeeds",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Next bearer request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Next existing source-session request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Revoked session reports locked",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Revoked key cannot create another source session",
+      "passed": true
+    }
+  ],
+  "hashes": [
+    {
+      "component": "elastic-slider",
+      "file": "components/elastic-slider/ElasticSlider.tsx",
+      "source": "7fbcc13178cec0cdac6703a65839102784f3a0e3684db264cb9637eb2ec686f6",
+      "downloaded": "7fbcc13178cec0cdac6703a65839102784f3a0e3684db264cb9637eb2ec686f6",
+      "installed": "7fbcc13178cec0cdac6703a65839102784f3a0e3684db264cb9637eb2ec686f6",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "elastic-slider",
+      "file": "components/elastic-slider/create-elastic-slider.ts",
+      "source": "7513ca8b5b253591cb9850efea5001e6330cc084598a8cfa30938f7430221f61",
+      "downloaded": "7513ca8b5b253591cb9850efea5001e6330cc084598a8cfa30938f7430221f61",
+      "installed": "7513ca8b5b253591cb9850efea5001e6330cc084598a8cfa30938f7430221f61",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "elastic-slider",
+      "file": "components/elastic-slider/slider-math.ts",
+      "source": "3d2783849d869a6b5094cf18bc92267f42370589a9ac3f4d2a8f6f499a0e67cf",
+      "downloaded": "3d2783849d869a6b5094cf18bc92267f42370589a9ac3f4d2a8f6f499a0e67cf",
+      "installed": "3d2783849d869a6b5094cf18bc92267f42370589a9ac3f4d2a8f6f499a0e67cf",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "elastic-slider",
+      "file": "components/elastic-slider/elastic-slider.css",
+      "source": "d2baee8fe7352256752f52fedc4b1e66636f78c9ff3c557030d74cb4e2711893",
+      "downloaded": "d2baee8fe7352256752f52fedc4b1e66636f78c9ff3c557030d74cb4e2711893",
+      "installed": "d2baee8fe7352256752f52fedc4b1e66636f78c9ff3c557030d74cb4e2711893",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "snap-rail",
+      "file": "components/snap-rail/SnapRail.tsx",
+      "source": "c7780f14a4d6e0d5dc8f76360b7247b8079b60a6792d411a6605c75d7dc5ed3b",
+      "downloaded": "c7780f14a4d6e0d5dc8f76360b7247b8079b60a6792d411a6605c75d7dc5ed3b",
+      "installed": "c7780f14a4d6e0d5dc8f76360b7247b8079b60a6792d411a6605c75d7dc5ed3b",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "snap-rail",
+      "file": "components/snap-rail/create-snap-rail.ts",
+      "source": "035848babbcd55f4c8ed65b2bbacb9a91e02bf772488bb7d6051198e22424c60",
+      "downloaded": "035848babbcd55f4c8ed65b2bbacb9a91e02bf772488bb7d6051198e22424c60",
+      "installed": "035848babbcd55f4c8ed65b2bbacb9a91e02bf772488bb7d6051198e22424c60",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "snap-rail",
+      "file": "components/snap-rail/motion.ts",
+      "source": "3f05ebce4cf6b84e85399f7f4d7c3b4044b84ee1e20d8b55bcdf2f1dad089625",
+      "downloaded": "3f05ebce4cf6b84e85399f7f4d7c3b4044b84ee1e20d8b55bcdf2f1dad089625",
+      "installed": "3f05ebce4cf6b84e85399f7f4d7c3b4044b84ee1e20d8b55bcdf2f1dad089625",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "snap-rail",
+      "file": "components/snap-rail/snap-rail.css",
+      "source": "bbf5926590fb1b710cf810f06df6ff8b98911a9728acf2f0215bf025f76028f7",
+      "downloaded": "bbf5926590fb1b710cf810f06df6ff8b98911a9728acf2f0215bf025f76028f7",
+      "installed": "bbf5926590fb1b710cf810f06df6ff8b98911a9728acf2f0215bf025f76028f7",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "liquid-cluster",
+      "file": "components/liquid-cluster/LiquidCluster.tsx",
+      "source": "0ffc2d5d8ee9776d10c41f6090773e922b69f31a4af78aab3a0a2578f8944ac5",
+      "downloaded": "0ffc2d5d8ee9776d10c41f6090773e922b69f31a4af78aab3a0a2578f8944ac5",
+      "installed": "0ffc2d5d8ee9776d10c41f6090773e922b69f31a4af78aab3a0a2578f8944ac5",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "liquid-cluster",
+      "file": "components/liquid-cluster/create-liquid-cluster.ts",
+      "source": "38974b8aa8babfcc8243bebd4103dbcd796336c62b40bd7c01a4ff6080007e38",
+      "downloaded": "38974b8aa8babfcc8243bebd4103dbcd796336c62b40bd7c01a4ff6080007e38",
+      "installed": "38974b8aa8babfcc8243bebd4103dbcd796336c62b40bd7c01a4ff6080007e38",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "liquid-cluster",
+      "file": "components/liquid-cluster/liquid-cluster.css",
+      "source": "033e2540ffbc7f84c4fc4035ff20d59589eee999b0c749b5414c37c91f6b3fa4",
+      "downloaded": "033e2540ffbc7f84c4fc4035ff20d59589eee999b0c749b5414c37c91f6b3fa4",
+      "installed": "033e2540ffbc7f84c4fc4035ff20d59589eee999b0c749b5414c37c91f6b3fa4",
+      "installedEqualsDownloaded": true
+    }
+  ],
+  "failure": null,
+  "cleanup": {
+    "completed": true,
+    "revokedKeys": 3,
+    "runtimeRemoved": true
+  },
+  "scope": "Real HTTP route handlers, local manifests and actual namespaced installation. No Next server rendering, remote publication, full-SHA source pin or fresh remote checkout claim."
+}

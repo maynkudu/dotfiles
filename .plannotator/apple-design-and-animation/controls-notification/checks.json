@@ -1,0 +1,29 @@
+{
+  "passed": [
+    "Dropdown keyboard selection reaches vertical slider",
+    "Custom range updates the bounded preview value",
+    "Action menu preference updates runtime",
+    "Escape returns focus to action trigger",
+    "Disable switch disables preview and value input",
+    "Notification starts joined in canvas renderer",
+    "Notification activation separates card and Clear",
+    "Intermediate geometry has one connecting bridge; separated geometry has two silhouettes",
+    "Rapid reversal settles back to one joined rectangle",
+    "Real right-click opens custom context menu",
+    "Keyboard Clear dismisses notification and removes its targets",
+    "Reset restores notification",
+    "Disabled notification targets stay inert",
+    "Notification fits at 390px",
+    "Notification text stays inside card at 390px",
+    "Notification mask aligns with targets at 390px",
+    "Notification fits at 320px",
+    "Notification text stays inside card at 320px",
+    "Notification mask aligns with targets at 320px",
+    "elastic-slider narrow controls fit",
+    "snap-rail narrow controls fit",
+    "Hot system reduced motion stops the liquid spring",
+    "System reduced motion also disables notification dismissal travel",
+    "Reduced motion applies joined geometry immediately"
+  ],
+  "count": 24
+}

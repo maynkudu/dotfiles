@@ -1,0 +1,622 @@
+{
+  "catchBefore": {
+    "selectedId": "right",
+    "previewId": "right",
+    "phase": "settling",
+    "position": 410.6401259091129,
+    "renderedPosition": 410.6401259091129,
+    "velocity": 1885.0654419627504,
+    "target": 532,
+    "projectedPosition": null,
+    "releaseVelocity": 0,
+    "detentPositions": [
+      0,
+      266,
+      532
+    ],
+    "travel": 532,
+    "reducedMotion": false,
+    "systemReducedMotion": false,
+    "visible": true,
+    "hidden": false,
+    "framePending": true,
+    "replaying": false,
+    "commitCount": 6,
+    "cancelCount": 0,
+    "destroyed": false
+  },
+  "catchAfter": {
+    "selectedId": "right",
+    "previewId": "right",
+    "phase": "dragging",
+    "position": 410.6401259091129,
+    "renderedPosition": 410.6401259091129,
+    "velocity": 0,
+    "target": 532,
+    "projectedPosition": 410.6401259091129,
+    "releaseVelocity": 0,
+    "detentPositions": [
+      0,
+      266,
+      532
+    ],
+    "travel": 532,
+    "reducedMotion": false,
+    "systemReducedMotion": false,
+    "visible": true,
+    "hidden": false,
+    "framePending": false,
+    "replaying": false,
+    "commitCount": 6,
+    "cancelCount": 0,
+    "destroyed": false
+  },
+  "cancellation": {
+    "before": {
+      "selectedId": "right",
+      "previewId": "right",
+      "phase": "dragging",
+      "position": 532,
+      "renderedPosition": 532,
+      "velocity": 0,
+      "target": 532,
+      "projectedPosition": 532,
+      "releaseVelocity": 0,
+      "detentPositions": [
+        0,
+        266,
+        532
+      ],
+      "travel": 532,
+      "reducedMotion": false,
+      "systemReducedMotion": false,
+      "visible": true,
+      "hidden": false,
+      "framePending": false,
+      "replaying": false,
+      "commitCount": 7,
+      "cancelCount": 0,
+      "destroyed": false
+    },
+    "after": {
+      "selectedId": "right",
+      "previewId": "right",
+      "phase": "idle",
+      "position": 532,
+      "renderedPosition": 532,
+      "velocity": 0,
+      "target": 532,
+      "projectedPosition": null,
+      "releaseVelocity": 0,
+      "detentPositions": [
+        0,
+        266,
+        532
+      ],
+      "travel": 532,
+      "reducedMotion": false,
+      "systemReducedMotion": false,
+      "visible": true,
+      "hidden": false,
+      "framePending": false,
+      "replaying": false,
+      "commitCount": 7,
+      "cancelCount": 1,
+      "destroyed": false
+    },
+    "commitsUnchanged": true
+  },
+  "lostCapture": {
+    "before": {
+      "selectedId": "right",
+      "previewId": "right",
+      "phase": "dragging",
+      "position": 532,
+      "renderedPosition": 532,
+      "velocity": 0,
+      "target": 532,
+      "projectedPosition": 532,
+      "releaseVelocity": 0,
+      "detentPositions": [
+        0,
+        266,
+        532
+      ],
+      "travel": 532,
+      "reducedMotion": false,
+      "systemReducedMotion": false,
+      "visible": true,
+      "hidden": false,
+      "framePending": false,
+      "replaying": false,
+      "commitCount": 7,
+      "cancelCount": 1,
+      "destroyed": false
+    },
+    "after": {
+      "selectedId": "right",
+      "previewId": "right",
+      "phase": "dragging",
+      "position": 532,
+      "renderedPosition": 532,
+      "velocity": 0,
+      "target": 532,
+      "projectedPosition": 532,
+      "releaseVelocity": 0,
+      "detentPositions": [
+        0,
+        266,
+        532
+      ],
+      "travel": 532,
+      "reducedMotion": false,
+      "systemReducedMotion": false,
+      "visible": true,
+      "hidden": false,
+      "framePending": false,
+      "replaying": false,
+      "commitCount": 7,
+      "cancelCount": 1,
+      "destroyed": false
+    },
+    "commitsUnchanged": true
+  },
+  "lostCaptureFinal": {
+    "commits": 7,
+    "cancellations": 2,
+    "phase": "idle"
+  },
+  "disabled": {
+    "before": {
+      "selectedId": "right",
+      "previewId": "right",
+      "phase": "idle",
+      "position": 532,
+      "renderedPosition": 532,
+      "velocity": 0,
+      "target": 532,
+      "projectedPosition": null,
+      "releaseVelocity": 0,
+      "detentPositions": [
+        0,
+        266,
+        532
+      ],
+      "travel": 532,
+      "reducedMotion": false,
+      "systemReducedMotion": false,
+      "visible": true,
+      "hidden": false,
+      "framePending": false,
+      "replaying": false,
+      "commitCount": 7,
+      "cancelCount": 2,
+      "destroyed": false
+    },
+    "after": {
+      "selectedId": "right",
+      "previewId": "right",
+      "phase": "idle",
+      "position": 532,
+      "renderedPosition": 532,
+      "velocity": 0,
+      "target": 532,
+      "projectedPosition": null,
+      "releaseVelocity": 0,
+      "detentPositions": [
+        0,
+        266,
+        532
+      ],
+      "travel": 532,
+      "reducedMotion": false,
+      "systemReducedMotion": false,
+      "visible": true,
+      "hidden": false,
+      "framePending": false,
+      "replaying": false,
+      "commitCount": 7,
+      "cancelCount": 2,
+      "destroyed": false
+    }
+  },
+  "oneDetent": {
+    "selectedId": "only",
+    "previewId": "only",
+    "phase": "idle",
+    "position": 266,
+    "renderedPosition": 266,
+    "velocity": 0,
+    "target": 266,
+    "projectedPosition": null,
+    "releaseVelocity": 0,
+    "detentPositions": [
+      266
+    ],
+    "travel": 532,
+    "reducedMotion": false,
+    "systemReducedMotion": false,
+    "visible": true,
+    "hidden": false,
+    "framePending": false,
+    "replaying": false,
+    "commitCount": 0,
+    "cancelCount": 0,
+    "destroyed": false
+  },
+  "nativeFlick": {
+    "selectedId": "center",
+    "previewId": "center",
+    "phase": "settling",
+    "position": 244.5937065747019,
+    "renderedPosition": 244.5937065747019,
+    "velocity": 541.09086764913,
+    "target": 266,
+    "projectedPosition": null,
+    "releaseVelocity": 1440,
+    "detentPositions": [
+      0,
+      266,
+      532
+    ],
+    "travel": 532,
+    "reducedMotion": false,
+    "systemReducedMotion": false,
+    "visible": true,
+    "hidden": false,
+    "framePending": true,
+    "replaying": false,
+    "commitCount": 8,
+    "cancelCount": 2,
+    "destroyed": false
+  },
+  "offscreen": {
+    "selectedId": "right",
+    "previewId": "right",
+    "phase": "idle",
+    "position": 532,
+    "renderedPosition": 532,
+    "velocity": 0,
+    "target": 532,
+    "projectedPosition": null,
+    "releaseVelocity": 1440,
+    "detentPositions": [
+      0,
+      266,
+      532
+    ],
+    "travel": 532,
+    "reducedMotion": false,
+    "systemReducedMotion": false,
+    "visible": false,
+    "hidden": false,
+    "framePending": false,
+    "replaying": false,
+    "commitCount": 8,
+    "cancelCount": 2,
+    "destroyed": false
+  },
+  "visibility": [
+    {
+      "hidden": true,
+      "snapshot": {
+        "selectedId": "right",
+        "previewId": "right",
+        "phase": "idle",
+        "position": 532,
+        "renderedPosition": 532,
+        "velocity": 0,
+        "target": 532,
+        "projectedPosition": null,
+        "releaseVelocity": 1440,
+        "detentPositions": [
+          0,
+          266,
+          532
+        ],
+        "travel": 532,
+        "reducedMotion": false,
+        "systemReducedMotion": false,
+        "visible": true,
+        "hidden": true,
+        "framePending": false,
+        "replaying": false,
+        "commitCount": 8,
+        "cancelCount": 2,
+        "destroyed": false
+      }
+    },
+    {
+      "hidden": false,
+      "snapshot": {
+        "selectedId": "right",
+        "previewId": "right",
+        "phase": "idle",
+        "position": 210,
+        "renderedPosition": 210,
+        "velocity": 0,
+        "target": 210,
+        "projectedPosition": null,
+        "releaseVelocity": 1440,
+        "detentPositions": [
+          0,
+          105,
+          210
+        ],
+        "travel": 210,
+        "reducedMotion": false,
+        "systemReducedMotion": false,
+        "visible": true,
+        "hidden": false,
+        "framePending": false,
+        "replaying": false,
+        "commitCount": 8,
+        "cancelCount": 2,
+        "destroyed": false
+      }
+    }
+  ],
+  "narrow": {
+    "viewport": 390,
+    "documentWidth": 390,
+    "rails": [
+      {
+        "width": 338,
+        "x": 26
+      },
+      {
+        "width": 338,
+        "x": 26
+      },
+      {
+        "width": 338,
+        "x": 26
+      }
+    ],
+    "main": {
+      "selectedId": "right",
+      "previewId": "right",
+      "phase": "idle",
+      "position": 210,
+      "renderedPosition": 210,
+      "velocity": 0,
+      "target": 210,
+      "projectedPosition": null,
+      "releaseVelocity": 1440,
+      "detentPositions": [
+        0,
+        105,
+        210
+      ],
+      "travel": 210,
+      "reducedMotion": false,
+      "systemReducedMotion": false,
+      "visible": true,
+      "hidden": false,
+      "framePending": false,
+      "replaying": false,
+      "commitCount": 8,
+      "cancelCount": 2,
+      "destroyed": false
+    }
+  },
+  "lifecycle": {
+    "unmounted": {
+      "main": {
+        "selectedId": "right",
+        "previewId": "right",
+        "phase": "settling",
+        "position": 0,
+        "renderedPosition": 0,
+        "velocity": 520,
+        "target": 210,
+        "projectedPosition": null,
+        "releaseVelocity": 1440,
+        "detentPositions": [
+          0,
+          105,
+          210
+        ],
+        "travel": 210,
+        "reducedMotion": false,
+        "systemReducedMotion": false,
+        "visible": true,
+        "hidden": false,
+        "framePending": false,
+        "replaying": false,
+        "commitCount": 8,
+        "cancelCount": 2,
+        "destroyed": true
+      },
+      "secondary": {
+        "selectedId": "right",
+        "previewId": "right",
+        "phase": "settling",
+        "position": 0,
+        "renderedPosition": 0,
+        "velocity": 520,
+        "target": 210,
+        "projectedPosition": null,
+        "releaseVelocity": 0,
+        "detentPositions": [
+          0,
+          105,
+          210
+        ],
+        "travel": 210,
+        "reducedMotion": false,
+        "systemReducedMotion": false,
+        "visible": true,
+        "hidden": false,
+        "framePending": false,
+        "replaying": false,
+        "commitCount": 2,
+        "cancelCount": 0,
+        "destroyed": true
+      },
+      "only": {
+        "selectedId": "only",
+        "previewId": "only",
+        "phase": "idle",
+        "position": 105,
+        "renderedPosition": 105,
+        "velocity": 0,
+        "target": 105,
+        "projectedPosition": null,
+        "releaseVelocity": 0,
+        "detentPositions": [
+          105
+        ],
+        "travel": 210,
+        "reducedMotion": false,
+        "systemReducedMotion": false,
+        "visible": false,
+        "hidden": false,
+        "framePending": false,
+        "replaying": false,
+        "commitCount": 0,
+        "cancelCount": 0,
+        "destroyed": true
+      }
+    },
+    "readyKeys": [],
+    "remounted": {
+      "main": {
+        "selectedId": "right",
+        "previewId": "right",
+        "phase": "settling",
+        "position": 105,
+        "renderedPosition": 105,
+        "velocity": 0,
+        "target": 210,
+        "projectedPosition": null,
+        "releaseVelocity": 0,
+        "detentPositions": [
+          0,
+          105,
+          210
+        ],
+        "travel": 210,
+        "reducedMotion": false,
+        "systemReducedMotion": false,
+        "visible": true,
+        "hidden": false,
+        "framePending": true,
+        "replaying": false,
+        "commitCount": 1,
+        "cancelCount": 0,
+        "destroyed": false
+      },
+      "secondary": {
+        "selectedId": "center",
+        "previewId": "center",
+        "phase": "idle",
+        "position": 105,
+        "renderedPosition": 105,
+        "velocity": 0,
+        "target": 105,
+        "projectedPosition": null,
+        "releaseVelocity": 0,
+        "detentPositions": [
+          0,
+          105,
+          210
+        ],
+        "travel": 210,
+        "reducedMotion": false,
+        "systemReducedMotion": false,
+        "visible": true,
+        "hidden": false,
+        "framePending": false,
+        "replaying": false,
+        "commitCount": 0,
+        "cancelCount": 0,
+        "destroyed": false
+      },
+      "readyKeys": [
+        "main",
+        "secondary",
+        "only"
+      ],
+      "replaced": true
+    }
+  },
+  "manualReduced": {
+    "selectedId": "right",
+    "previewId": "right",
+    "phase": "idle",
+    "position": 532,
+    "renderedPosition": 532,
+    "velocity": 0,
+    "target": 532,
+    "projectedPosition": null,
+    "releaseVelocity": 0,
+    "detentPositions": [
+      0,
+      266,
+      532
+    ],
+    "travel": 532,
+    "reducedMotion": true,
+    "systemReducedMotion": false,
+    "visible": true,
+    "hidden": false,
+    "framePending": false,
+    "replaying": false,
+    "commitCount": 1,
+    "cancelCount": 0,
+    "destroyed": false
+  },
+  "systemReduced": {
+    "selectedId": "right",
+    "previewId": "right",
+    "phase": "idle",
+    "position": 532,
+    "renderedPosition": 532,
+    "velocity": 0,
+    "target": 532,
+    "projectedPosition": null,
+    "releaseVelocity": 0,
+    "detentPositions": [
+      0,
+      266,
+      532
+    ],
+    "travel": 532,
+    "reducedMotion": true,
+    "systemReducedMotion": true,
+    "visible": true,
+    "hidden": false,
+    "framePending": false,
+    "replaying": false,
+    "commitCount": 1,
+    "cancelCount": 0,
+    "destroyed": false
+  },
+  "controlledRejection": {
+    "selectedId": "right",
+    "previewId": "right",
+    "phase": "idle",
+    "position": 532,
+    "renderedPosition": 532,
+    "velocity": 0,
+    "target": 532,
+    "projectedPosition": null,
+    "releaseVelocity": 0,
+    "detentPositions": [
+      0,
+      266,
+      532
+    ],
+    "travel": 532,
+    "reducedMotion": false,
+    "systemReducedMotion": false,
+    "visible": true,
+    "hidden": false,
+    "framePending": false,
+    "replaying": false,
+    "commitCount": 2,
+    "cancelCount": 0,
+    "destroyed": false
+  }
+}

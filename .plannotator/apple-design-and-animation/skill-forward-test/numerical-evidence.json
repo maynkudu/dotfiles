@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "241 finite samples at exact frameIndex / 120 timestamps, including 0 and 2 seconds.",
+    "Position and velocity retained at exact retarget time 0.137s. Velocity 3.667684 intervals/s.",
+    "Position and velocity retained at exact retarget time 0.423s. Velocity -0.102875 intervals/s.",
+    "Position and velocity retained at exact retarget time 0.711s. Velocity 0.031631 intervals/s.",
+    "Returned velocity agrees with independent central finite differences within 1e-7 intervals/s.",
+    "30, 60 and 120 fps exports agree at all shared timestamps within 1e-12.",
+    "Written CSV read back. Header and 241 numeric data rows verified."
+  ]
+}

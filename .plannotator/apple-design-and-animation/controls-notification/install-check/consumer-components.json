@@ -1,0 +1,26 @@
+{
+  "style": "base-nova",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/index.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {
+    "@modulo": {
+      "url": "http://modulo-install-check.localhost:1355/r/{name}.json",
+      "headers": {
+        "Authorization": "Bearer ${MODULO_CHECK_KEY}"
+      }
+    }
+  }
+}

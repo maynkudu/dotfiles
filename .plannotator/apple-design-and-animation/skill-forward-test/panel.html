@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Photo adjustments</title>
+<style>
+:root{color-scheme:light;--ink:#20242a;--secondary:#606771;--accent:#215fce;--line:#c7cdd5;--surface:#fff;--group:#edf0f4;--base:#e5e9ef}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:var(--base);color:var(--ink);font:16px/1.45 system-ui,sans-serif}button,input{font:inherit;color:inherit}button{cursor:pointer}h1,p,figure{margin:0}h1{font-size:1.375rem;line-height:1.3;font-weight:650;letter-spacing:-.025em}.panel{width:min(100%,460px);padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:0 20px 64px #182c4417,0 2px 8px #182c4409}.heading{margin-bottom:20px}.subtitle{margin-top:4px;color:var(--secondary);font-size:.875rem}.stage{height:214px;position:relative;border:1px solid var(--line);border-radius:14px;background:var(--group);overflow:hidden}.photo{position:absolute;top:18px;left:16px;width:65%;height:176px;object-fit:cover;border-radius:10px;box-shadow:0 4px 12px #182c4425;will-change:auto}.caption{display:flex;justify-content:space-between;gap:12px;margin-top:9px;color:var(--secondary);font-size:.75rem}.photo-loader{margin-top:8px;min-height:36px;padding:5px 0;background:none;border:0;color:var(--accent);font-size:.8125rem;font-weight:550}.controls{margin-top:21px;font-size:1rem;container:adjustments/inline-size}.exposure-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.control-label,legend{font-weight:550;font-size:.9375rem}.number-wrap{display:flex;gap:7px;align-items:center;font-size:.8125rem;color:var(--secondary)}input[type=number]{width:88px;min-height:40px;padding:7px 8px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);font-variant-numeric:tabular-nums}input[type=range]{display:block;width:100%;height:40px;margin:6px 0 0;accent-color:var(--accent);cursor:ew-resize}.range-labels{display:flex;justify-content:space-between;color:var(--secondary);font-size:.75rem;font-variant-numeric:tabular-nums}.error{font-size:.8125rem;color:#a32424;margin-top:8px}[hidden]{display:none!important}fieldset{border:0;padding:0;margin:23px 0 0;min-width:0}legend{margin-bottom:10px}.segments{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--group)}.pill{position:absolute;left:4px;top:4px;bottom:4px;width:calc((100% - 8px)/3);background:var(--surface);border:1px solid #b3bdcb;border-radius:8px;box-shadow:0 1px 4px #263d5012;pointer-events:none}.segments label{position:relative;text-align:center;cursor:pointer;min-height:40px;padding:9px 3px;font-size:.875rem;color:var(--secondary)}.segments input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}.segments label:has(input:checked){font-weight:600;color:var(--ink)}.segments label:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:0;border-radius:8px}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}button.action{min-height:40px;padding:8px 19px;border:1px solid var(--line);background:var(--surface);border-radius:10px;font-size:.875rem;font-weight:550}button.action:hover{background:var(--group)}button.action:active{background:#dce2ec}button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}button.primary:hover{background:var(--accent-hover,#184eac)}button.primary:active{background:var(--accent-pressed,#10408f)}button:disabled{cursor:default;background:var(--group)!important;color:var(--secondary);border-color:var(--line)}.status{font-size:.75rem;color:var(--secondary);margin-top:10px;min-height:18px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@container adjustments (width < 16em){.segments{grid-template-columns:1fr;gap:3px}.pill{display:none}.segments label{border-radius:8px}.segments label:has(input:checked){background:var(--surface);box-shadow:0 1px 4px #263d5012}}
+@media(max-width:380px){body{padding:16px 10px}.panel{padding:18px;border-radius:20px}.stage{height:190px}.photo{height:152px}.caption{flex-wrap:wrap;gap:3px 12px}}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--ink:#f2f4f7;--secondary:#bbc1cc;--accent:#82afff;--accent-hover:#9dbfff;--accent-pressed:#74a2f2;--line:#59616f;--surface:#252a32;--group:#333a45;--base:#141820}button.primary:not(:disabled){color:#14213a}.pill{border-color:#7e899b}.error{color:#ffacac}}
+@media(prefers-contrast:more){:root{--line:#767c86;--secondary:#454b55}.pill{border-color:var(--ink)}}
+@media(prefers-color-scheme:dark) and (prefers-contrast:more){:root{--line:#a0a9b7;--secondary:#d2d7df}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="panel" aria-labelledby="title">
+<header class="heading"><h1 id="title">Photo adjustments</h1><p class="subtitle">Exposure and placement</p></header>
+<figure><div id="stage" class="stage"><img id="photo" class="photo" alt="Coastal landscape sample illustration"></div><figcaption class="caption"><span id="image-name">Coast · sample image</span><span id="preview-value">Center · +0.3 EV</span></figcaption></figure>
+<button id="choose-photo" class="photo-loader" type="button">Choose photo</button><input id="photo-file" type="file" accept="image/*" hidden>
+<section class="controls" aria-label="Adjustments">
+<div class="exposure-heading"><label class="control-label" for="exposure">Exposure</label><div class="number-wrap"><label class="sr-only" for="exposure-number">Exposure, exact value</label><input id="exposure-number" type="number" min="-2" max="2" step="0.1" value="0.3" required aria-describedby="number-error exposure-units"><span id="exposure-units">EV</span></div></div>
+<input id="exposure" type="range" min="-2" max="2" step="0.1" value="0.3" aria-valuetext="+0.3 EV">
+<div class="range-labels" aria-hidden="true"><span>-2</span><span>0</span><span>+2</span></div><p id="number-error" class="error" hidden>Use -2 to 2 in steps of 0.1.</p>
+<fieldset><legend>Placement</legend><div id="segments" class="segments"><span id="pill" class="pill" aria-hidden="true"></span><label><input type="radio" name="placement" value="0">Left</label><label><input type="radio" name="placement" value="1" checked>Center</label><label><input type="radio" name="placement" value="2">Right</label></div></fieldset>
+</section>
+<footer><div class="actions"><button id="restore" class="action" type="button" disabled>Restore</button><button id="save" class="action primary" type="button" disabled>Save</button></div><p id="status" class="status" role="status">Changes are saved for this session.</p></footer>
+</main>
+<script>
+(() => {
+  'use strict';
+  const byId = id => document.getElementById(id);
+  const range = byId('exposure'), number = byId('exposure-number'), photo = byId('photo');
+  const names = ['Left', 'Center', 'Right'];
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  const draft = { exposure: .3, placement: 1 };
+  let saved = { ...draft }, invalidNumber = false, raf = null, imageUrl = null;
+  const spring = { position: 1, velocity: 0, target: 1, omega: 20, dampingRatio: .85 };
+  let anchor = { ...spring }, anchorTime = performance.now();
+  const trace = [];
+  // Same analytic coordinate model as the skill sampler. Position is a placement interval.
+  function advanceSpring({ position, velocity, target, omega, dampingRatio }, seconds) {
+    const y = position - target, decay = Math.exp(-dampingRatio * omega * seconds);
+    const frequency = omega * Math.sqrt(1 - dampingRatio * dampingRatio);
+    const cosine = Math.cos(frequency * seconds), sine = Math.sin(frequency * seconds);
+    return {
+      position: target + decay * (y * cosine + (velocity + dampingRatio * omega * y) * sine / frequency),
+      velocity: decay * (velocity * cosine - (dampingRatio * omega * velocity + omega * omega * y) * sine / frequency)
+    };
+  }
+  const format = value => `${value > 0 ? '+' : ''}${value.toFixed(1)}`;
+  const normalize = value => Math.min(2, Math.max(-2, Math.round((value + 2) * 10) / 10 - 2));
+  function paint() {
+    const travel = Math.max(0, byId('stage').clientWidth - photo.clientWidth - 32);
+    photo.style.transform = `translateX(${spring.position / 2 * travel}px)`;
+    byId('pill').style.transform = `translateX(${spring.position * 100}%)`;
+  }
+  function evaluate(now) { Object.assign(spring, advanceSpring(anchor, (now - anchorTime) / 1000)); }
+  function settle() {
+    if (raf !== null) cancelAnimationFrame(raf);
+    raf = null; spring.position = spring.target; spring.velocity = 0;
+    anchor = { ...spring }; anchorTime = performance.now(); paint();
+  }
+  function tick(now) {
+    raf = null; evaluate(now); paint();
+    if (Math.abs(spring.position - spring.target) < .0001 && Math.abs(spring.velocity) < .001) settle();
+    else raf = requestAnimationFrame(tick);
+  }
+  function retarget(target) {
+    const now = performance.now(); evaluate(now);
+    const before = { position: spring.position, velocity: spring.velocity };
+    spring.target = target; anchor = { ...spring }; anchorTime = now;
+    trace.push({ time: now / 1000, before, after: { position: spring.position, velocity: spring.velocity }, target });
+    if (trace.length > 100) trace.shift();
+    if (preference.matches || document.hidden) settle();
+    else if (raf === null) raf = requestAnimationFrame(tick);
+  }
+  function sync(message) {
+    range.value = String(draft.exposure);
+    range.setAttribute('aria-valuetext', `${format(draft.exposure)} EV`);
+    if (document.activeElement !== number) number.value = draft.exposure.toFixed(1);
+    photo.style.filter = `brightness(${2 ** draft.exposure})`;
+    byId('preview-value').textContent = `${names[draft.placement]} · ${format(draft.exposure)} EV`;
+    for (const radio of document.querySelectorAll('[name=placement]')) radio.checked = Number(radio.value) === draft.placement;
+    const dirty = Math.abs(draft.exposure - saved.exposure) > .00001 || draft.placement !== saved.placement;
+    byId('save').disabled = !dirty || invalidNumber;
+    byId('restore').disabled = !dirty && !invalidNumber;
+    byId('number-error').hidden = !invalidNumber;
+    number.setAttribute('aria-invalid', String(invalidNumber));
+    byId('status').textContent = message ?? (dirty ? 'Unsaved changes' : 'Changes are saved for this session.');
+  }
+  function commitNumeric() {
+    const value = number.valueAsNumber;
+    if (Number.isFinite(value)) draft.exposure = Number(normalize(value).toFixed(1));
+    number.value = draft.exposure.toFixed(1); invalidNumber = false; sync();
+  }
+  range.addEventListener('input', () => {
+    draft.exposure = Number(normalize(range.valueAsNumber).toFixed(1));
+    invalidNumber = false; number.value = draft.exposure.toFixed(1); sync();
+  });
+  number.addEventListener('input', () => {
+    invalidNumber = !number.validity.valid;
+    if (!invalidNumber) draft.exposure = Number(normalize(number.valueAsNumber).toFixed(1));
+    sync();
+  });
+  number.addEventListener('change', commitNumeric);
+  number.addEventListener('blur', commitNumeric);
+  number.addEventListener('keydown', event => {
+    if (event.key === 'Enter') { event.preventDefault(); commitNumeric(); }
+    if (event.key === 'Escape') { event.preventDefault(); number.value = draft.exposure.toFixed(1); invalidNumber = false; sync(); }
+  });
+  for (const radio of document.querySelectorAll('[name=placement]')) radio.addEventListener('change', () => {
+    draft.placement = Number(radio.value); retarget(draft.placement); sync();
+  });
+  byId('restore').addEventListener('click', () => {
+    Object.assign(draft, saved); invalidNumber = false; number.value = draft.exposure.toFixed(1);
+    retarget(draft.placement); sync('Restored saved settings.');
+  });
+  byId('save').addEventListener('click', () => { saved = { ...draft }; sync('Saved for this session.'); });
+  byId('choose-photo').addEventListener('click', () => byId('photo-file').click());
+  byId('photo-file').addEventListener('change', () => {
+    const file = byId('photo-file').files[0]; if (!file) return;
+    const next = URL.createObjectURL(file), previous = imageUrl;
+    const candidate = new Image();
+    candidate.onload = () => { photo.src = next; photo.alt = 'Selected photo'; byId('image-name').textContent = file.name; imageUrl = next; if (previous) URL.revokeObjectURL(previous); };
+    candidate.onerror = () => { URL.revokeObjectURL(next); byId('status').textContent = 'This image could not be opened. Choose another photo.'; };
+    candidate.src = next;
+  });
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 480"><defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#829cae"/><stop offset="1" stop-color="#e8d9c0"/></linearGradient><linearGradient id="sea" x2="0" y2="1"><stop stop-color="#729894"/><stop offset="1" stop-color="#2b656b"/></linearGradient></defs><path fill="url(#sky)" d="M0 0h700v480H0z"/><circle fill="#f6e5c5" cx="478" cy="95" r="30"/><path fill="url(#sea)" d="M0 209h700v271H0z"/><path fill="#5d7370" d="M0 165l75-10 65 53 145 11-60 36L0 281z"/><path fill="#dabd8b" d="M700 253c-190 35-225 38-296 90-83 61-245 47-404 94v43h700z"/><path fill="none" stroke="#dddccc" stroke-width="6" d="M700 251c-188 44-219 39-287 86S145 394 0 427"/><path fill="#52625b" d="M700 272c-116 30-146 72-160 111l-86 97h246z"/><path fill="#6f7661" d="M700 328l-91 5-56 80-52 67h199z"/><path fill="none" stroke="#abc1b5" stroke-width="2" opacity=".55" d="M190 289l122-9m-233 60l143-12m104-93l180-6m-48 77l64-15"/></svg>`;
+  photo.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  const observer = new ResizeObserver(paint); observer.observe(byId('stage')); observer.observe(photo);
+  preference.addEventListener('change', () => { if (preference.matches) settle(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) settle(); });
+  window.addEventListener('pagehide', () => { settle(); observer.disconnect(); if (imageUrl) URL.revokeObjectURL(imageUrl); });
+  window.panelFixture = { inspect: () => ({ draft: { ...draft }, saved: { ...saved }, spring: { ...spring }, invalidNumber, reducedMotion: preference.matches, rafPending: raf !== null, trace: structuredClone(trace) }), advanceSpring };
+  sync(); paint();
+})();
+</script>
+</body>
+</html>

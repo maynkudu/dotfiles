@@ -1,0 +1,63 @@
+{
+  "files": {
+    "SnapRail.tsx": {
+      "source": "c7780f14a4d6e0d5dc8f76360b7247b8079b60a6792d411a6605c75d7dc5ed3b",
+      "copy": "c7780f14a4d6e0d5dc8f76360b7247b8079b60a6792d411a6605c75d7dc5ed3b",
+      "equal": true
+    },
+    "create-snap-rail.ts": {
+      "source": "035848babbcd55f4c8ed65b2bbacb9a91e02bf772488bb7d6051198e22424c60",
+      "copy": "035848babbcd55f4c8ed65b2bbacb9a91e02bf772488bb7d6051198e22424c60",
+      "equal": true
+    },
+    "motion.ts": {
+      "source": "3f05ebce4cf6b84e85399f7f4d7c3b4044b84ee1e20d8b55bcdf2f1dad089625",
+      "copy": "3f05ebce4cf6b84e85399f7f4d7c3b4044b84ee1e20d8b55bcdf2f1dad089625",
+      "equal": true
+    },
+    "snap-rail.css": {
+      "source": "bbf5926590fb1b710cf810f06df6ff8b98911a9728acf2f0215bf025f76028f7",
+      "copy": "bbf5926590fb1b710cf810f06df6ff8b98911a9728acf2f0215bf025f76028f7",
+      "equal": true
+    }
+  },
+  "git": [
+    {
+      "cwd": "/home/maynkudu/Code/Projects/modulo-snap-rail",
+      "command": [
+        "git",
+        "remote",
+        "-v"
+      ],
+      "stdout": ""
+    },
+    {
+      "cwd": "/home/maynkudu/Code/Projects/modulo-snap-rail",
+      "command": [
+        "git",
+        "rev-list",
+        "--all",
+        "--count"
+      ],
+      "stdout": "0\n"
+    },
+    {
+      "cwd": "/home/maynkudu/Code/Projects/modulo",
+      "command": [
+        "git",
+        "ls-files",
+        "src/registry/snap-rail"
+      ],
+      "stdout": ""
+    },
+    {
+      "cwd": "/home/maynkudu/Code/Projects/modulo",
+      "command": [
+        "git",
+        "check-ignore",
+        "src/registry/snap-rail/SnapRail.tsx"
+      ],
+      "stdout": "src/registry/snap-rail/SnapRail.tsx\n"
+    }
+  ]
+}

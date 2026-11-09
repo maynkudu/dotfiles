@@ -1,0 +1,161 @@
+{
+  "origin": "http://modulo-install-check.localhost:1355",
+  "handlerCwd": "/home/maynkudu/Code/Projects/modulo",
+  "cli": "Installed shadcn 4.23.0",
+  "consumerDependencies": "Reused existing Modulo node_modules through a temporary symlink. No fresh dependency resolution claimed.",
+  "results": [
+    {
+      "component": "mint",
+      "check": "Disposable passphrase opens a mint session through the real handler",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Anonymous source is denied",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Real mint handler creates an active key",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Active bearer downloads protected source without caching",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Active key opens a source session through the real handler",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Existing source session downloads the manifest",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Source session reports unlocked",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Invalid explicit bearer cannot fall back to an active session",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Actual installed Shadcn CLI installs the @modulo entry with an env bearer",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Installed file count equals the protected manifest",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/LiquidCluster.tsx downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/LiquidCluster.tsx installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/LiquidCluster.tsx internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/create-liquid-cluster.ts downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/create-liquid-cluster.ts installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/create-liquid-cluster.ts internal imports are relative or declared React imports",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/liquid-cluster.css downloaded source exactly equals current local implementation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "components/liquid-cluster/liquid-cluster.css installed source exactly equals downloaded source",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Installed consumer passes strict TypeScript",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Real mint revocation succeeds",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Next bearer request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Next existing source-session request is denied after revocation",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Revoked session reports locked",
+      "passed": true
+    },
+    {
+      "component": "liquid-cluster",
+      "check": "Revoked key cannot create another source session",
+      "passed": true
+    }
+  ],
+  "hashes": [
+    {
+      "component": "liquid-cluster",
+      "file": "components/liquid-cluster/LiquidCluster.tsx",
+      "source": "6a43f08a5c8a4caa9eaa1bd2c74288477b73313589e09ac6f357356ae547bc47",
+      "downloaded": "6a43f08a5c8a4caa9eaa1bd2c74288477b73313589e09ac6f357356ae547bc47",
+      "installed": "6a43f08a5c8a4caa9eaa1bd2c74288477b73313589e09ac6f357356ae547bc47",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "liquid-cluster",
+      "file": "components/liquid-cluster/create-liquid-cluster.ts",
+      "source": "cab7a5eba3d06c83bdd1050516f8a54558454b54e4d0288198b31d6c5fcd1b2a",
+      "downloaded": "cab7a5eba3d06c83bdd1050516f8a54558454b54e4d0288198b31d6c5fcd1b2a",
+      "installed": "cab7a5eba3d06c83bdd1050516f8a54558454b54e4d0288198b31d6c5fcd1b2a",
+      "installedEqualsDownloaded": true
+    },
+    {
+      "component": "liquid-cluster",
+      "file": "components/liquid-cluster/liquid-cluster.css",
+      "source": "5a6bb055ba84c2a9c865e7271e40b67424357a40aed26e5572dfa817bbb17d03",
+      "downloaded": "5a6bb055ba84c2a9c865e7271e40b67424357a40aed26e5572dfa817bbb17d03",
+      "installed": "5a6bb055ba84c2a9c865e7271e40b67424357a40aed26e5572dfa817bbb17d03",
+      "installedEqualsDownloaded": true
+    }
+  ],
+  "failure": null,
+  "cleanup": {
+    "completed": true,
+    "revokedKeys": 1,
+    "runtimeRemoved": true
+  },
+  "scope": "Real HTTP route handlers, local manifests and actual namespaced installation. No Next server rendering, remote publication, full-SHA source pin or fresh remote checkout claim."
+}

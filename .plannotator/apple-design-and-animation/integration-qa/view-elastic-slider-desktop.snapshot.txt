@@ -1,0 +1,14 @@
+- region "Elastic Slider preview" [ref=e1]
+  - heading "Elastic Slider" [level=2, ref=e10]
+  - slider "Level" [ref=e3]: 65
+- region "Controls" [ref=e2]
+  - heading "Controls" [level=2, ref=e4]
+  - combobox "Orientation" [expanded=false, ref=e11]: Horizontal
+    - option "Horizontal" [selected, ref=e13]
+    - option "Vertical" [ref=e14]
+  - slider "Value" [ref=e5]: 65
+  - button "Replay" [ref=e6]
+  - button "Reset" [ref=e7]
+  - button "Disabled" [ref=e8]
+  - button "Reduce motion" [ref=e9]
+- button "Open Next.js Dev Tools" [expanded=false, ref=e12]

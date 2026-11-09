@@ -1,0 +1,11 @@
+{
+  "units": "placement intervals, Left=0 Center=1 Right=2",
+  "duration": 2,
+  "fps": 120,
+  "initial": { "position": 1, "velocity": 0, "target": 2, "omega": 20, "dampingRatio": 0.85 },
+  "events": [
+    { "type": "retarget", "time": 0.137, "target": 0 },
+    { "type": "retarget", "time": 0.423, "target": 1 },
+    { "type": "retarget", "time": 0.711, "target": 2 }
+  ]
+}

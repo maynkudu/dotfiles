@@ -1,0 +1,420 @@
+{
+  "date": "2026-11-09",
+  "url": "http://modulo.localhost:1355/components/liquid-cluster",
+  "browser": "Google Chrome 156.0.8078.79 via Agent Browser 0.37.1",
+  "session": "liquid-cluster-qa",
+  "sourceScope": "LiquidCluster source and public demo/page only",
+  "checks": [
+    {
+      "name": "forced-canvas-fallback",
+      "hoverBackground": "color(srgb 0.835922 0.861804 0.913255)",
+      "overflow": false,
+      "primarySelection": "assets",
+      "secondarySelection": "expanded",
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": "Canvas 2D is unavailable.",
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 0.25,
+        "renderer": "fallback",
+        "replaying": false,
+        "separation": 0.25,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 340
+      }
+    },
+    {
+      "name": "keyboard-disabled-and-independent-selection",
+      "groups": [
+        {
+          "disabled": [
+            true,
+            true,
+            true
+          ],
+          "label": "Workspace views",
+          "pressed": [
+            "outline"
+          ]
+        },
+        {
+          "disabled": [
+            false,
+            false
+          ],
+          "label": "Layout density",
+          "pressed": [
+            "compact"
+          ]
+        }
+      ],
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 0,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 0,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 802
+      }
+    },
+    {
+      "name": "local-reduced-motion-replay",
+      "localCheckbox": true,
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 48,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": true,
+        "renderedSeparation": 1,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 1,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 802
+      },
+      "systemPreference": false
+    },
+    {
+      "name": "live-system-reduced-motion",
+      "localCheckbox": false,
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": true,
+        "renderedSeparation": 0,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 0,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 802
+      },
+      "systemPreference": true
+    },
+    {
+      "name": "opaque-material",
+      "alpha": 255,
+      "filter": "none",
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": true,
+        "reducedMotion": false,
+        "renderedSeparation": 0,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 0,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 802
+      }
+    },
+    {
+      "name": "offscreen-lifecycle-and-replay",
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 48,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 1,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 1,
+        "velocityPerSecond": 0,
+        "visible": false,
+        "widthPixels": 802
+      }
+    },
+    {
+      "name": "secondary-remount",
+      "groups": 2,
+      "primarySelection": "outline",
+      "secondarySelection": "compact",
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 48,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 1,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 1,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 802
+      }
+    },
+    {
+      "name": "source-locked",
+      "implementationCodeVisible": false,
+      "sourceLocked": true,
+      "sourceText": "SourceEnter an active Modulo key to view the source.KeyUnlock source"
+    },
+    {
+      "name": "sampled-canvas-label-contrast",
+      "buttons": [
+        {
+          "id": "outline",
+          "pixel": [
+            227,
+            232,
+            242,
+            235
+          ],
+          "ratio": 9.85032371155372,
+          "text": [
+            32,
+            42,
+            61
+          ]
+        },
+        {
+          "id": "notes",
+          "pixel": [
+            227,
+            232,
+            242,
+            235
+          ],
+          "ratio": 9.85032371155372,
+          "text": [
+            32,
+            42,
+            61
+          ]
+        },
+        {
+          "id": "assets",
+          "pixel": [
+            227,
+            232,
+            242,
+            235
+          ],
+          "ratio": 9.85032371155372,
+          "text": [
+            32,
+            42,
+            61
+          ]
+        },
+        {
+          "id": "compact",
+          "pixel": [
+            227,
+            232,
+            242,
+            235
+          ],
+          "ratio": 9.85032371155372,
+          "text": [
+            32,
+            42,
+            61
+          ]
+        },
+        {
+          "id": "expanded",
+          "pixel": [
+            227,
+            232,
+            242,
+            235
+          ],
+          "ratio": 9.85032371155372,
+          "text": [
+            32,
+            42,
+            61
+          ]
+        }
+      ],
+      "method": "Canvas RGBA at each target center composited over the demo black background, compared with computed button text color. Normal state."
+    },
+    {
+      "name": "route-unmount-cleanup",
+      "currentPath": "/",
+      "exposedController": false,
+      "snapshot": {
+        "destroyed": true,
+        "fallbackReason": "Renderer stopped.",
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 0.65,
+        "renderer": "fallback",
+        "replaying": false,
+        "separation": 0.65,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 1
+      }
+    },
+    {
+      "name": "narrow-joined",
+      "buttons": [
+        {
+          "id": "outline",
+          "rect": {
+            "bottom": 436.390625,
+            "height": 56,
+            "left": 64.140625,
+            "right": 149.921875,
+            "top": 380.390625,
+            "width": 85.78125,
+            "x": 64.140625,
+            "y": 380.390625
+          }
+        },
+        {
+          "id": "notes",
+          "rect": {
+            "bottom": 436.390625,
+            "height": 56,
+            "left": 157.921875,
+            "right": 235.015625,
+            "top": 380.390625,
+            "width": 77.09375,
+            "x": 157.921875,
+            "y": 380.390625
+          }
+        },
+        {
+          "id": "assets",
+          "rect": {
+            "bottom": 436.390625,
+            "height": 56,
+            "left": 243.015625,
+            "right": 325.84375,
+            "top": 380.390625,
+            "width": 82.828125,
+            "x": 243.015625,
+            "y": 380.390625
+          }
+        }
+      ],
+      "documentWidth": 390,
+      "gaps": [
+        8,
+        8
+      ],
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 0,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 0,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 340
+      },
+      "viewport": 390
+    },
+    {
+      "name": "insufficient-width-native-fallback",
+      "documentWidth": 320,
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": "The available space uses wrapped native buttons.",
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 0,
+        "renderer": "fallback",
+        "replaying": false,
+        "separation": 0,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 270
+      },
+      "viewport": 320
+    },
+    {
+      "name": "canvas-restored-on-resize",
+      "documentWidth": 390,
+      "snapshot": {
+        "destroyed": false,
+        "fallbackReason": null,
+        "framePending": false,
+        "gapPixels": 8,
+        "itemCount": 3,
+        "opaque": false,
+        "reducedMotion": false,
+        "renderedSeparation": 0,
+        "renderer": "canvas",
+        "replaying": false,
+        "separation": 0,
+        "velocityPerSecond": 0,
+        "visible": true,
+        "widthPixels": 340
+      },
+      "viewport": 390
+    }
+  ],
+  "uncaughtErrors": [],
+  "axe": {
+    "violations": 0,
+    "passes": 18,
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "reason": "Canvas background is not determined by axe",
+        "nodes": 5
+      }
+    ],
+    "canvasLabelContrast": "Measured in sampled-canvas-label-contrast"
+  },
+  "limitations": [
+    "No pixel-diff against Apple source. This is a geometric adaptation.",
+    "No Safari, native platform, or screen reader runtime check.",
+    "No performance benchmark.",
+    "Consumer registry installation and unlocked source access are owned by the root agent."
+  ],
+  "sourceHashes": {
+    "LiquidCluster.tsx": "0ffc2d5d8ee9776d10c41f6090773e922b69f31a4af78aab3a0a2578f8944ac5",
+    "create-liquid-cluster.ts": "38974b8aa8babfcc8243bebd4103dbcd796336c62b40bd7c01a4ff6080007e38",
+    "liquid-cluster.css": "033e2540ffbc7f84c4fc4035ff20d59589eee999b0c749b5414c37c91f6b3fa4"
+  },
+  "finalMeasurementCheck": "Fractional button dimensions fixed the 7.9px rounded gap. Final actual narrow joined gaps are exactly [8, 8]. Resize fallback/recovery, desktop rest and joined geometry, and console were repeated after that fix.",
+  "browserSessionClosed": true
+}
