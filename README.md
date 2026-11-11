@@ -4,7 +4,8 @@ My Arch Linux development setup for websites, apps, and documents. Forked from
 [kiritocode1/dotfiles](https://github.com/kiritocode1/dotfiles), keeping Aryan's
 writing and design taste while adapting the tools and profile for my own use.
 
-Codex is the primary agent; Claude Code is the second. Existing Bash configuration
+Codex is the primary agent; Claude Code is the second. Pi shares the skills and
+agent rules. Existing Bash configuration
 is preserved and extended. Zsh gets the same aliases plus completion, suggestions,
 and syntax highlighting. The login shell is not changed.
 
@@ -43,16 +44,41 @@ source inspection, project configuration, and browser login.
 The rule installer also adds the BLANK discovery gate for selected agents.
 Searches and source reads use the CLI; credentials remain in `kiys`.
 
+The eleven YouTube skills install from
+[maynkudu/youtube-agent-skill](https://github.com/maynkudu/youtube-agent-skill), an
+independent public repository with the original MIT license and author credit.
+The source lock pins its commit. Codex, Claude Code, and Pi use the same installed
+skill folders.
+
+## Update notices
+
+Interactive Bash and Zsh shells and Codex, Claude Code, and Pi sessions check this
+checkout's tracking remote at startup. When updates exist, the notice lists the
+new commits and changed files. Checks time out after four seconds by default and
+let startup continue when the remote is unavailable. Local edits remain intact.
+
+Run `dotfiles-update` to check manually. The notice includes the update commands.
+Updates are applied only when you run them:
+
+```bash
+git -C ~/dotfiles pull --ff-only
+python3 ~/dotfiles/bin/setup
+```
+
+Commit or stash local edits first. If the branches have diverged, review them
+before updating. Configure checks in `[updates]` in `setup.toml`, or set
+`DOTFILES_UPDATE_CHECK=0` to disable them for an environment.
+
 ## What lives here
 
 | Path | Purpose |
 | --- | --- |
-| `setup.toml`, `bin/setup`, `bin/doctor` | Selected tools, installation, health checks |
+| `setup.toml`, `bin/setup`, `bin/doctor`, `bin/dotfiles-update` | Selected tools, installation, health checks, update notices |
 | `skills/rules/` | Source for shared agent behavior and personal preferences |
 | `skills/reference/` | Detailed procedures loaded when needed |
 | `skills/build/` | Generated rules; edit the sources instead |
 | `skills/skills/` | Bundled motion, writing, and workflow skills |
-| `skills/hooks/` | BLANK discovery gate and optional agent adapters |
+| `skills/hooks/` | BLANK discovery gate, startup update checks, and agent adapters |
 | `skills/sources.lock.json` | Public skills pinned to source commits |
 | `shell/`, `zshrc` | Portable Bash/Zsh setup |
 | `documents/requirements.txt` | Isolated document-generation libraries |

@@ -8,7 +8,7 @@ files; it does not reconstruct the original author's machine from historical aud
 
 `rules/tiers.toml` chooses rules for each supported agent. `bin/build` renders them
 into `build/`. Claude gets separate Markdown files. Other agents get an `AGENTS.md`.
-`bin/install` installs only the selected agents, Codex and Claude by default.
+`bin/install` installs only the selected agents, Codex, Claude, and Pi by default.
 
 Global defaults live in `~/.codex/AGENTS.md` and `~/.claude/rules/`. The next agent
 session reads them. Editing generated files or live copies loses changes at the next
@@ -19,8 +19,19 @@ are linked from short rules to keep the always-loaded guidance compact.
 
 `../bin/setup --skills`, run from this directory's parent, installs public skills
 through the bundled Codex skill installer. Existing copies are retained. New skills
-live in `~/.agents/skills`, where Codex discovers them. Claude receives individual
-symlinks into the same collection. Bundled skills are symlinks into this repository.
+live in `~/.agents/skills`, where Codex discovers them. Claude and Pi receive
+individual symlinks into the same collection. Bundled skills are symlinks into this repository.
+
+The eleven YouTube skills use the independent `maynkudu/youtube-agent-skill`
+repository at its pinned commit. Its original MIT license accompanies every skill.
+
+## Startup updates
+
+`bin/dotfiles-update` refreshes the checkout's tracking ref and reports incoming
+commits and files without changing the working tree. Interactive shell startup,
+Codex and Claude SessionStart hooks, and Pi's session_start extension run the
+checker. `[updates]` in `setup.toml` controls the timeout and displayed commit
+count. Network failures let startup continue.
 
 The original private 129-skill design pack is not included. Its catalog is retained
 for reference. The self-contained motion recipes and writing examples are available.

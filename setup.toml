@@ -1,5 +1,5 @@
 # Active agents. Other generated targets remain available in skills/rules/tiers.toml.
-agents = ["codex", "claude"]
+agents = ["codex", "claude", "pi"]
 
 # npm 12 requires explicit permission for native dependency build scripts.
 npm_allow_scripts = ["better-sqlite3", "node-pty", "tree-sitter", "tree-sitter-javascript", "tree-sitter-typescript", "sharp"]
@@ -18,3 +18,8 @@ shadcn = "shadcn@4.23.0"
 
 [skills]
 local = ["blank-mode", "aryan-voice", "animation-fundamentals", "router-design", "router-process", "subsystem-modeling", "blank-direction", "google-seo", "isometric-pixel-games", "interactive-art"]
+
+[updates]
+enabled = true
+timeout_seconds = 4
+max_commits = 5

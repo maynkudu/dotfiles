@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""Check the dotfiles tracking branch and show available updates. Never apply them."""
+import argparse
+import fcntl
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+import shlex
+import signal
+import subprocess
+import sys
+import time
+import tomllib
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def check_updates(repo: Path, timeout: float, max_commits: int) -> str:
+    """Refresh only the tracking ref, then describe commits missing from this checkout."""
+    deadline = time.monotonic() + timeout
+    env = dict(os.environ, GIT_TERMINAL_PROMPT='0')
+    env.setdefault('GIT_SSH_COMMAND', 'ssh -oBatchMode=yes -oConnectTimeout=3')
+
+    def git(*args: str) -> str:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError('The update check timed out.')
+        proc = subprocess.Popen(['git', '-C', str(repo), *args], stdout=subprocess.PIPE,
+                                stderr=subprocess.DEVNULL, text=True, env=env,
+                                start_new_session=True)
+        try:
+            output, _ = proc.communicate(timeout=remaining)
+        except subprocess.TimeoutExpired:
+            os.killpg(proc.pid, signal.SIGKILL)
+            proc.communicate()
+            raise TimeoutError('The update check timed out.') from None
+        if proc.returncode:
+            raise RuntimeError('Could not check the tracking remote. Check the network and repository configuration.')
+        return output.strip()
+
+    branch = git('symbolic-ref', '--quiet', 'HEAD')
+    tracking = git('for-each-ref', '--format=%(upstream)%00%(upstream:remotename)%00%(upstream:remoteref)', branch)
+    upstream, remote, remote_ref = tracking.split('\0')
+    if not upstream.startswith('refs/remotes/') or not remote or not remote_ref:
+        raise RuntimeError('No remote tracking branch is configured for this checkout.')
+    fetch_remote = remote
+    remote_url = git('remote', 'get-url', remote)
+    # Public GitHub checks avoid an SSH handshake without changing the user's remote.
+    for prefix in ('git@github.com:', 'ssh://git@github.com/'):
+        if remote_url.startswith(prefix):
+            fetch_remote = 'https://github.com/' + remote_url.removeprefix(prefix)
+            break
+    try:
+        git('fetch', '--quiet', '--no-tags', '--no-write-fetch-head', fetch_remote, f'+{remote_ref}:{upstream}')
+    except RuntimeError:
+        if fetch_remote == remote:
+            raise
+        git('fetch', '--quiet', '--no-tags', '--no-write-fetch-head', remote, f'+{remote_ref}:{upstream}')
+    local, incoming = (int(n) for n in git('rev-list', '--left-right', '--count', f'HEAD...{upstream}').split())
+    if not incoming:
+        return ''
+
+    def clean(value: str) -> str:
+        return ''.join(char for char in value if char.isprintable() or char == '\n')
+
+    label = upstream.removeprefix('refs/remotes/')
+    lines = [f'Dotfiles update available. {incoming} new commit{"s" if incoming != 1 else ""} on {label}.', '']
+    commits = git('log', f'--max-count={max_commits}', '--format=%h %s', f'HEAD..{upstream}')
+    lines.extend(f'  - {clean(commit)}' for commit in commits.splitlines())
+    if incoming > max_commits:
+        lines.append(f'  - {incoming - max_commits} more commits')
+    files = git('diff', '--name-only', f'HEAD...{upstream}').splitlines()
+    if files:
+        lines.extend(['', 'Changed files:'])
+        lines.extend(f'  - {clean(path)}' for path in files[:6])
+        if len(files) > 6:
+            lines.append(f'  - {len(files) - 6} more files')
+    if local:
+        lines.extend(['', f'This checkout also has {local} local commit{"s" if local != 1 else ""}. Review the branches before updating.'])
+    else:
+        if git('status', '--porcelain'):
+            lines.extend(['', 'Local changes are present. Commit or stash them before updating.'])
+        lines.extend(['', 'Update when ready:', f'  git -C {shlex.quote(str(repo))} pull --ff-only',
+                      f'  python3 {shlex.quote(str(repo / "bin/setup"))}'])
+    return '\n'.join(lines)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--repo', type=Path, default=ROOT)
+    parser.add_argument('--startup', action='store_true', help='Print only available updates; startup continues if checks fail')
+    parser.add_argument('--hook', action='store_true', help='Return a SessionStart hook notification')
+    parser.add_argument('--timeout', type=float, help='Total check timeout in seconds')
+    args = parser.parse_args()
+    startup = args.startup or args.hook
+    if os.environ.get('DOTFILES_UPDATE_CHECK') == '0':
+        return 0
+    repo = args.repo.expanduser().resolve()
+    try:
+        config = repo / 'setup.toml'
+        settings = tomllib.loads(config.read_text()).get('updates', {}) if config.is_file() else {}
+        if not settings.get('enabled', True):
+            return 0
+        timeout = float(args.timeout if args.timeout is not None else settings.get('timeout_seconds', 4))
+        if not math.isfinite(timeout) or not 0 < timeout <= 30:
+            raise ValueError('The timeout must be greater than zero and at most 30 seconds.')
+        max_commits = settings.get('max_commits', 5)
+        if not isinstance(max_commits, int) or not 1 <= max_commits <= 20:
+            raise ValueError('max_commits must be between 1 and 20.')
+        cache = Path(os.environ.get('XDG_CACHE_HOME', str(Path.home() / '.cache'))) / 'dotfiles'
+        cache.mkdir(parents=True, exist_ok=True)
+        key = hashlib.sha256(str(repo).encode()).hexdigest()[:16]
+        with (cache / f'update-{key}.lock').open('a') as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return 0
+            message = check_updates(repo, timeout, max_commits)
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        if not startup:
+            print(f'Dotfiles update check failed. {exc}', file=sys.stderr)
+        return 0 if startup else 1
+    if args.hook and message:
+        context = 'Tell the user about these dotfiles updates before starting their request. Updating requires their instruction.\n\n' + message
+        print(json.dumps({'systemMessage': message, 'hookSpecificOutput': {
+            'hookEventName': 'SessionStart', 'additionalContext': context,
+        }}))
+    elif message:
+        print(message)
+    elif not startup:
+        print('Dotfiles are up to date.')
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

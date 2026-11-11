@@ -487,6 +487,56 @@
       ]
     },
     {
+      "repo": "maynkudu/youtube-agent-skill",
+      "ref": "b4182af0199fbe3b888569f2028f14b5cdb5bc71",
+      "skills": [
+        {
+          "name": "yt-audit",
+          "path": "skills/yt-audit"
+        },
+        {
+          "name": "yt-chapters",
+          "path": "skills/yt-chapters"
+        },
+        {
+          "name": "yt-comment",
+          "path": "skills/yt-comment"
+        },
+        {
+          "name": "yt-edit",
+          "path": "skills/yt-edit"
+        },
+        {
+          "name": "yt-package",
+          "path": "skills/yt-package"
+        },
+        {
+          "name": "yt-plan",
+          "path": "skills/yt-plan"
+        },
+        {
+          "name": "yt-retention",
+          "path": "skills/yt-retention"
+        },
+        {
+          "name": "yt-script",
+          "path": "skills/yt-script"
+        },
+        {
+          "name": "yt-seo",
+          "path": "skills/yt-seo"
+        },
+        {
+          "name": "yt-shorts",
+          "path": "skills/yt-shorts"
+        },
+        {
+          "name": "yt-viral",
+          "path": "skills/yt-viral"
+        }
+      ]
+    },
+    {
       "repo": "shadcn/improve",
       "ref": "cac56e1ebd3c279aa9153616cfeac7b174ab90f9",
       "skills": [

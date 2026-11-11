@@ -10,7 +10,8 @@ pointing into this repo are ever removed; anything else there is left alone.
 
 Selected single-file agents get their whole AGENTS.md replaced when it differs.
 Each replacement saves a timestamped .before-dotfiles- backup.
-Selected agents also get the BLANK gate. Other agents and unrelated hooks remain unchanged.
+Selected agents also get the BLANK gate and startup update checks.
+Other agents and unrelated hooks remain unchanged.
 """
 
 import json
@@ -105,6 +106,10 @@ def install_claude() -> None:
 # and hooks from anything else in that file are never touched.
 GATE = ROOT / "hooks" / "blank-direction-gate"
 GATE_COMMAND = shlex.quote(str(GATE))
+UPDATE = ROOT.parent / "bin" / "dotfiles-update"
+STARTUP_HOOKS = {
+    "SessionStart": {"hooks": [{"type": "command", "command": shlex.join([sys.executable, str(UPDATE), "--hook"]), "timeout": 35}]},
+}
 GATE_SHOPPING = (
     "Edit|Write|MultiEdit|NotebookEdit|WebSearch|WebFetch|Bash"
     "|mcp__chrome-devtools__navigate_page|mcp__chrome-devtools__new_page|mcp__argent__open-url"
@@ -121,20 +126,20 @@ CLAUDE_HOOKS = {
 }
 
 
-def merge_gate_hooks(hooks: dict, wanted: dict) -> None:
-    """Put each wanted group last under its event, replacing earlier copies of ours."""
+def merge_owned_hooks(hooks: dict, wanted: dict, owner: Path, *, prepend: bool = False) -> None:
+    """Replace this command's handlers while retaining unrelated handlers and their order."""
     for event, group in wanted.items():
         groups = hooks.setdefault(event, [])
-        ours = [g for g in groups if any(str(GATE) in h.get("command", "") for h in g.get("hooks", []))]
-        if ours == [group]:
+        ours = [g for g in groups if any(str(owner) in h.get("command", "") for h in g.get("hooks", []))]
+        if ours == [group] and (not prepend or groups[0] == group):
             continue
-        act(f"set {event} hook {GATE.name}")
+        act(f"set {event} hook {owner.name}")
         kept = []
         for current in groups:
-            handlers = [h for h in current.get("hooks", []) if str(GATE) not in h.get("command", "")]
+            handlers = [h for h in current.get("hooks", []) if str(owner) not in h.get("command", "")]
             if handlers:
                 kept.append({**current, "hooks": handlers})
-        hooks[event] = kept + [group]
+        hooks[event] = [group, *kept] if prepend else [*kept, group]
 
 
 def write_json(path: Path, raw: str, data: dict) -> bool:
@@ -160,7 +165,9 @@ def install_claude_hooks() -> None:
     path = HOME / ".claude" / "settings.json"
     raw = path.read_text() if path.exists() else ""
     settings = json.loads(raw) if raw else {}
-    merge_gate_hooks(settings.setdefault("hooks", {}), CLAUDE_HOOKS)
+    hooks = settings.setdefault("hooks", {})
+    merge_owned_hooks(hooks, CLAUDE_HOOKS, GATE)
+    merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
     # The gate is useless if the search it demands waits on a permission prompt.
     allow = settings.setdefault("permissions", {}).setdefault("allow", [])
     for permission in ("Bash(blank search:*)", "Bash(blank registry-search:*)", "Bash(blank source:*)"):
@@ -225,11 +232,11 @@ def codex_hook_hashes(codex: Path) -> list[dict]:
 
 
 def trust_codex_hooks(config: Path, hooks: list[dict]) -> None:
-    """Record trusted_hash for our gate hooks in config.toml, as Codex's review screen would."""
+    """Record trusted_hash for this repository's hooks using Codex's computed hashes."""
     raw = config.read_text() if config.exists() else ""
     text = raw
     for hook in hooks:
-        if str(GATE) not in hook.get("command", "") or hook.get("trustStatus") == "trusted":
+        if not any(str(owner) in hook.get("command", "") for owner in (GATE, UPDATE)) or hook.get("trustStatus") == "trusted":
             continue
         key, digest = hook["key"], hook["currentHash"]
         act(f"trust codex hook {key.rsplit(':', 3)[1]}")
@@ -246,18 +253,21 @@ def install_codex_hooks() -> None:
     path = home / "hooks.json"
     raw = path.read_text() if path.exists() else ""
     data = json.loads(raw) if raw else {}
-    merge_gate_hooks(data.setdefault("hooks", {}), CODEX_HOOKS)
+    hooks = data.setdefault("hooks", {})
+    merge_owned_hooks(hooks, CODEX_HOOKS, GATE)
+    merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
     write_json(path, raw, data)
     codex = next((c for c in CODEX_BINARIES if c is not None and c.exists()), None)
     if codex is None:
         act("skip codex hook trust: no codex binary; approve the hooks in /hooks on first run")
         return
     if DRY:
-        act(f"trust codex gate hooks via {codex} app-server")
+        act(f"trust codex hooks via {codex} app-server")
         return
-    hooks = [hook for hook in codex_hook_hashes(codex) if str(GATE) in hook.get("command", "")]
-    if not hooks:
-        raise RuntimeError("Codex did not load the BLANK hooks. Review hooks.json before continuing.")
+    hooks = [hook for hook in codex_hook_hashes(codex)
+             if any(str(owner) in hook.get("command", "") for owner in (GATE, UPDATE))]
+    if not all(any(str(owner) in hook.get("command", "") for hook in hooks) for owner in (GATE, UPDATE)):
+        raise RuntimeError("Codex did not load the dotfiles hooks. Review hooks.json before continuing.")
     trust_codex_hooks(home / "config.toml", hooks)
 
 
@@ -269,7 +279,9 @@ def install_grok_hooks() -> None:
     path = home / "hooks" / "blank-direction-gate.json"
     raw = path.read_text() if path.exists() else ""
     data = json.loads(raw) if raw else {}
-    merge_gate_hooks(data.setdefault("hooks", {}), GROK_HOOKS)
+    hooks = data.setdefault("hooks", {})
+    merge_owned_hooks(hooks, GROK_HOOKS, GATE)
+    merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
     if not DRY:
         path.parent.mkdir(exist_ok=True)
     write_json(path, raw, data)
@@ -330,6 +342,7 @@ def main() -> int:
                 install_grok_hooks()
             elif agent == 'pi':
                 link(ROOT / 'hooks/pi-blank-direction.ts', HOME / '.pi/agent/extensions/blank-direction-gate.ts')
+                link(ROOT / 'hooks/pi-dotfiles-update.ts', HOME / '.pi/agent/extensions/dotfiles-update.ts')
             elif agent == 'opencode':
                 link(ROOT / 'hooks/opencode-blank-direction.ts', HOME / '.config/opencode/plugins/blank-direction-gate.ts')
     print("\ndry run, nothing changed." if DRY else "\ninstalled.")

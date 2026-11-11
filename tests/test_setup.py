@@ -49,7 +49,10 @@ class InstallTests(unittest.TestCase):
             backups = list(rules.glob('about-me.md.before-dotfiles-*'))
             self.assertEqual(len(backups), 1)
             self.assertEqual(backups[0].read_text(), 'personal original')
-            for agent in ('.grok', '.pi', '.config/opencode'):
+            self.assertTrue((home / '.pi/agent/AGENTS.md').is_file())
+            self.assertEqual((home / '.pi/agent/extensions/dotfiles-update.ts').resolve(),
+                             ROOT / 'skills/hooks/pi-dotfiles-update.ts')
+            for agent in ('.grok', '.config/opencode'):
                 self.assertFalse((home / agent).exists())
             before = sorted(str(p.relative_to(home)) for p in home.rglob('*'))
             self.run_installer(home)
@@ -74,8 +77,11 @@ class InstallTests(unittest.TestCase):
             path.parent.mkdir()
             gate = ROOT / 'skills/hooks/blank-direction-gate'
             foreign = {'type': 'command', 'command': 'printf keep'}
+            updater = ROOT / 'bin/dotfiles-update'
             original = {'model': 'keep-current-model', 'permissions': {'allow': ['Read']},
-                        'hooks': {'PreToolUse': [{'matcher': 'Bash', 'hooks': [
+                        'hooks': {'SessionStart': [{'hooks': [
+                            {'type': 'command', 'command': f'{updater} --hook'}, foreign]}],
+                                  'PreToolUse': [{'matcher': 'Bash', 'hooks': [
                             {'type': 'command', 'command': f'{gate} gate'}, foreign]}]}}
             path.write_text(json.dumps(original))
             self.run_installer(home, '--agents', 'claude')
@@ -86,6 +92,10 @@ class InstallTests(unittest.TestCase):
             groups = settings['hooks']['PreToolUse']
             self.assertIn({'matcher': 'Bash', 'hooks': [foreign]}, groups)
             self.assertEqual(sum(str(gate) in hook.get('command', '') for group in groups for hook in group['hooks']), 1)
+            starts = settings['hooks']['SessionStart']
+            self.assertIn({'hooks': [foreign]}, starts)
+            self.assertIn(str(updater), starts[0]['hooks'][0]['command'])
+            self.assertEqual(sum(str(updater) in hook.get('command', '') for group in starts for hook in group['hooks']), 1)
             self.run_installer(home, '--agents', 'claude')
             self.assertEqual(path.read_text(), first)
             self.assertEqual(len(list(path.parent.glob('settings.json.before-dotfiles-*'))), 1)
@@ -131,6 +141,44 @@ class InstallTests(unittest.TestCase):
                      if gate in hook.get('command', '')]
             self.assertEqual(len(hooks), 2)
             self.assertTrue(all(hook['trustStatus'] == 'trusted' for hook in hooks))
+            startup = [hook for hook in installer['codex_hook_hashes'](pathlib.Path(shutil.which('codex')))
+                       if str(ROOT / 'bin/dotfiles-update') in hook.get('command', '')]
+            self.assertEqual(len(startup), 1)
+            self.assertEqual(startup[0]['eventName'], 'sessionStart')
+            self.assertEqual(startup[0]['trustStatus'], 'trusted')
+
+    def test_shared_skills_are_linked_for_all_selected_clients_without_replacing_local_skills(self):
+        source = {'repo': 'fixture/skills', 'ref': '0' * 40,
+                  'skills': [{'name': name, 'path': f'skills/{name}'} for name in ('yt-script', 'yt-package')]}
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            shared = home / '.agents/skills/yt-script'
+            shared.mkdir(parents=True)
+            (shared / 'SKILL.md').write_text('---\nname: yt-script\ndescription: fixture\n---\n')
+            package = home / '.agents/skills/yt-package'
+            package.mkdir()
+            (package / 'SKILL.md').write_text('---\nname: yt-package\ndescription: fixture\n---\n')
+            local = home / '.pi/agent/skills/yt-script'
+            local.mkdir(parents=True)
+            (local / 'SKILL.md').write_text('local skill')
+            for dry_run in (True, False, False):
+                args = [str(ROOT / 'bin/setup'), '--skills', '--home', str(home)]
+                if dry_run:
+                    args.append('--dry-run')
+                with (patch.object(sys, 'argv', args),
+                      patch('json.loads', return_value={'sources': [source]}),
+                      patch('subprocess.run') as commands, patch('builtins.print')):
+                    setup = runpy.run_path(str(ROOT / 'bin/setup'))
+                    setup['main']()
+                claude = home / '.claude/skills/yt-script'
+                self.assertEqual(claude.exists(), not dry_run)
+                if not dry_run:
+                    self.assertEqual(claude.resolve(), shared)
+                    self.assertEqual((home / '.pi/agent/skills/yt-package').resolve(), package)
+                else:
+                    self.assertFalse((home / '.pi/agent/skills/yt-package').exists())
+                self.assertEqual((local / 'SKILL.md').read_text(), 'local skill')
+                self.assertFalse(any('--repo' in call.args[0] for call in commands.call_args_list))
 
     def test_skill_helpers_restore_executable_permissions_without_changing_content(self):
         source = {

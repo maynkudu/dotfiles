@@ -1,4 +1,8 @@
 # Compatible with Bash and Zsh. Keep standard commands available under their names.
+case $- in
+  *i*) python3 "${DOTFILES_ROOT:-$HOME/dotfiles}/bin/dotfiles-update" --startup || true ;;
+esac
+
 for dotfiles_bin in "$HOME/.local/bin" "$HOME/.bun/bin" "$HOME/.cargo/bin" "$HOME/.elan/bin" "$HOME/.local/share/fnm"; do
   [ -d "$dotfiles_bin" ] || continue
   case ":$PATH:" in

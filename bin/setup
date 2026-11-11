@@ -59,6 +59,9 @@ def main():
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.symlink_to(source)
 
+    if phases & {'tools', 'rules', 'shell'}:
+        link(ROOT / 'bin/dotfiles-update', home / '.local/bin/dotfiles-update')
+
     if 'tools' in phases:
         # Use Sharp's bundled libvips rather than compiling against Arch's copy.
         env['SHARP_IGNORE_GLOBAL_LIBVIPS'] = '1'
@@ -136,13 +139,16 @@ def main():
                             executable.chmod(mode | 0o111)
         for name in cfg['skills']['local']:
             link(ROOT / 'skills/skills' / name, shared / name)
-        # The vendored Cloudflare skills are useful in both active clients.
+        # Share the vendored Cloudflare skills with the selected clients.
         for source in sorted((ROOT / 'pi/skills').iterdir()):
             if (source / 'SKILL.md').is_file():
                 link(source, shared / source.name)
-        if 'claude' in cfg['agents']:
+        skill_homes = {'claude': home / '.claude/skills', 'pi': home / '.pi/agent/skills'}
+        for agent in cfg['agents']:
+            if agent not in skill_homes:
+                continue
             for source in sorted(shared.glob('*/SKILL.md')):
-                link(source.parent, home / '.claude/skills' / source.parent.name)
+                link(source.parent, skill_homes[agent] / source.parent.name)
         if not args.dry_run:
             run([sys.executable, ROOT / 'skills/bin/patch', '--skill-home', shared])
 

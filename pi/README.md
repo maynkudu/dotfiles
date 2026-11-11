@@ -15,9 +15,10 @@ skills/         13 Cloudflare skills that exist nowhere else (2.4 MB)
 restore.sh      put all of the above onto a new machine
 ```
 
-The 13 skills are vendored because they are the only copy. The other ~17 entries
-in `~/.pi/agent/skills` are symlinks into `~/.agents/skills`, which the skill
-manager owns and `~/.agents/.skill-lock.json` can rebuild.
+The 13 Cloudflare skills are vendored because they are the only copy. The shared
+dotfiles setup links its selected public and bundled skills into
+`~/.pi/agent/skills` from `~/.agents/skills`, including the eleven YouTube skills.
+`skills/sources.lock.json` pins the public sources for repeatable installation.
 
 ## What is deliberately not here
 
@@ -30,6 +31,14 @@ manager owns and `~/.agents/.skill-lock.json` can rebuild.
 | `trust.json` | Absolute paths for one machine's trusted directories. |
 
 ## Setup on a new machine
+
+The shared setup installs Pi skills, rules, and startup update checks:
+
+```bash
+python3 bin/setup --skills --rules --shell
+```
+
+The separate restore script also restores Pi's packages and settings:
 
 ```bash
 pi/restore.sh --dry-run   # see what would change

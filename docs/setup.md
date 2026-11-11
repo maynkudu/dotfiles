@@ -1,6 +1,6 @@
 # Arch Linux setup
 
-This fork configures Codex and Claude Code for maynkudu. It keeps Aryan's writing
+This fork configures Codex, Claude Code, and Pi for maynkudu. It keeps Aryan's writing
 and design preferences, with maynkudu's identity and Linux paths. It installs the
 public tools and skills used by the rules.
 
@@ -12,7 +12,7 @@ Make these commands available first:
 | --- | --- |
 | `python3` 3.11+, `git`, `uv` | Configuration, skills, and the document environment |
 | `node` 24+, `npm`, `cargo`, `make`, `g++` | CLI tools and their native dependencies |
-| `codex`, `claude` | The selected agents and MCP registration |
+| `codex`, `claude`, `pi` | The selected agents; Codex and Claude also receive MCP registration |
 | `bash`, `zsh` | Shell configuration |
 | `pnpm`, `bun`, `starship`, `zoxide`, `rg`, `fd`, `bat`, `eza` | Development commands and shell integrations |
 | `chromium`, `ffmpeg`, `pdftoppm`, `plannotator` | Browser checks, recordings, PDF previews, and reviews |
@@ -45,18 +45,18 @@ python3 bin/setup
 python3 bin/doctor
 ```
 
-Start a new Codex or Claude session after installation to load the rules and MCP
+Start a new agent session after installation to load the rules and MCP
 processes. Open a new shell to load the shared aliases and integrations.
 
 Choose agents and npm packages in [`setup.toml`](../setup.toml). The default
-agents are `codex` and `claude`. Other generated profiles remain in `skills/build/`.
+agents are `codex`, `claude`, and `pi`. Other generated profiles remain in `skills/build/`.
 
 Use phase flags to repeat selected work:
 
 | Command | What it does |
 | --- | --- |
 | `python3 bin/setup --tools` | Installs missing CLIs, fnm, Zsh plugins, and document libraries; applies the version-specific Webreel fix |
-| `python3 bin/setup --skills` | Installs missing public skills and links bundled skills for both agents |
+| `python3 bin/setup --skills` | Installs missing public skills and links shared skills for selected agents |
 | `python3 bin/setup --rules` | Checks generated rules, then installs the selected profiles |
 | `python3 bin/setup --shell` | Updates one managed block in each shell configuration |
 | `python3 bin/setup --mcp` | Registers Argent and Agentation where they are missing |
@@ -73,8 +73,8 @@ skill installations. MCP registration uses the real home and refuses a different
 | `~/.local/share/dotfiles/documents` | Python 3.13 environment with the pinned document libraries |
 | `~/.local/share/dotfiles/zsh` | Zsh suggestions and highlighting plugins |
 | `~/.agents/skills` | Shared public and bundled skills |
-| `~/.claude/skills` | Links to the shared skills |
-| `~/.codex/AGENTS.md`, `~/.claude/rules` | Generated agent rules |
+| `~/.claude/skills`, `~/.pi/agent/skills` | Links to the shared skills |
+| `~/.codex/AGENTS.md`, `~/.claude/rules`, `~/.pi/agent/AGENTS.md` | Generated agent rules |
 | `~/.bashrc`, `~/.zshrc` | A managed include for this checkout |
 
 Existing tools stay with their current package manager. Existing skills are
@@ -84,6 +84,12 @@ installation does not create more backups when the content is unchanged.
 
 Keep local shell settings in `~/.bashrc.local` or `~/.zshrc.local`. Keep this
 checkout in place because the installed rules and bundled skills link to it.
+
+Interactive shells and agent sessions check for updates before normal startup.
+The notice lists incoming commits and changed files and shows the explicit update
+commands. It never pulls automatically. Run `dotfiles-update` for a manual check.
+Configure `[updates]` in `setup.toml` or set `DOTFILES_UPDATE_CHECK=0` to disable
+checks. The default timeout is four seconds; network failure lets startup continue.
 
 ## Native dependencies
 
@@ -176,9 +182,9 @@ The [verification record](../.plannotator/setup-verification/results.md) contain
 the runtime evidence and its limits. Office rendering, spreadsheet formula
 recalculation, and Portless HTTPS certificate validation passed on this machine.
 
-The public selection contains 129 skills from 16 pinned repositories. Ten old
-names are unavailable in their current upstream sources, as recorded in
-[`skills/sources.lock.json`](../skills/sources.lock.json). The original separate
+The public selection and exact source commits are recorded in
+[`skills/sources.lock.json`](../skills/sources.lock.json). Ten old names are
+unavailable in their current upstream sources. The original separate
 129-skill design pack, legacy macOS Computer Use, and authenticated CPA pool are not
 configured. The live BLANK registry and inspiration directory are available
 through the new helper. Bundled motion recipes and writing examples remain available.

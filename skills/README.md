@@ -1,6 +1,6 @@
 # Agent rules and skills
 
-Shared behavior for maynkudu's Codex and Claude Code setup, adapted from Aryan's
+Shared behavior for maynkudu's Codex, Claude Code, and Pi setup, adapted from Aryan's
 original rules. Writing taste, source fidelity, and real verification remain;
 the biography, private-library assumptions, and historical agent roles do not.
 
@@ -14,7 +14,7 @@ unrelated local rules remain visible.
 
 `bin/check --repo-only` validates a fresh checkout. `bin/check` also verifies the
 selected agents and installed skills. Neither check installs anything. Build output
-for Pi, Grok, and OpenCode remains available, but they are not default install targets.
+for Grok and OpenCode remains available, but they are not default install targets.
 
 ## BLANK gate
 
@@ -33,8 +33,15 @@ stay in `../kiys`. See [BLANK access](../docs/blank.md) for use and recovery.
 `../bin/setup --skills` installs the current public selection from
 `sources.lock.json` through Codex's bundled skill-installer helper. Sources are pinned
 to commits. Existing skills are retained. Local skills and the Cloudflare skills
-under `../pi/skills` are linked into `~/.agents/skills`; Claude sees the same collection
-through per-skill links. Codex discovers the shared directory.
+under `../pi/skills` are linked into `~/.agents/skills`; Claude and Pi see the same
+collection through per-skill links. Codex discovers the shared directory.
+
+All eleven `yt-*` skills are pinned to
+[maynkudu/youtube-agent-skill](https://github.com/maynkudu/youtube-agent-skill), an
+independent public repository containing Jake Schincariol's MIT-licensed skill
+pack. Skill instructions and Python helpers preserve the original source, and
+each installed skill includes the license. Installation references use the new
+repository.
 
 `manifest.toml` is the historical inventory, including unavailable private skills.
 It is not the installer input. The lock file records missing upstream names.
@@ -74,5 +81,9 @@ existing collection. Missing skills are skipped, not fetched by the patcher.
 Codex's generated file has a 28,672-character budget, with long verification and
 writing procedures in `reference/`. Grok retains its 10,000-character cap. The build
 validates all outputs before writing any file.
+
+The rule installer also registers startup update checks for Codex and Claude and
+links the Pi startup extension. Checks report incoming commits and changed files;
+they do not apply updates. See [update notices](../README.md#update-notices).
 
 See [how it works](docs/how-it-works.md) and [machine setup](../docs/setup.md).
