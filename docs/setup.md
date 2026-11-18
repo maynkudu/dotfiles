@@ -203,8 +203,9 @@ subprocesses. `dotfiles-health --hook` emits at most one summary line and always
 exits zero, for non-blocking startup integration. It checks only known files and
 runs no subprocesses. `--home <fixture>` and `--json` support isolated metadata reports.
 Missing and failed checks affect exit status. Unknown checks stay separate and
-are not passes. Codex native hook trust, Pi MCP wiring, custom registrations,
-and optional server/workflow integration require further verification.
+are not passes. Codex native hook trust, Pi MCP wiring and custom registrations
+require further verification. Local workflow helper/reference integration is
+checked without starting servers. See [workflow commands](workflow.md).
 Doctor does not start apps or certify browser annotation sync.
 
 The three audit commands share a bounded Codex/Claude/Pi session parser:

@@ -1,0 +1,3 @@
+## Portable local workflow adapter
+
+In maynkudu's Codex, Claude Code and Pi setup, this section replaces the Cursor transcript discovery and fixed subagent procedure above. Use the installed `context-recall` skill and `~/dotfiles/skills/reference/private-checkpoints.md`. Work from the supplied state or the exact source session/worktree checkpoints. Never follow the missing `../../docs/harness/claude-code.md` link, scan unrelated Cursor chats or broaden the user's scope. Check live repo state and linked evidence before reporting saved claims as current. No fixed model or external-source fan-out is required.

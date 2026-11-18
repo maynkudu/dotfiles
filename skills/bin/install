@@ -107,9 +107,16 @@ def install_claude() -> None:
 GATE = ROOT / "hooks" / "blank-direction-gate"
 GATE_COMMAND = shlex.quote(str(GATE))
 UPDATE = ROOT.parent / "bin" / "dotfiles-update"
+HEALTH = ROOT.parent / "bin" / "dotfiles-health"
+WORKFLOW = ROOT.parent / "bin" / "agent-workflow-check"
+HOOK_OWNERS = (GATE, UPDATE, HEALTH, WORKFLOW)
 STARTUP_HOOKS = {
     "SessionStart": {"hooks": [{"type": "command", "command": shlex.join([sys.executable, str(UPDATE), "--hook"]), "timeout": 35}]},
 }
+
+
+def startup_check_group(command: Path, flag: str) -> dict:
+    return {"SessionStart": {"hooks": [{"type": "command", "command": shlex.join([sys.executable, str(command), flag]), "timeout": 5}]}}
 GATE_SHOPPING = (
     "Edit|Write|MultiEdit|NotebookEdit|WebSearch|WebFetch|Bash"
     "|mcp__chrome-devtools__navigate_page|mcp__chrome-devtools__new_page|mcp__argent__open-url"
@@ -168,6 +175,8 @@ def install_claude_hooks() -> None:
     hooks = settings.setdefault("hooks", {})
     merge_owned_hooks(hooks, CLAUDE_HOOKS, GATE)
     merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
+    merge_owned_hooks(hooks, startup_check_group(HEALTH, '--hook'), HEALTH)
+    merge_owned_hooks(hooks, startup_check_group(WORKFLOW, '--startup'), WORKFLOW)
     # The gate is useless if the search it demands waits on a permission prompt.
     allow = settings.setdefault("permissions", {}).setdefault("allow", [])
     for permission in ("Bash(blank search:*)", "Bash(blank registry-search:*)", "Bash(blank source:*)"):
@@ -236,7 +245,7 @@ def trust_codex_hooks(config: Path, hooks: list[dict]) -> None:
     raw = config.read_text() if config.exists() else ""
     text = raw
     for hook in hooks:
-        if not any(str(owner) in hook.get("command", "") for owner in (GATE, UPDATE)) or hook.get("trustStatus") == "trusted":
+        if not any(str(owner) in hook.get("command", "") for owner in HOOK_OWNERS) or hook.get("trustStatus") == "trusted":
             continue
         key, digest = hook["key"], hook["currentHash"]
         act(f"trust codex hook {key.rsplit(':', 3)[1]}")
@@ -256,6 +265,8 @@ def install_codex_hooks() -> None:
     hooks = data.setdefault("hooks", {})
     merge_owned_hooks(hooks, CODEX_HOOKS, GATE)
     merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
+    merge_owned_hooks(hooks, startup_check_group(HEALTH, '--hook'), HEALTH)
+    merge_owned_hooks(hooks, startup_check_group(WORKFLOW, '--startup'), WORKFLOW)
     write_json(path, raw, data)
     codex = next((c for c in CODEX_BINARIES if c is not None and c.exists()), None)
     if codex is None:
@@ -265,8 +276,8 @@ def install_codex_hooks() -> None:
         act(f"trust codex hooks via {codex} app-server")
         return
     hooks = [hook for hook in codex_hook_hashes(codex)
-             if any(str(owner) in hook.get("command", "") for owner in (GATE, UPDATE))]
-    if not all(any(str(owner) in hook.get("command", "") for hook in hooks) for owner in (GATE, UPDATE)):
+             if any(str(owner) in hook.get("command", "") for owner in HOOK_OWNERS)]
+    if not all(any(str(owner) in hook.get("command", "") for hook in hooks) for owner in HOOK_OWNERS):
         raise RuntimeError("Codex did not load the dotfiles hooks. Review hooks.json before continuing.")
     trust_codex_hooks(home / "config.toml", hooks)
 
@@ -329,7 +340,12 @@ def main() -> int:
     if not BUILD.exists():
         sys.exit("error: build/ missing. Run bin/build first.")
     configured = tomllib.loads((ROOT.parent / 'setup.toml').read_text())['agents']
-    for agent in args.agents or configured:
+    selected = args.agents or configured
+    sys.path.insert(0, str(ROOT.parent))
+    from tools.workflow.workflow_install import install_workflow_links
+    for action in install_workflow_links(ROOT.parent, HOME, selected, dry_run=DRY):
+        act(action)
+    for agent in selected:
         print(f"{agent}:")
         if agent == 'claude':
             install_claude()
@@ -343,6 +359,7 @@ def main() -> int:
             elif agent == 'pi':
                 link(ROOT / 'hooks/pi-blank-direction.ts', HOME / '.pi/agent/extensions/blank-direction-gate.ts')
                 link(ROOT / 'hooks/pi-dotfiles-update.ts', HOME / '.pi/agent/extensions/dotfiles-update.ts')
+                link(ROOT / 'hooks/pi-workflow-lifecycle.ts', HOME / '.pi/agent/extensions/workflow-lifecycle.ts')
             elif agent == 'opencode':
                 link(ROOT / 'hooks/opencode-blank-direction.ts', HOME / '.config/opencode/plugins/blank-direction-gate.ts')
     print("\ndry run, nothing changed." if DRY else "\ninstalled.")

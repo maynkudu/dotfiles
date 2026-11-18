@@ -88,6 +88,14 @@ npx webreel record -c <config> <name>
 
 Omit `<name>` only when every configured video is requested. For Plannotator, keep the config and video under `.plannotator/<change>/`; record the proposal, then rerun the same named flow and viewport after implementation. Confirm the output exists and is non-empty. Report the config, video name, output path, format, simulated data and failures. If Chrome or FFmpeg setup fails, retry once and report the exact error. Never delete `~/.webreel` without approval.
 
+# Feature-based commits
+
+When commits are authorized, make each commit one coherent feature or fix. Keep its required tests and documentation with it. Stage only that feature's files or hunks, inspect the staged diff and run its focused checks before committing. Use a message that names the feature or fix.
+
+Keep unrelated completed work in separate commits rather than a catch-all commit before push. An inseparable dependency may stay in one commit; do not split working code merely to increase the count. Preserve user changes and leave unrelated files unstaged.
+
+Permission to implement or approve a plan is not permission to commit or push. When the user requests review first, leave changes uncommitted until that review is approved.
+
 # Working with me here
 
 Grok is an optional target and is not installed by the default setup. Answer operational

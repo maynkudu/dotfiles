@@ -1,6 +1,20 @@
 # Edits we own on top of cursor/plugins pstack.
 
 [[patch]]
+skill = "recall"
+op = "append"
+file = "appends/portable-recall.md"
+marker = "## Portable local workflow adapter"
+reason = "Codex, Claude and Pi use explicit private checkpoints, not Cursor transcript paths or missing host adapters."
+
+[[patch]]
+skill = "reflect"
+op = "append"
+file = "appends/portable-reflection.md"
+marker = "## Portable local workflow adapter"
+reason = "Use a reviewed local procedure without fixed Cursor tools, models or an automatic review panel."
+
+[[patch]]
 skill  = "pstack-tdd"
 op     = "frontmatter-set"
 key    = "name"

@@ -50,6 +50,19 @@ independent public repository with the original MIT license and author credit.
 The source lock pins its commit. Codex, Claude Code, and Pi use the same installed
 skill folders.
 
+## Workflow commands
+
+`dotfiles-health` checks managed tooling and configuration. `agent-checkpoint`
+saves necessary private handoffs for an explicit source session/worktree.
+`agent-server` inventories current servers, reuses the same app, supervises new
+launches and releases only current ownership when work is finished.
+`agent-workflow-eval` checks deterministic workflow contracts.
+
+Shared rules require feature-based commits when commits are authorized and
+explicit finalization of task-owned servers. Other active owners, user-kept
+previews and historical untracked servers remain protected. See
+[workflow commands and limits](docs/workflow.md).
+
 ## Update notices
 
 Interactive Bash and Zsh shells and Codex, Claude Code, and Pi sessions check this
@@ -74,6 +87,7 @@ before updating. Configure checks in `[updates]` in `setup.toml`, or set
 | Path | Purpose |
 | --- | --- |
 | `setup.toml`, `bin/setup`, `bin/doctor`, `bin/dotfiles-update` | Selected tools, installation, health checks, update notices |
+| `tools/workflow/`, `bin/agent-*` | Private checkpoints, owned server lifecycle, workflow checks and fixtures |
 | `skills/rules/` | Source for shared agent behavior and personal preferences |
 | `skills/reference/` | Detailed procedures loaded when needed |
 | `skills/build/` | Generated rules; edit the sources instead |
@@ -103,6 +117,8 @@ use my identity and never adopt the original author's biography or client claims
 
 ```bash
 python3 skills/bin/check --repo-only
+python3 bin/agent-workflow-check --repo-only
+python3 bin/agent-workflow-eval
 python3 -m unittest discover -s tests -v
 bash -n shell/common.sh shell/bash.sh pi/restore.sh
 zsh -n zshrc

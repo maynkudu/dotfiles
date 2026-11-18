@@ -1,0 +1,3 @@
+## Portable local workflow adapter
+
+In maynkudu's Codex, Claude Code and Pi setup, this section replaces the fixed Cursor transcript and three-reviewer procedure above. Use the installed `reviewed-reflection` skill and `~/dotfiles/skills/reference/workflow-hosts.md`. Extract evidence from the current authorized task, propose the smallest rule/skill or executable check, and wait for explicit human approval. Do not launch fixed models, file external backlog items automatically or copy private transcripts. Use each host's available tools. Make approved edits in canonical sources and rebuild/install them, not in generated or installed copies.

@@ -371,3 +371,23 @@ Before implementation beyond a tiny obvious edit, read `~/dotfiles/skills/refere
 Show the actual decision before asking for approval. Develop and self-check the hardest representative part before expanding production. Consolidate creative choices into one review rather than separate palette, layout and mock approvals. Reopen for material departures, not settled decisions. Preview work stays isolated until approval.
 
 Read the returned human decision; opening or closing the UI is not approval. Never use browser tools to submit approval. Questions remain read-only. For source-linked system explanations, load `subsystem-modeling`; a focused diagram and source links suffice for a simple explanation.
+
+# Feature-based commits
+
+When commits are authorized, make each commit one coherent feature or fix. Keep its required tests and documentation with it. Stage only that feature's files or hunks, inspect the staged diff and run its focused checks before committing. Use a message that names the feature or fix.
+
+Keep unrelated completed work in separate commits rather than a catch-all commit before push. An inseparable dependency may stay in one commit; do not split working code merely to increase the count. Preserve user changes and leave unrelated files unstaged.
+
+Permission to implement or approve a plan is not permission to commit or push. When the user requests review first, leave changes uncommitted until that review is approved.
+
+# Server lifecycle
+
+Before starting a development server, load `server-lifecycle` and read `~/dotfiles/skills/reference/server-lifecycle.md`. Run `agent-server inventory`, reuse the verified same app/worktree, and start new servers through `agent-server` with the actual session and stable harness PID. Keep Portless naming and port assignment.
+
+When the task and its checks are complete, finalize only that session's managed resources before closeout. Preserve other active owners and explicitly user-kept previews. Report every retained server with its named URL. A normal assistant turn, review pause or idle session is not thread completion. Untracked historical servers are inspection candidates, not cleanup targets.
+
+# Durable work state
+
+Before transferring work, changing agents or compacting a long task with unfinished work, load `private-checkpoint`. Save only necessary reviewed context linked to existing plans, approvals and verification artifacts. Recall uses the exact source session and worktree through `context-recall`; saved context never grants permission.
+
+When extracting reusable lessons, load `reviewed-reflection`. Propose the change against its evidence and wait for explicit approval before editing standing rules or skills. Prefer executable checks for mechanical failures. Use `workflow-evaluation` when changing workflow contracts and report fixtures separately from live model results.

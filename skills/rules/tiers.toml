@@ -28,6 +28,9 @@ shared = [
   "waiting",
   "context7",
   "plannotator",
+  "feature-commits",
+  "server-lifecycle",
+  "workflow-state",
 ]
 
 [codex]
@@ -42,6 +45,9 @@ shared = [
   "waiting",
   "context7",
   "plannotator",
+  "feature-commits",
+  "server-lifecycle",
+  "workflow-state",
 ]
 
 # Grok truncates at 10000 chars, so it takes tier 0 plus short forms only.
@@ -51,7 +57,7 @@ shared = [
 [grok]
 agent = "grok"
 core = ["about-me", "unslop", "aryan-voice", "direction-first"]
-shared = ["portless", "webreel"]
+shared = ["portless", "webreel", "feature-commits"]
 
 # pi (@earendil-works/pi-coding-agent) reads ~/.pi/agent/AGENTS.md as its global
 # layer. Same ruleset as codex: both are terminal coding agents and pi's default
@@ -72,6 +78,9 @@ shared = [
   "waiting",
   "context7",
   "plannotator",
+  "feature-commits",
+  "server-lifecycle",
+  "workflow-state",
 ]
 
 # opencode reads ~/.config/opencode/AGENTS.md as its global layer. Same ruleset
@@ -91,4 +100,7 @@ shared = [
   "waiting",
   "context7",
   "plannotator",
+  "feature-commits",
+  "server-lifecycle",
+  "workflow-state",
 ]

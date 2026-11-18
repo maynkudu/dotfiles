@@ -5,8 +5,11 @@ from pathlib import Path
 import shlex
 import sys
 import tomllib
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'bin'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow.workflow_health import workflow_health_report
 from cli_runtime import RUNTIME_RELATIVE, read_cli_manifest
 
 CONFIG_LIMIT = 1024 * 1024
@@ -67,7 +70,7 @@ def installed_health(home, repo, cfg, *, runtime=True):
             for name in sorted(required):
                 report(f'{agent} required skill link {name}', 'ok' if (directory / name / 'SKILL.md').is_file() else 'missing')
         if agent == 'pi':
-            for filename, target in (('blank-direction-gate.ts', 'pi-blank-direction.ts'), ('dotfiles-update.ts', 'pi-dotfiles-update.ts')):
+            for filename, target in (('blank-direction-gate.ts', 'pi-blank-direction.ts'), ('dotfiles-update.ts', 'pi-dotfiles-update.ts'), ('workflow-lifecycle.ts', 'pi-workflow-lifecycle.ts')):
                 path = home / '.pi/agent/extensions' / filename
                 report(f'pi owned extension {filename}', 'ok' if path.is_symlink() and path.resolve() == repo / 'skills/hooks' / target else 'missing')
             report('pi MCP registration capability', 'unknown')
@@ -83,6 +86,8 @@ def installed_health(home, repo, cfg, *, runtime=True):
             report(f'{agent} owned hooks', 'unknown')
         else:
             for event, owner, mode in (('SessionStart', repo / 'bin/dotfiles-update', '--hook'),
+                                       ('SessionStart', repo / 'bin/dotfiles-health', '--hook'),
+                                       ('SessionStart', repo / 'bin/agent-workflow-check', '--startup'),
                                        ('PreToolUse', repo / 'skills/hooks/blank-direction-gate', 'gate'),
                                        ('PostToolUse', repo / 'skills/hooks/blank-direction-gate', 'mark')):
                 groups = hooks.get(event, [])
@@ -138,5 +143,8 @@ def installed_health(home, repo, cfg, *, runtime=True):
         references.update(re.findall(r'~/dotfiles/(skills/reference/[A-Za-z0-9._/-]+\.md)', rule.read_text()))
     for reference in sorted(references):
         report(f'required rule reference {reference}', 'ok' if (repo / reference).is_file() else 'missing')
-    report('optional server/workflow helper integration', 'unknown')
+    report_data = workflow_health_report(repo, home, cfg['agents'])
+    for finding in report_data['findings']:
+        report(finding, 'missing')
+    report('bounded server/workflow configuration', 'ok' if report_data['healthy'] else 'failed')
     return rows
