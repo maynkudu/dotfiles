@@ -1,24 +1,18 @@
 #!/usr/bin/env python3
-"""Does each rule actually fire? Counts tool calls in Claude Code history. Read-only.
+"""Count attempted, successful, failed and unknown tool evidence in bounded histories.
 
-bin/audit measures what I ask for. This measures what the agent then reaches for, which
-is the only evidence that a rule changed behaviour rather than just being read.
-
-    bin/compliance                     all history
-    bin/compliance --since 2026-08-30  only sessions after a trigger change
-
-A rule whose count sits near zero has a trigger that asks for a judgment instead of
-naming an observable moment. That is the thing to fix, not the tool.
+Counts describe recorded tool evidence. They do not prove rule compliance.
 """
 
+import argparse
 import collections
-import glob
 import json
-import os
 import re
+from pathlib import Path
 import sys
 
-HISTORY = os.path.expanduser("~/.claude/projects/**/*.jsonl")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from agent_history import AGENTS, add_history_arguments, scope_from_args
 
 # label -> (rule file, matcher). A matcher is a tool name, a tool-name prefix
 # ending in *, or a /regex/ tested against Bash command text.
@@ -32,7 +26,7 @@ CHECKS = [
     ("agent-desktop",           "ui-verification.md","/\\bagent-desktop\\b/"),
     ("argent (all)",            "argent.md",         "mcp__argent__*"),
     ("agentation",              "agentation.md",     "mcp__agentation__*"),
-    ("direction_discover",      "direction-first.md","mcp__blank-direction__direction_discover"),
+    ("BLANK discovery",         "direction-first.md",r"/direction_discover|/direction/discover|/registry/search|registry_search|\bblank\s+(?:search|registry-search)\b/"),
     ("  + other BLANK lookups", "direction-first.md","mcp__blank-direction__*"),
     ("anydoc",                  "anydoc.md",         "/anydoc/"),
     ("Monitor / await",         "waiting.md",        "Monitor|mcp__argent__await-*"),
@@ -41,64 +35,47 @@ CHECKS = [
 ]
 
 
-def load(since):
-    names = collections.Counter()
-    bash = []
-    for path in glob.glob(HISTORY, recursive=True):
-        try:
-            with open(path, errors="ignore") as fh:
-                for line in fh:
-                    try:
-                        rec = json.loads(line)
-                    except ValueError:
-                        continue
-                    ts = rec.get("timestamp") or ""
-                    if since and ts[:10] < since:
-                        continue
-                    content = (rec.get("message") or {}).get("content")
-                    if not isinstance(content, list):
-                        continue
-                    for block in content:
-                        if not (isinstance(block, dict) and block.get("type") == "tool_use"):
-                            continue
-                        name = block.get("name", "")
-                        names[name] += 1
-                        if name == "Bash":
-                            bash.append((block.get("input") or {}).get("command", ""))
-        except OSError:
-            continue
-    return names, "\n".join(bash)
-
-
-def count(matcher, names, blob):
-    if matcher.startswith("/") and matcher.endswith("/"):
-        return len(re.findall(matcher[1:-1], blob))
-    total = 0
-    for alt in matcher.split("|"):
-        if alt.endswith("*"):
-            pre = alt[:-1]
-            total += sum(v for k, v in names.items() if k.startswith(pre))
-        else:
-            total += names.get(alt, 0)
-    return total
+def matches_tool(matcher, event):
+    """Match normalized tool name/arguments privately, not exported tool contents."""
+    if matcher.startswith('/') and matcher.endswith('/'):
+        return bool(re.search(matcher[1:-1], event.name + ' ' + event.text, re.I))
+    return any(event.name.startswith(alt[:-1]) if alt.endswith('*') else event.name == alt
+               for alt in matcher.split('|'))
 
 
 def main():
-    since = None
-    if "--since" in sys.argv:
-        since = sys.argv[sys.argv.index("--since") + 1]
-    names, blob = load(since)
-    total = sum(names.values())
-    window = f"since {since}" if since else "all history"
-    print(f"{total:,} tool calls, {window}\n")
-    print(f"{'behaviour':<26} {'rule':<20} {'count':>6}")
-    print("-" * 56)
-    for label, rule, matcher in CHECKS:
-        n = count(matcher, names, blob)
-        flag = "  dead" if n == 0 else ("  rare" if n < 15 else "")
-        print(f"{label:<26} {rule:<20} {n:>6}{flag}")
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_history_arguments(parser)
+    parser.add_argument('--json', action='store_true')
+    args = parser.parse_args()
+    scope = scope_from_args(parser, args)
+    counts = {agent: {label: collections.Counter() for label, _, _ in CHECKS} for agent in AGENTS}
+    totals = {agent: collections.Counter() for agent in AGENTS}
+    for agent, _, _, events in scope.sessions():
+        for event in events:
+            if event.kind != 'tool':
+                continue
+            totals[agent][event.outcome] += 1
+            for label, _, matcher in CHECKS:
+                if matches_tool(matcher, event):
+                    counts[agent][label]['attempted'] += 1
+                    counts[agent][label][event.outcome] += 1
+    report = {'metadata': scope.metadata(), 'totals': totals,
+              'checks': [{'behaviour': label, 'rule': rule,
+                          'agents': {agent: {state: counts[agent][label][state] for state in ('attempted', 'success', 'failed', 'unknown')} for agent in AGENTS}}
+                         for label, rule, _ in CHECKS]}
+    if args.json:
+        print(json.dumps(report, indent=2))
+    else:
+        for agent in AGENTS:
+            print(f'{agent}: {sum(totals[agent].values())} recorded calls')
+            print(f"{'behaviour':26} {'attempt':>8} {'success':>8} {'failed':>8} {'unknown':>8}")
+            for row in report['checks']:
+                data = row['agents'][agent]
+                print(f"{row['behaviour']:26}" + ''.join(f'{data[state]:9}' for state in ('attempted', 'success', 'failed', 'unknown')))
+        print(json.dumps(report['metadata']))
     return 0
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     raise SystemExit(main())
