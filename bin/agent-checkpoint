@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""Save and search necessary private context in one exact git worktree/session."""
+
+import argparse
+import json
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.workflow.checkpoint_store import CheckpointStore
+from tools.workflow.private_state import WorkflowError, workflow_state_root
+from tools.workflow.workspace_context import bind_git_workspace
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--worktree', type=Path, default=Path.cwd())
+    parser.add_argument('--session', default=os.environ.get('DOTFILES_SESSION_ID') or os.environ.get('PI_SESSION_ID'))
+    parser.add_argument('--state-dir', type=Path)
+    actions = parser.add_subparsers(dest='action', required=True)
+    save = actions.add_parser('save', help='Append reviewed necessary context, never a transcript or policy')
+    save.add_argument('--title', required=True)
+    body = save.add_mutually_exclusive_group(required=True)
+    body.add_argument('--summary-file', type=Path)
+    body.add_argument('--stdin', action='store_true')
+    save.add_argument('--kind', choices=['checkpoint', 'handoff', 'lesson'], default='checkpoint')
+    save.add_argument('--artifact', action='append', required=True)
+    save.add_argument('--reviewed', action='store_true')
+    save.add_argument('--valid-hours', type=float, default=24)
+    save.add_argument('--supersedes')
+    search = actions.add_parser('search', help='Search only this repository/worktree/session')
+    search.add_argument('query')
+    search.add_argument('--include-stale', action='store_true')
+    search.add_argument('--include-history', action='store_true')
+    read = actions.add_parser('read', help='Inspect one checkpoint with freshness warnings')
+    read.add_argument('id')
+    reject = actions.add_parser('reject', help='Explicitly exclude an incorrect active record')
+    reject.add_argument('id')
+    reject.add_argument('--reviewed', action='store_true')
+    args = parser.parse_args()
+    if not args.session:
+        raise WorkflowError('WORKFLOW_SESSION', 'Pass the exact source session id. No implicit recent-session lookup is allowed.')
+    binding = bind_git_workspace(args.worktree, args.session)
+    store = CheckpointStore(workflow_state_root(args.state_dir), binding)
+    if args.action == 'save':
+        if args.stdin:
+            summary = sys.stdin.buffer.read(6001).decode('utf-8')
+        else:
+            with args.summary_file.open('rb') as stream:
+                summary = stream.read(6001).decode('utf-8')
+        output = store.save_checkpoint(title=args.title, summary=summary, kind=args.kind,
+                                       artifacts=args.artifact, reviewed=args.reviewed,
+                                       valid_hours=args.valid_hours, supersedes=args.supersedes)
+    elif args.action == 'search':
+        output = store.search_checkpoints(args.query, include_stale=args.include_stale, include_history=args.include_history)
+    elif args.action == 'read':
+        output = store.read_checkpoint(args.id)
+    else:
+        output = store.reject_checkpoint(args.id, reviewed=args.reviewed)
+    print(json.dumps(output, indent=2))
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        raise SystemExit(main())
+    except WorkflowError as exc:
+        print(f'{exc.code}: {exc}', file=sys.stderr)
+        raise SystemExit(1)
+    except (OSError, UnicodeError):
+        print('CHECKPOINT_IO: Checkpoint input or exact workspace could not be read safely.', file=sys.stderr)
+        raise SystemExit(1)
