@@ -52,6 +52,20 @@ Pin the name in the repo the first time you touch it, so every agent and every f
 </naming>
 
 <starting>
+For agent-created app servers, use the ownership-aware wrapper described in
+`server-lifecycle.md`:
+
+```bash
+agent-server inventory
+agent-server --worktree "$WORKTREE" --session "$SESSION" --owner-pid "$HARNESS_PID" start --app-dir "$APP" -- pnpm dev
+```
+
+It runs Portless, reuses a verified same app, and supervises new resources.
+Finalize only current session ownership when the task is complete. Use explicit
+keep for previews still needed by the user. Existing untracked servers remain
+protected. Manual Portless commands below remain useful for human-managed apps,
+proxy configuration and aliases, not as a way to bypass managed cleanup.
+
 ```bash
 portless                       # runs package.json "dev" script, name inferred
 portless run next dev          # explicit command, name inferred

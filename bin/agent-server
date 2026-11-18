@@ -1,0 +1,185 @@
+#!/usr/bin/env python3
+"""Track one named app, reuse it safely, and release only the current session owner."""
+
+import argparse
+import json
+import os
+from pathlib import Path
+import selectors
+import signal
+import socket
+import subprocess
+import sys
+import time
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.workflow.linux_process import require_linux_process_support, signal_verified_process, read_linux_process
+from tools.workflow.portless_state import derive_portless_app, portless_listener_inventory, portless_state_directory
+from tools.workflow.private_state import WorkflowError, workflow_state_root
+from tools.workflow.server_registry import ServerRegistry, server_owner_record, same_server_owner, validate_server_command
+from tools.workflow.server_supervisor import run_server_supervisor
+from tools.workflow.workspace_context import bind_git_workspace
+
+
+def receive_socket_json(connection: socket.socket, timeout: float) -> dict:
+    """Wait for a bounded acquisition result, not a guessed startup delay."""
+    raw = bytearray()
+    deadline = time.monotonic() + timeout
+    with selectors.DefaultSelector() as selector:
+        selector.register(connection, selectors.EVENT_READ)
+        while time.monotonic() < deadline:
+            events = selector.select(max(0, deadline - time.monotonic()))
+            if not events:
+                break
+            chunk = connection.recv(32768)
+            if not chunk:
+                raise WorkflowError('SERVER_ACQUIRE_FAILED', 'The supervisor ended before returning a result.')
+            raw.extend(chunk)
+            if len(raw) > 32768:
+                raise WorkflowError('SERVER_ACQUIRE_FAILED', 'The acquisition response exceeds its bounded limit.')
+            if b'\n' in raw:
+                try:
+                    result = json.loads(raw.split(b'\n', 1)[0])
+                    if not isinstance(result, dict):
+                        raise ValueError()
+                    return result
+                except (ValueError, UnicodeError) as exc:
+                    raise WorkflowError('SERVER_ACQUIRE_FAILED', 'The acquisition response is invalid.') from exc
+    raise WorkflowError('SERVER_ACQUIRE_TIMEOUT', 'Managed acquisition timed out. Inspect the same scoped record before retrying.')
+
+
+def supervisor_entry(descriptor: int) -> int:
+    """Receive app arguments over private inherited IPC, not a persistent process command line."""
+    with socket.socket(fileno=descriptor) as connection:
+        request = receive_socket_json(connection, 5)
+        binding = bind_git_workspace(Path(request['worktree']), request['session'])
+        app = derive_portless_app(binding, Path(request['app_directory']))
+        owner = server_owner_record(binding, request['owner_pid'])
+        command = request['command']
+        validate_server_command(command)
+        return run_server_supervisor(workflow_state_root(Path(request['state_directory'])), binding, app, owner,
+                                     command, Path(request['portless_directory']), connection,
+                                     ready_timeout=request['ready_timeout'], grace=request['grace'])
+
+
+def acquire_managed_server(args, binding, app, owner) -> dict:
+    validate_server_command(args.command)
+    parent, child = socket.socketpair()
+    process = None
+    identity = None
+    try:
+        process = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), '_supervise', str(child.fileno())],
+                                   pass_fds=(child.fileno(),), stdin=subprocess.DEVNULL,
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                                   start_new_session=True, close_fds=True)
+        child.close()
+        snapshot = read_linux_process(process.pid)
+        identity = snapshot.identity if snapshot else None
+        request = {'worktree': binding.worktree, 'session': binding.session, 'app_directory': app['app_directory'],
+                   'owner_pid': owner['process']['pid'], 'command': args.command,
+                   'state_directory': str(workflow_state_root(args.state_dir)),
+                   'portless_directory': str(portless_state_directory(args.portless_state_dir)),
+                   'ready_timeout': args.ready_timeout, 'grace': args.grace}
+        parent.sendall((json.dumps(request) + '\n').encode())
+        output = receive_socket_json(parent, args.ready_timeout * 2 + 8)
+        if 'error' in output:
+            raise WorkflowError(output['error'], output['message'])
+        return output
+    except BaseException:
+        parent.close()  # Startup EOF asks the supervisor to clean up its own acquisition.
+        if identity:
+            signal_verified_process(identity, signal.SIGTERM)
+        if process:
+            try:
+                process.wait(timeout=args.grace + 4)
+            except subprocess.TimeoutExpired:
+                # Never SIGKILL a supervisor here, which could strand unrecorded children.
+                pass
+        raise
+    finally:
+        parent.close()
+        child.close()
+
+
+def main() -> int:
+    if len(sys.argv) == 3 and sys.argv[1] == '_supervise':
+        return supervisor_entry(int(sys.argv[2]))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--worktree', type=Path, default=Path.cwd())
+    parser.add_argument('--session', default=os.environ.get('DOTFILES_SESSION_ID') or os.environ.get('PI_SESSION_ID'))
+    parser.add_argument('--owner-pid', type=int, default=int(os.environ['DOTFILES_OWNER_PID']) if os.environ.get('DOTFILES_OWNER_PID') else None,
+                        help='Stable current ancestor process, usually the harness PID; required for ownership changes')
+    parser.add_argument('--state-dir', type=Path)
+    parser.add_argument('--portless-state-dir', type=Path)
+    actions = parser.add_subparsers(dest='action', required=True)
+    actions.add_parser('inventory', help='Read-only current routes, listener identities and RSS. No argv or cleanup')
+    actions.add_parser('status', help='Read-only records for this exact repository/worktree')
+    start = actions.add_parser('start', help='Reuse a verified same app, else acquire one supervised named server')
+    start.add_argument('--app-dir', type=Path, default=Path.cwd())
+    start.add_argument('--ready-timeout', type=float, default=20)
+    start.add_argument('--grace', type=float, default=3)
+    start.add_argument('command', nargs=argparse.REMAINDER, help='App command after --, without Portless or port overrides')
+    for action in ('release', 'keep', 'unkeep'):
+        item = actions.add_parser(action)
+        item.add_argument('--app-dir', type=Path, default=Path.cwd())
+        if action == 'release':
+            item.add_argument('--keep', action='store_true')
+    finalize = actions.add_parser('finalize', help='Explicitly release this current session/process from all its tracked apps')
+    finalize.add_argument('--keep', action='store_true')
+    finalize.add_argument('--no-wait', action='store_true', help='Request cleanup without waiting, for genuine session shutdown hooks')
+    actions.add_parser('recover', help='Recover only this worktree records after verified owner death')
+    args = parser.parse_args()
+    require_linux_process_support()
+    directory = portless_state_directory(args.portless_state_dir)
+    if args.action == 'inventory':
+        output = portless_listener_inventory(directory)
+    else:
+        if not args.session:
+            raise WorkflowError('WORKFLOW_SESSION', 'Pass the exact session id; ordinary assistant turns do not finalize ownership.')
+        binding = bind_git_workspace(args.worktree, args.session)
+        registry = ServerRegistry(workflow_state_root(args.state_dir))
+        if args.action == 'status':
+            output = registry.scoped_server_status(binding)
+        elif args.action == 'recover':
+            output = registry.recover_dead_server_owners(binding)
+        else:
+            if not args.owner_pid:
+                raise WorkflowError('SERVER_OWNER', 'Pass --owner-pid with a stable current harness/ancestor PID.')
+            owner = server_owner_record(binding, args.owner_pid)
+            if args.action == 'finalize':
+                records = registry.load_registry()['records']
+                released = []
+                for record in list(records.values()):
+                    if record['repository'] != binding.repository or record['worktree'] != binding.worktree:
+                        continue
+                    if not any(same_server_owner(value, owner) for value in record['owners']):
+                        continue
+                    app = {'hostname': record['hostname'], 'app_directory': record['app_directory']}
+                    released.append(registry.release_server_owner(binding, app, Path(record['portless_directory']), owner,
+                                                                   keep=args.keep, wait=not args.no_wait))
+                output = {'action': 'finalized-current-owner', 'records': released}
+            else:
+                app = derive_portless_app(binding, args.app_dir)
+                if args.action == 'start':
+                    if args.command and args.command[0] == '--':
+                        args.command = args.command[1:]
+                    if not 0 < args.ready_timeout <= 60 or not 0 < args.grace <= 10:
+                        raise WorkflowError('SERVER_TIMEOUT', 'Readiness must be at most 60 seconds and shutdown grace at most ten.')
+                    output = acquire_managed_server(args, binding, app, owner)
+                elif args.action == 'release':
+                    output = registry.release_server_owner(binding, app, directory, owner, keep=args.keep)
+                else:
+                    output = registry.set_server_keep(binding, app, directory, owner, keep=args.action == 'keep')
+    print(json.dumps(output, indent=2))
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        raise SystemExit(main())
+    except WorkflowError as exc:
+        print(f'{exc.code}: {exc}', file=sys.stderr)
+        raise SystemExit(1)
+    except (OSError, ValueError, KeyError, TypeError):
+        print('SERVER_INPUT: Server input or private state is invalid. No untracked process is eligible for cleanup.', file=sys.stderr)
+        raise SystemExit(1)
