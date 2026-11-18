@@ -223,7 +223,8 @@ class InstallTests(unittest.TestCase):
                 args = [str(ROOT / 'bin/setup'), '--tools', '--home', str(home)]
                 if dry_run:
                     args.append('--dry-run')
-                with patch.object(sys, 'argv', args), patch('subprocess.run'), patch('builtins.print'):
+                with (patch.object(sys, 'argv', args), patch('subprocess.run'),
+                      patch('cli_runtime.install_cli_runtime'), patch('builtins.print')):
                     setup = runpy.run_path(str(ROOT / 'bin/setup'))
                     setup['main']()
                     setup['main']()

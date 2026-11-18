@@ -55,7 +55,7 @@ Use phase flags to repeat selected work:
 
 | Command | What it does |
 | --- | --- |
-| `python3 bin/setup --tools` | Installs missing CLIs, fnm, Zsh plugins, and document libraries; applies the version-specific Webreel fix |
+| `python3 bin/setup --tools` | Installs missing CLIs, private fixed-Node launchers, fnm, Zsh plugins, and document libraries; applies the version-specific Webreel fix |
 | `python3 bin/setup --skills` | Installs missing public skills and links shared skills for selected agents |
 | `python3 bin/setup --rules` | Checks generated rules, then installs the selected profiles |
 | `python3 bin/setup --shell` | Updates one managed block in each shell configuration |
@@ -69,7 +69,8 @@ skill installations. MCP registration uses the real home and refuses a different
 
 | Location | Installed content |
 | --- | --- |
-| `~/.local/bin`, `~/.local/lib/node_modules` | Missing npm tools and the `doc-python`, `blank`, and `usage` launchers |
+| `~/.local/bin`, `~/.local/lib/node_modules` | Missing npm tools and the `doc-python`, `blank`, `usage`, and `dotfiles-cli` launchers |
+| `~/.local/share/dotfiles/cli` | Private CLI launchers, recorded Node path/version/ABI, and a rebuild-only Node shim |
 | `~/.local/share/dotfiles/documents` | Python 3.13 environment with the pinned document libraries |
 | `~/.local/share/dotfiles/zsh` | Zsh suggestions and highlighting plugins |
 | `~/.agents/skills` | Shared public and bundled skills |
@@ -93,23 +94,37 @@ checks. The default timeout is four seconds; network failure lets startup contin
 
 ## Native dependencies
 
+The managed CLI runtime defaults to `/usr/bin/node`, independently of shell or
+project Node selection. `--cli-node /absolute/path/to/node` chooses another
+Node 24+ executable. Repeated setup retains that choice. The manifest records
+its version and ABI. A system Node upgrade can still require a native rebuild.
+
+Setup creates launchers under `~/.local/share/dotfiles/cli/bin`. Each launcher
+executes the existing JavaScript entrypoint with the recorded Node executable.
+It does not replace external binaries or prepend a Node shim to app PATH.
+Use `dotfiles-cli agentation-mcp server`, `dotfiles-cli portless doctor`, or the
+private launcher path when a CLI needs the managed runtime. Ordinary shell
+commands keep their existing runtime. Unsupported non-Node bins are reported
+as unmanaged, not rewritten.
+
+Missing npm tools and their native build scripts use the selected Node.
 npm 12 blocks dependency build scripts unless they are allowed. `npm_allow_scripts`
 in `setup.toml` names the dependencies needed by Argent, Agentation, and Webreel.
-Setup passes that list for its npm installations. It also selects Sharp's bundled
-libvips to avoid compiling against a different system copy.
+Setup passes that list and selects Sharp's bundled libvips.
 
-If a previous installation skipped the builds, or Node was upgraded, repair this
-setup's native dependencies with:
+Existing packages are not automatically rebuilt. If Doctor reports an ABI or
+SQLite failure, inspect the runtime first, then explicitly rebuild this setup's
+packages under the same Node:
 
 ```bash
-SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm rebuild --global --prefix "$HOME/.local" \
-  --allow-scripts=better-sqlite3,node-pty,tree-sitter,tree-sitter-javascript,tree-sitter-typescript,sharp \
-  better-sqlite3 node-pty tree-sitter tree-sitter-javascript tree-sitter-typescript sharp
+python3 bin/setup --tools --rebuild-native --dry-run
+python3 bin/setup --tools --rebuild-native
 python3 bin/doctor
 ```
 
-Restart the agents after rebuilding. An already running process may still hold
-the previous module state.
+This rebuild is limited to the `~/.local` npm prefix. It does not repair native
+packages owned by another package manager. Restart the affected agents after
+rebuilding because running processes can retain the previous module state.
 
 ## Browser and annotation tools
 
@@ -137,7 +152,13 @@ portless doctor
 `portless trust` requests sudo when needed. A stopped proxy can start when the
 next app runs. Inspect `portless list` before starting apps; keep unrelated routes.
 
-Both agents launch Argent and Agentation through their registered MCP commands.
+Setup registers missing Codex and Claude MCP servers using their native CLI and
+private managed launcher paths. It preserves existing registrations, including
+custom commands and remote servers. A failed configuration read is unknown,
+not permission to overwrite an entry. Doctor reports custom runtime wiring as
+unknown. Review it before deliberately changing an existing registration. Pi
+MCP registration is not managed by this installer.
+
 Agentation's HTTP server and MCP process must stay running while annotating.
 Mount the toolbar in a project's development build with the same endpoint as its
 MCP server. This dotfiles setup does not add a toolbar to existing applications.
@@ -174,9 +195,36 @@ zsh -n zshrc
 python3 bin/doctor
 ```
 
-Doctor checks command availability, document imports, Pandoc, Agentation's SQLite
-binding, and the installed rules and skills. It does not start apps or certify
-browser annotation sync.
+Doctor checks owned hooks/extensions, MCP configuration, required skill links
+and rule references, command availability, document imports, Pandoc, the managed
+Node ABI, and Agentation's SQLite binding under that Node. It never prints raw
+provider diagnostics. `--config-only` performs bounded known-file checks without
+subprocesses. `dotfiles-health --hook` emits at most one summary line and always
+exits zero, for non-blocking startup integration. It checks only known files and
+runs no subprocesses. `--home <fixture>` and `--json` support isolated metadata reports.
+Missing and failed checks affect exit status. Unknown checks stay separate and
+are not passes. Codex native hook trust, Pi MCP wiring, custom registrations,
+and optional server/workflow integration require further verification.
+Doctor does not start apps or certify browser annotation sync.
+
+The three audit commands share a bounded Codex/Claude/Pi session parser:
+
+```bash
+python3 skills/bin/audit --project "$PWD" --since 2026-10-01 --json
+python3 skills/bin/audit-adherence --project "$PWD" --since 2026-10-01 --json
+python3 skills/bin/compliance --project "$PWD" --since 2026-10-01 --json
+```
+
+Defaults are the current project and the last 30 days. `--all-projects` explicitly
+broadens project selection. `--before` is exclusive. File, event and byte limits
+remain in force and truncation is reported. Only known session directories are
+searched; directory symlinks and child-agent folders are skipped. Unknown formats
+and missing outcome evidence are not successes. Adherence requires an explicit
+final/stop event, not commentary text. Failed BLANK searches count as attempts,
+not successful inspection. These are parser leads for human review, not proof
+of model compliance. `audit --corpus <new-file>` writes owner-only signal metadata,
+not prompt text. Reports hash session/project identifiers and omit raw prompts,
+tool arguments, results and provider values.
 
 The [verification record](../.plannotator/setup-verification/results.md) contains
 the runtime evidence and its limits. Office rendering, spreadsheet formula

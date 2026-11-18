@@ -49,8 +49,12 @@ if not args.repo_only:
             check(f'installed {agent} rules', dest.is_file() and dest.read_text() == source.read_text())
     for name in cfg['skills']['local']:
         check(f'installed local skill {name}', (home / '.agents/skills' / name / 'SKILL.md').is_file())
-    for source in lock['sources']:
-        for entry in source['skills']:
-            check(f"installed public skill {entry['name']}", (home / '.agents/skills' / entry['name'] / 'SKILL.md').is_file())
+    sys.path.insert(0, str(ROOT / 'bin'))
+    from config_health import installed_health
+    for row in installed_health(home, ROOT.parent, cfg):
+        if row['status'] == 'unknown':
+            print(f"UNKN {row['check']}")
+        else:
+            check(row['check'], row['status'] == 'ok')
 print(f'{len(fails)} failed.' if fails else 'All checks passed.')
 raise SystemExit(bool(fails))

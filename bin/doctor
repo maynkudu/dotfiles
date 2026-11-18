@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Report setup health without changing files, authenticating, or starting servers."""
+import argparse
 import json
 import os
 from pathlib import Path
@@ -9,41 +10,71 @@ import sys
 import tomllib
 
 ROOT = Path(__file__).resolve().parent.parent
-cfg = tomllib.loads((ROOT / 'setup.toml').read_text())
-search = str(Path.home() / '.local/bin') + os.pathsep + os.environ.get('PATH', '')
-missing = []
-paths = {}
-for name in ['git', 'node', 'npm', 'pnpm', 'bun', 'uv', 'cargo', 'fnm', 'zsh', 'starship',
-             'zoxide', 'rg', 'fd', 'bat', 'eza', 'ffmpeg', 'chromium', 'plannotator',
-             'doc-python', 'blank', *cfg['agents'], *cfg['npm']]:
-    path = shutil.which(name, path=search)
-    paths[name] = path
-    print(f"{'ok  ' if path else 'MISS'} {name}: {path or 'not on PATH'}", flush=True)
-    if not path:
-        missing.append(name)
+sys.path.insert(0, str(ROOT / 'bin'))
+sys.path.insert(0, str(ROOT / 'skills/bin'))
+from cli_runtime import managed_cli_command, node_runtime_info, read_cli_manifest
+from config_health import installed_health
 
 
-def check_runtime(label, command):
-    result = subprocess.run(command, capture_output=True, text=True, timeout=20)
-    print(f"{'ok  ' if result.returncode == 0 else 'FAIL'} {label}", flush=True)
-    if result.returncode:
-        missing.append(label)
-        print((result.stdout + result.stderr).strip()[:1600], flush=True)
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--home', type=Path, default=Path.home())
+    parser.add_argument('--config-only', action='store_true', help='Bounded known-file checks, no subprocesses')
+    parser.add_argument('--json', action='store_true', help='Metadata only, no raw diagnostics')
+    args = parser.parse_args()
+    home = args.home.expanduser().resolve()
+    cfg = tomllib.loads((ROOT / 'setup.toml').read_text())
+    rows = installed_health(home, ROOT, cfg)
+    search = str(home / '.local/bin') + os.pathsep + os.environ.get('PATH', '')
+
+    def probe(label, command, timeout=5):
+        try:
+            result = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
+            state = 'ok' if result.returncode == 0 else 'failed'
+        except subprocess.TimeoutExpired:
+            state = 'unknown'
+        except OSError:
+            state = 'missing'
+        rows.append({'check': label, 'status': state})
+
+    if not args.config_only:
+        paths = {}
+        for name in dict.fromkeys(['git', 'node', 'npm', 'pnpm', 'bun', 'uv', 'cargo', 'fnm', 'zsh', 'starship',
+                                  'zoxide', 'rg', 'fd', 'bat', 'eza', 'ffmpeg', 'chromium', 'plannotator',
+                                  'doc-python', 'blank', *cfg['agents'], *cfg['npm']]):
+            paths[name] = shutil.which(name, path=search)
+            rows.append({'check': f'command {name}', 'status': 'ok' if paths[name] else 'missing'})
+        if paths['doc-python']:
+            probe('document libraries and Pandoc', [paths['doc-python'], '-c',
+                  'import docx, pptx, openpyxl, pypdf, reportlab, PIL, pypandoc; pypandoc.get_pandoc_version()'], 20)
+        manifest = read_cli_manifest(home)
+        if manifest:
+            try:
+                info = node_runtime_info(manifest['node'])
+                rows.append({'check': 'managed Node ABI matches installation',
+                             'status': 'ok' if info['abi'] == manifest.get('abi') else 'failed'})
+            except (OSError, ValueError, subprocess.SubprocessError, KeyError):
+                rows.append({'check': 'managed Node runtime probe', 'status': 'unknown'})
+            entry = manifest['commands'].get('agentation-mcp')
+            if entry:
+                # Same explicit Node and entrypoint as the installed MCP launcher.
+                probe('Agentation managed SQLite storage', [manifest['node'], '-e',
+                      'const req = require("node:module").createRequire(process.argv[1]); '
+                      'const db = new (req("better-sqlite3"))(":memory:"); '
+                      'db.prepare("SELECT 1").get(); db.close();', entry], 10)
+        if not shutil.which('soffice', path=search):
+            rows.append({'check': 'optional LibreOffice rendering', 'status': 'unknown'})
+        probe('repository and installed rule checks', [sys.executable, ROOT / 'skills/bin/check', '--home', home], 30)
+    failed = sum(row['status'] in ('failed', 'missing') for row in rows)
+    unknown = sum(row['status'] == 'unknown' for row in rows)
+    if args.json:
+        print(json.dumps({'schema_version': 1, 'failed': failed, 'unknown': unknown, 'checks': rows}, indent=2))
+    else:
+        for row in rows:
+            print(f"{row['status']:7} {row['check']}")
+        print(f'{failed} failed or missing; {unknown} unknown. Unknown checks are not passes.')
+    return bool(failed)
 
 
-if paths['doc-python']:
-    check_runtime('document libraries and Pandoc', [paths['doc-python'], '-c',
-        'import docx, pptx, openpyxl, pypdf, reportlab, PIL, pypandoc; pypandoc.get_pandoc_version()'])
-if paths['node'] and paths.get('agentation-mcp'):
-    check_runtime('Agentation SQLite storage', [paths['node'], '-e',
-        'const req = require("node:module").createRequire(process.argv[1]); '
-        'const db = new (req("better-sqlite3"))(":memory:"); '
-        'db.prepare("SELECT 1").get(); db.close();',
-        str(Path(paths['agentation-mcp']).resolve())])
-if not shutil.which('soffice', path=search):
-    print('WARN LibreOffice is missing. Office rendering and spreadsheet recalculation need libreoffice-fresh.', flush=True)
-result = subprocess.run([sys.executable, ROOT / 'skills/bin/check'])
-lock = json.loads((ROOT / 'skills/sources.lock.json').read_text())
-print(f"\nOptional gaps: {len(lock['unavailable'])} old skill names absent from current upstreams;")
-print('the original private design skill pack, legacy macOS Computer Use, and authenticated CPA pool are not configured.')
-raise SystemExit(bool(missing or result.returncode))
+if __name__ == '__main__':
+    raise SystemExit(main())

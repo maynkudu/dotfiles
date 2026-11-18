@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""Run a managed CLI without changing the shell or a project's Node selection."""
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from cli_runtime import managed_cli_command
+
+if len(sys.argv) < 2:
+    raise SystemExit('Usage: dotfiles-cli COMMAND [ARGS...]')
+command = managed_cli_command(Path.home(), sys.argv[1])
+if not command:
+    raise SystemExit('Managed CLI unavailable. Run python3 bin/setup --tools.')
+os.execv(command, [str(command), *sys.argv[2:]])

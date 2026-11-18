@@ -16,19 +16,27 @@ import tomllib
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / 'bin'))
+from cli_runtime import install_cli_runtime, managed_cli_command, mcp_registration_status, node_entrypoint
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('--home', type=Path, default=Path.home())
+    parser.add_argument('--rebuild-native', action='store_true', help='Explicitly rebuild native dependencies under the managed Node; never automatic')
+    parser.add_argument('--cli-node', type=Path, help='Absolute Node path for managed CLIs only; defaults to /usr/bin/node and is retained on reruns')
     for phase in ('tools', 'skills', 'rules', 'shell', 'mcp'):
         parser.add_argument('--' + phase, action='store_true')
     args = parser.parse_args()
+    if args.cli_node is not None and not args.cli_node.is_absolute():
+        parser.error('--cli-node must be an absolute executable path')
     home = args.home.expanduser().resolve()
     cfg = tomllib.loads((ROOT / 'setup.toml').read_text())
     phases = {p for p in ('tools', 'skills', 'rules', 'shell', 'mcp') if getattr(args, p)}
     phases = phases or {'tools', 'skills', 'rules', 'shell', 'mcp'}
+    if args.rebuild_native and 'tools' not in phases:
+        parser.error('--rebuild-native requires --tools')
     env = dict(os.environ)
     env['PATH'] = str(home / '.local/bin') + os.pathsep + env.get('PATH', '')
 
@@ -36,7 +44,13 @@ def main():
         cmd = [str(c) for c in cmd]
         print(('would run: ' if args.dry_run else 'run: ') + shlex.join(cmd), flush=True)
         if not args.dry_run:
-            subprocess.run(cmd, check=True, env=env)
+            # Do not print provider diagnostics, which may contain configuration secrets.
+            if 'mcp' in cmd:
+                result = subprocess.run(cmd, env=env, capture_output=True, check=False, timeout=15)
+                if result.returncode:
+                    raise subprocess.CalledProcessError(result.returncode, cmd)
+            else:
+                subprocess.run(cmd, check=True, env=env)
 
     def backup(path):
         stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
@@ -61,6 +75,7 @@ def main():
 
     if phases & {'tools', 'rules', 'shell'}:
         link(ROOT / 'bin/dotfiles-update', home / '.local/bin/dotfiles-update')
+        link(ROOT / 'bin/dotfiles-health', home / '.local/bin/dotfiles-health')
 
     if 'tools' in phases:
         # Use Sharp's bundled libvips rather than compiling against Arch's copy.
@@ -68,8 +83,46 @@ def main():
         missing = [package for binary, package in cfg['npm'].items()
                    if not shutil.which(binary, path=env['PATH'])]
         if missing:
-            run(['npm', 'install', '--global', '--prefix', home / '.local',
-                 '--allow-scripts=' + ','.join(cfg['npm_allow_scripts']), *missing])
+            # npm and its native build scripts must use the same Node as our launchers.
+            from cli_runtime import read_cli_manifest, node_runtime_info
+            manifest = read_cli_manifest(home)
+            node = (args.cli_node or Path((manifest or {}).get('node', '/usr/bin/node'))).resolve()
+            node_runtime_info(node)
+            npm = shutil.which('npm', path=env['PATH'])
+            entry = node_entrypoint(npm) if npm else None
+            if not entry:
+                raise SystemExit('Cannot locate a Node npm entrypoint for managed CLI installation.')
+            # Native build subprocesses must resolve `node` to the selected executable,
+            # even when --cli-node has a versioned filename or is outside /usr/bin.
+            import tempfile
+            previous_path = env['PATH']
+            with tempfile.TemporaryDirectory(prefix='dotfiles-cli-build-') as runtime_bin:
+                Path(runtime_bin, 'node').symlink_to(node)
+                env['PATH'] = runtime_bin + os.pathsep + previous_path
+                try:
+                    run([node, entry, 'install', '--global', '--prefix', home / '.local',
+                         '--allow-scripts=' + ','.join(cfg['npm_allow_scripts']), *missing])
+                finally:
+                    env['PATH'] = previous_path
+        install_cli_runtime(home, cfg['npm'], env['PATH'], args.cli_node, dry_run=args.dry_run)
+        link(ROOT / 'bin/dotfiles-cli', home / '.local/bin/dotfiles-cli')
+        if args.rebuild_native:
+            from cli_runtime import read_cli_manifest
+            manifest = read_cli_manifest(home)
+            node = (args.cli_node or Path((manifest or {}).get('node', '/usr/bin/node'))).resolve()
+            npm = node_entrypoint(shutil.which('npm', path=env['PATH']))
+            if not npm:
+                raise SystemExit('Cannot locate npm for explicit native rebuild.')
+            import tempfile
+            previous_path = env['PATH']
+            with tempfile.TemporaryDirectory(prefix='dotfiles-cli-rebuild-') as runtime_bin:
+                Path(runtime_bin, 'node').symlink_to(node)
+                env['PATH'] = runtime_bin + os.pathsep + previous_path
+                try:
+                    run([node, npm, 'rebuild', '--global', '--prefix', home / '.local',
+                         '--allow-scripts=' + ','.join(cfg['npm_allow_scripts']), *cfg['npm_allow_scripts']])
+                finally:
+                    env['PATH'] = previous_path
         # Webreel 0.1.4 disables automatic frames but never calls beginFrame.
         # Page.captureScreenshot then stalls and the recording has no frames.
         core = home / '.local/lib/node_modules/webreel/node_modules/@webreel/core'
@@ -195,11 +248,19 @@ def main():
             if agent not in ('codex', 'claude'):
                 continue
             for name, (binary, arguments) in servers.items():
-                result = subprocess.run([agent, 'mcp', 'get', name], capture_output=True, env=env)
-                if result.returncode == 0:
-                    print(f'keep existing {agent} MCP server: {name}')
+                status = mcp_registration_status(agent, name, env)
+                if status == 'present':
+                    print(f'keep existing {agent} MCP server: {name}; doctor checks runtime wiring')
                     continue
-                command = shutil.which(binary, path=env['PATH']) or str(home / '.local/bin' / binary)
+                if status == 'unknown':
+                    raise SystemExit(f'Cannot determine {agent} MCP server {name}; no registration changed.')
+                command = managed_cli_command(home, binary)
+                if not command:
+                    if args.dry_run:
+                        command = home / '.local/share/dotfiles/cli/bin' / binary
+                        print(f'managed {binary} launcher required; run setup --tools before registration')
+                    else:
+                        raise SystemExit(f'Managed {binary} launcher missing. Run setup --tools first.')
                 cmd = [agent, 'mcp', 'add']
                 if agent == 'claude':
                     cmd += ['--scope', 'user']
@@ -210,5 +271,9 @@ def main():
 if __name__ == '__main__':
     try:
         main()
+    except subprocess.TimeoutExpired:
+        raise SystemExit('Setup stopped: command timed out. No provider diagnostics were exported; inspect locally before retrying.')
+    except (ValueError, OSError):
+        raise SystemExit('Setup stopped: runtime or configuration check failed. Inspect the selected CLI runtime and rerun doctor.')
     except subprocess.CalledProcessError as exc:
         raise SystemExit(f'Setup stopped: command exited {exc.returncode}. Fix the error and rerun; completed steps are retained.')
