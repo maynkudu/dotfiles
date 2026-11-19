@@ -537,6 +537,16 @@
       ]
     },
     {
+      "repo": "pasqualevitiello/plotter",
+      "ref": "01df092aed163462ca5902c7b21a9c9f7c60e68f",
+      "skills": [
+        {
+          "name": "plotter",
+          "path": "skills/plotter"
+        }
+      ]
+    },
+    {
       "repo": "shadcn/improve",
       "ref": "cac56e1ebd3c279aa9153616cfeac7b174ab90f9",
       "skills": [
