@@ -4,7 +4,7 @@ My Arch Linux development setup for websites, apps, and documents. Forked from
 [kiritocode1/dotfiles](https://github.com/kiritocode1/dotfiles), keeping Aryan's
 writing and design taste while adapting the tools and profile for my own use.
 
-Codex is the primary agent; Claude Code is the second. Pi shares the skills and
+Codex is the primary agent; Claude Code is the second. Pi and OpenCode share the
 agent rules. Existing Bash configuration
 is preserved and extended. Zsh gets the same aliases plus completion, suggestions,
 and syntax highlighting. The login shell is not changed.

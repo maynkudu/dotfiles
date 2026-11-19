@@ -1,5 +1,5 @@
 # Active agents. Other generated targets remain available in skills/rules/tiers.toml.
-agents = ["codex", "claude", "pi"]
+agents = ["codex", "claude", "pi", "opencode"]
 
 # npm 12 requires explicit permission for native dependency build scripts.
 npm_allow_scripts = ["better-sqlite3", "node-pty", "tree-sitter", "tree-sitter-javascript", "tree-sitter-typescript", "sharp"]

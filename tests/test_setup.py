@@ -52,8 +52,11 @@ class InstallTests(unittest.TestCase):
             self.assertTrue((home / '.pi/agent/AGENTS.md').is_file())
             self.assertEqual((home / '.pi/agent/extensions/dotfiles-update.ts').resolve(),
                              ROOT / 'skills/hooks/pi-dotfiles-update.ts')
-            for agent in ('.grok', '.config/opencode'):
-                self.assertFalse((home / agent).exists())
+            self.assertEqual((home / '.config/opencode/AGENTS.md').read_text(),
+                             (ROOT / 'skills/build/opencode/AGENTS.md').read_text())
+            self.assertEqual((home / '.config/opencode/plugins/blank-direction-gate.ts').resolve(),
+                             ROOT / 'skills/hooks/opencode-blank-direction.ts')
+            self.assertFalse((home / '.grok').exists())
             before = sorted(str(p.relative_to(home)) for p in home.rglob('*'))
             self.run_installer(home)
             self.assertEqual(before, sorted(str(p.relative_to(home)) for p in home.rglob('*')))

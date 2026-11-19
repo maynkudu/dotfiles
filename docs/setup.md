@@ -1,6 +1,6 @@
 # Arch Linux setup
 
-This fork configures Codex, Claude Code, and Pi for maynkudu. It keeps Aryan's writing
+This fork configures Codex, Claude Code, Pi, and OpenCode for maynkudu. It keeps Aryan's writing
 and design preferences, with maynkudu's identity and Linux paths. It installs the
 public tools and skills used by the rules.
 
@@ -12,7 +12,7 @@ Make these commands available first:
 | --- | --- |
 | `python3` 3.11+, `git`, `uv` | Configuration, skills, and the document environment |
 | `node` 24+, `npm`, `cargo`, `make`, `g++` | CLI tools and their native dependencies |
-| `codex`, `claude`, `pi` | The selected agents; Codex and Claude also receive MCP registration |
+| `codex`, `claude`, `pi`, `opencode` | The selected agents; Codex and Claude also receive MCP registration |
 | `bash`, `zsh` | Shell configuration |
 | `pnpm`, `bun`, `starship`, `zoxide`, `rg`, `fd`, `bat`, `eza` | Development commands and shell integrations |
 | `chromium`, `ffmpeg`, `pdftoppm`, `plannotator` | Browser checks, recordings, PDF previews, and reviews |
@@ -49,7 +49,7 @@ Start a new agent session after installation to load the rules and MCP
 processes. Open a new shell to load the shared aliases and integrations.
 
 Choose agents and npm packages in [`setup.toml`](../setup.toml). The default
-agents are `codex`, `claude`, and `pi`. Other generated profiles remain in `skills/build/`.
+agents are `codex`, `claude`, `pi`, and `opencode`. Other generated profiles remain in `skills/build/`.
 
 Use phase flags to repeat selected work:
 
@@ -76,6 +76,7 @@ skill installations. MCP registration uses the real home and refuses a different
 | `~/.agents/skills` | Shared public and bundled skills |
 | `~/.claude/skills`, `~/.pi/agent/skills` | Links to the shared skills |
 | `~/.codex/AGENTS.md`, `~/.claude/rules`, `~/.pi/agent/AGENTS.md` | Generated agent rules |
+| `~/.config/opencode/AGENTS.md`, `~/.config/opencode/plugins/blank-direction-gate.ts` | OpenCode rules and BLANK plugin. OpenCode discovers shared skills in `~/.agents/skills`. |
 | `~/.bashrc`, `~/.zshrc` | A managed include for this checkout |
 
 Existing tools stay with their current package manager. Existing skills are
@@ -86,7 +87,7 @@ installation does not create more backups when the content is unchanged.
 Keep local shell settings in `~/.bashrc.local` or `~/.zshrc.local`. Keep this
 checkout in place because the installed rules and bundled skills link to it.
 
-Interactive shells and agent sessions check for updates before normal startup.
+Interactive shells and Codex, Claude Code, and Pi sessions check for updates before normal startup.
 The notice lists incoming commits and changed files and shows the explicit update
 commands. It never pulls automatically. Run `dotfiles-update` for a manual check.
 Configure `[updates]` in `setup.toml` or set `DOTFILES_UPDATE_CHECK=0` to disable
@@ -156,8 +157,8 @@ Setup registers missing Codex and Claude MCP servers using their native CLI and
 private managed launcher paths. It preserves existing registrations, including
 custom commands and remote servers. A failed configuration read is unknown,
 not permission to overwrite an entry. Doctor reports custom runtime wiring as
-unknown. Review it before deliberately changing an existing registration. Pi
-MCP registration is not managed by this installer.
+unknown. Review it before deliberately changing an existing registration. Pi and
+OpenCode manage their MCP registrations separately.
 
 Agentation's HTTP server and MCP process must stay running while annotating.
 Mount the toolbar in a project's development build with the same endpoint as its
