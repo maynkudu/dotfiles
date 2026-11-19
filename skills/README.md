@@ -47,11 +47,10 @@ repository.
 using pinned source, browser observations, motion analysis and measured comparisons.
 [Zephyr](https://github.com/maynkudu/zephyr) adapts references to a product and the
 user's preferences, including plain-language prompts and scoped corrections.
-Both are independent MIT-licensed skill packages in private repositories, pinned
-to commits in `sources.lock.json`. Installation needs authorized GitHub access
-through `GITHUB_TOKEN`, `GH_TOKEN`, or the installer's Git fallback. Credentials
-stay outside the repository. Codex and OpenCode discover the shared collection;
-Claude and Pi receive the existing per-skill links.
+Both are independent MIT-licensed skill packages in public repositories, pinned
+to commits in `sources.lock.json`. Friends can install them without private
+repository access. Codex and OpenCode discover the shared collection; Claude and
+Pi receive the existing per-skill links.
 
 `manifest.toml` is the historical inventory, including unavailable private skills.
 It is not the installer input. The lock file records missing upstream names.
