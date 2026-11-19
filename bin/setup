@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Set up the selected agents, public skills, tools and shells. No credentials needed.
+"""Set up the selected agents, skills, tools and shells.
+
+Public skill sources need no credentials; private sources require GitHub access.
 
 Run with --dry-run to review changes. Select phases with --tools, --skills,
 --rules, --shell, --mcp; no phase flags means all five. Existing tools are reused.

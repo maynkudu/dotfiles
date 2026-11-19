@@ -30,7 +30,7 @@ stay in `../kiys`. See [BLANK access](../docs/blank.md) for use and recovery.
 
 ## Skills
 
-`../bin/setup --skills` installs the current public selection from
+`../bin/setup --skills` installs the current pinned selection from
 `sources.lock.json` through Codex's bundled skill-installer helper. Sources are pinned
 to commits. Existing skills are retained. Local skills and the Cloudflare skills
 under `../pi/skills` are linked into `~/.agents/skills`; Claude and Pi see the same
@@ -42,6 +42,16 @@ independent public repository containing Jake Schincariol's MIT-licensed skill
 pack. Skill instructions and Python helpers preserve the original source, and
 each installed skill includes the license. Installation references use the new
 repository.
+
+[Cat's Paw](https://github.com/maynkudu/cats-paw) reconstructs visual references
+using pinned source, browser observations, motion analysis and measured comparisons.
+[Zephyr](https://github.com/maynkudu/zephyr) adapts references to a product and the
+user's preferences, including plain-language prompts and scoped corrections.
+Both are independent MIT-licensed skill packages in private repositories, pinned
+to commits in `sources.lock.json`. Installation needs authorized GitHub access
+through `GITHUB_TOKEN`, `GH_TOKEN`, or the installer's Git fallback. Credentials
+stay outside the repository. Codex and OpenCode discover the shared collection;
+Claude and Pi receive the existing per-skill links.
 
 `manifest.toml` is the historical inventory, including unavailable private skills.
 It is not the installer input. The lock file records missing upstream names.

@@ -487,6 +487,16 @@
       ]
     },
     {
+      "repo": "maynkudu/cats-paw",
+      "ref": "d5e0d7d99fb0751e44104ad4ea827b1a093acdee",
+      "skills": [
+        {
+          "name": "cats-paw",
+          "path": "."
+        }
+      ]
+    },
+    {
       "repo": "maynkudu/youtube-agent-skill",
       "ref": "b4182af0199fbe3b888569f2028f14b5cdb5bc71",
       "skills": [
@@ -533,6 +543,16 @@
         {
           "name": "yt-viral",
           "path": "skills/yt-viral"
+        }
+      ]
+    },
+    {
+      "repo": "maynkudu/zephyr",
+      "ref": "4d95c6551496790d628b2aae499af9afdf4fd08c",
+      "skills": [
+        {
+          "name": "zephyr",
+          "path": "."
         }
       ]
     },
