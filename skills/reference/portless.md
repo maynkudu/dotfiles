@@ -3,7 +3,7 @@
 <description>
 Every long-running local server an agent starts MUST be reachable at a stable, guessable name, `https://<name>.localhost`, not at a port number the user has to be told.
 
-The tool is **portless** (Vercel Labs, `npm i -g portless`, Node >= 24): a background proxy on 443 that routes by hostname. It assigns the child an internal port itself (via `PORT`, or an injected `--port` for Vite/Astro/Angular/Expo), so the port stops being anyone's problem. Tagline: "Replace port numbers with stable, named local URLs. For humans and agents."
+The tool is **portless** (Vercel Labs, `npm i -g portless`, Node >= 24): a background proxy that routes by hostname. It assigns the child an internal port itself (via `PORT`, or an injected `--port` for Vite/Astro/Angular/Expo), so the port stops being anyone's problem. Tagline: "Replace port numbers with stable, named local URLs. For humans and agents."
 
 Sibling tool **emulate** (https://emulate.dev, `npx emulate`) is a different thing: offline stateful fakes for third-party APIs (Stripe, GitHub, AWS, Slack, Google...). It is NOT a tunnel and does NOT host your dev server. It shares the naming scheme via `--portless`. See `<emulate>` below.
 
@@ -11,11 +11,12 @@ Why this rule exists: several agents (Claude, Codex, Grok, Cursor) run in parall
 </description>
 
 <the_law>
-1. **Never announce a bare port.** `localhost:3000`, `:4000`, `:5173`, `:8080` are not acceptable answers to "where is it running".
+1. **Always use the default named URL.** Open and announce `https://<name>.localhost/` with no explicit port whenever the default Portless HTTPS route is available. Reuse an existing route for the requested app.
 2. **Never pick a "random free port".** Deterministic name in, deterministic URL out.
 3. **Never kill another process to free a port.** It is probably another agent's server. See `<multi_agent>`.
 4. **Always announce the URL** in the exact format in `<announce>`, both when the server comes up and in the final message of the turn.
 5. If a port number is genuinely unavoidable (Docker, a non-Node service), give it a name anyway with `portless alias <name> <port>`.
+6. If the default HTTPS proxy cannot run without elevation, try the documented unprivileged Portless fallback first. Request the user's password through the host's secure credential prompt only when every unprivileged option fails and sudo is necessary. Never ask for it in ordinary chat or expose it in command arguments, environment variables, or logs.
 </the_law>
 
 <availability_check>
@@ -26,7 +27,7 @@ command -v portless && node -v    # portless present? node >= 24?
 ```
 
 - **portless present, Node >= 24** → use it. This is the default path.
-- **portless missing, Node >= 24** → install it: `npm i -g portless`. First run generates a local CA and asks for sudo once to bind 443; that is expected, not a failure.
+- **portless missing, Node >= 24** → try the user-level `npx portless` invocation first. If it is unavailable, use the unprivileged Portless fallback before considering a global install.
 - **Node < 24** → portless will refuse (`engines: >=24`). Bump with `fnm install 24 && fnm use 24` (fnm is the node manager on this machine), or drop to `<fallback_ladder>` tier 3 and say so once.
 
 Never silently fall back to a random port. If you end up off the portless path, state which tier you are on and why, in one sentence.
@@ -111,7 +112,7 @@ portless list
 <fallback_ladder>
 Descend only as far as you must, and say which tier you landed on.
 
-1. **portless, TLS, port 443.** The default. `https://<name>.localhost`.
+1. **portless, TLS, default HTTPS URL.** The default. `https://<name>.localhost/`.
 2. **portless without sudo/443.** `portless -p 8443` (or `--no-tls`). Still named: `https://<name>.localhost:8443`. Use when binding 443 is refused.
 3. **No portless (Node < 24, locked-down CI).** Pick a port ONCE, pin it in the repo config (`package.json` script, `.env`, `vite.config`), commit the choice, and announce it. It must be the same port on the next run and for the next agent. A pinned 4317 is acceptable; a fresh random port every run is not.
 

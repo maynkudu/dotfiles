@@ -63,6 +63,11 @@ Start with `portless` (runs the `dev` script) or `portless run <cmd>`. Never pre
 never pass `--port`; portless owns the port. Name something already running with
 `portless alias <name> <port>`.
 
+Always reuse or open the default HTTPS URL `https://<name>.localhost/` without a port when available.
+Prefer user-level Portless commands and try documented unprivileged fallbacks before sudo. If sudo
+is unavoidable, request the password through the host's secure prompt, never chat, command arguments,
+environment variables, or logs.
+
 Run `portless list` first. If the name is already live for the app you were asked to run, reuse it.
 Never kill a process to free a port; it is probably another agent's server.
 

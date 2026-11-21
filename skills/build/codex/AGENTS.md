@@ -299,11 +299,9 @@ Before native, React Native, simulator, emulator, TV, Electron or Chromium-CDP w
 
 Prefer running devices. Discover elements before every tap; screenshots are not tap coordinates. Use Argent for covered device operations, not raw simulator commands. If unavailable, report it once and ask whether to continue without it. Do not load device procedures for unrelated work.
 
-# Named local servers
+# Named local URLs
 
-Before starting or exposing a long-running local server, read `~/dotfiles/skills/reference/portless.md`. It owns availability, deterministic naming, shared-process safety, announcement format and fallbacks.
-
-Use `https://<repo-name>.localhost` through portless, with configured names taking precedence. Check existing servers and reuse the requested app when appropriate. Never choose random ports, override portless's assigned port, or kill another process to free one. Announce the exact named URL when ready and at closeout. If the normal path is unavailable, use and disclose the reference's fallback tier.
+Always use or reuse Portless. Open and report `https://<name>.localhost/` without a port when the default HTTPS route is available. Prefer user-level commands and documented unprivileged fallbacks. If sudo is unavoidable, request the password through the host's secure prompt, never chat. Read `skills/reference/portless.md` for setup and fallback steps.
 
 # Browser demo recordings
 
