@@ -258,6 +258,10 @@ was explaining the ui, but the ui was perfect."
 Do not guess at cause. "Read the entire component first, figure out why this happens" is the
 correction this rule exists to prevent.
 
+# VPS and headless hosts
+
+On VPS or headless hosts, read `~/dotfiles/skills/reference/vps.md` before setup or tool use, including remote commands. Its capability and installation rules override workstation defaults in these dotfiles.
+
 # UI verification
 
 For visible web or app changes, read `~/dotfiles/skills/reference/ui-verification.md`.

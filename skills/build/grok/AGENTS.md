@@ -51,6 +51,10 @@ design pack is not bundled. Clarify material ambiguity, present one strong direc
 and verify the result against the brief. Use `animation-fundamentals` for motion and
 `aryan-voice` for copy.
 
+# VPS and headless hosts
+
+On VPS or headless hosts, read `~/dotfiles/skills/reference/vps.md` before setup or tool use, including remote commands. Its capability and installation rules override workstation defaults in these dotfiles.
+
 # Named local URLs (portless)
 
 Never announce a bare port. Every long-running local server gets a stable name:
