@@ -75,8 +75,9 @@ stay in `../kiys`. See [BLANK access](../docs/blank.md) for use and recovery.
 `../bin/setup --skills` installs the current pinned selection from
 `sources.lock.json` through Codex's bundled skill-installer helper. Sources are pinned
 to commits. Existing skills are retained. Local skills and the Cloudflare skills
-under `../pi/skills` are linked into `~/.agents/skills`; Claude and Pi see the same
-collection through per-skill links. Codex discovers the shared directory.
+under `../pi/skills` are linked into `~/.agents/skills`. Setup links that shared
+collection into each detected profile's `skills` directory while preserving
+existing user-owned and system skills.
 
 All eleven `yt-*` skills are pinned to
 [maynkudu/youtube-agent-skill](https://github.com/maynkudu/youtube-agent-skill), an
@@ -91,8 +92,7 @@ using pinned source, browser observations, motion analysis and measured comparis
 user's preferences, including plain-language prompts and scoped corrections.
 Both are independent MIT-licensed skill packages in public repositories, pinned
 to commits in `sources.lock.json`. Friends can install them without private
-repository access. Codex and OpenCode discover the shared collection; Claude and
-Pi receive the existing per-skill links.
+repository access. Detected profiles receive links to the shared collection.
 
 `manifest.toml` is the historical inventory, including unavailable private skills.
 It is not the installer input. The lock file records missing upstream names.

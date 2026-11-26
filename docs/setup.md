@@ -18,8 +18,9 @@ Make these commands available first:
 | `chromium`, `ffmpeg`, `pdftoppm`, `plannotator` | Browser checks, recordings, PDF previews, and reviews |
 | `at-spi2-core` | Native Linux desktop inspection and input through Agent Desktop |
 
-These commands are present on the current machine. Codex must also have its
-bundled skill-installer helper under `~/.codex/skills/.system/skill-installer/`.
+Codex must also have its bundled skill-installer helper under
+`$CODEX_HOME/skills/.system/skill-installer/`, or
+`~/.codex/skills/.system/skill-installer/` when `CODEX_HOME` is unset.
 The setup uses that helper to install public skills pinned to source commits.
 
 LibreOffice renders Word files and slides and recalculates Excel formulas. On a
@@ -49,15 +50,19 @@ Start a new agent session after installation to load the rules and MCP
 processes. Open a new shell to load the shared aliases and integrations.
 
 Choose agents and npm packages in [`setup.toml`](../setup.toml). The default
-agents are `codex`, `claude`, `pi`, and `opencode`. Other generated profiles remain in `skills/build/`.
+agents are `codex`, `claude`, `pi`, and `opencode`. Existing matching profiles under
+home and `~/.config`, plus environment-selected profiles, are included too.
+See [agent rules and profiles](../README.md#agent-rules-and-profiles) for naming
+patterns, overrides, automatic loading, and explicit opt-outs. Run setup again
+after creating another profile. Other generated targets remain in `skills/build/`.
 
 Use phase flags to repeat selected work:
 
 | Command | What it does |
 | --- | --- |
 | `python3 bin/setup --tools` | Installs missing CLIs, private fixed-Node launchers, fnm, Zsh plugins, and document libraries; applies the version-specific Webreel fix |
-| `python3 bin/setup --skills` | Installs missing public skills and links shared skills for selected agents |
-| `python3 bin/setup --rules` | Checks generated rules, then installs the selected profiles |
+| `python3 bin/setup --skills` | Installs missing public skills and links shared skills into detected agent profiles |
+| `python3 bin/setup --rules` | Checks generated rules, discovers profiles, and installs global rules and hooks or adapters |
 | `python3 bin/setup --shell` | Updates one managed block in each shell configuration |
 | `python3 bin/setup --mcp` | Registers Argent and Agentation where they are missing |
 
@@ -74,9 +79,11 @@ skill installations. MCP registration uses the real home and refuses a different
 | `~/.local/share/dotfiles/documents` | Python 3.13 environment with the pinned document libraries |
 | `~/.local/share/dotfiles/zsh` | Zsh suggestions and highlighting plugins |
 | `~/.agents/skills` | Shared public and bundled skills |
-| `~/.claude/skills`, `~/.pi/agent/skills` | Links to the shared skills |
-| `~/.codex/AGENTS.md`, `~/.claude/rules`, `~/.pi/agent/AGENTS.md` | Generated agent rules |
-| `~/.config/opencode/AGENTS.md`, `~/.config/opencode/plugins/blank-direction-gate.ts` | OpenCode rules and BLANK plugin. OpenCode discovers shared skills in `~/.agents/skills`. |
+| `<profile>/skills` | Per-skill links to the shared collection, preserving existing user-owned skills |
+| `~/.codex/AGENTS.md`, `~/.claude/rules`, `~/.pi/agent/AGENTS.md` | Default global rules; matching profiles receive their own equivalent files |
+| `~/.config/opencode/AGENTS.md`, `~/.config/opencode/plugins` | OpenCode global rules and adapters, with explicit registration for the current-rule plugin |
+| `<profile>/hooks.json`, `<profile>/settings.json`, `<profile>/extensions` | Native hook configuration or extensions, according to the agent |
+| `~/.local/state/dotfiles/agent-profiles.json` | Installer-recorded profile paths for bounded startup health checks |
 | `~/.bashrc`, `~/.zshrc` | A managed include for this checkout |
 
 Existing tools stay with their current package manager. Existing skills are
@@ -158,7 +165,9 @@ private managed launcher paths. It preserves existing registrations, including
 custom commands and remote servers. A failed configuration read is unknown,
 not permission to overwrite an entry. Doctor reports custom runtime wiring as
 unknown. Review it before deliberately changing an existing registration. Pi and
-OpenCode manage their MCP registrations separately.
+OpenCode manage their MCP registrations separately. MCP registration uses each
+selected CLI's active profile; it does not register servers across every discovered
+profile. Set the intended profile environment before running `--mcp`.
 
 Agentation's HTTP server and MCP process must stay running while annotating.
 Mount the toolbar in a project's development build with the same endpoint as its

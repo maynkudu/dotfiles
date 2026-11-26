@@ -8,7 +8,8 @@ files; it does not reconstruct the original author's machine from historical aud
 
 `rules/tiers.toml` chooses rules for each supported agent. `bin/build` renders them
 into `build/`. Claude gets separate Markdown files. Other agents get an `AGENTS.md`.
-`bin/install` installs only the agents selected in `setup.toml`.
+`bin/install` installs default targets selected in `setup.toml` and existing
+matching profiles. An explicit `--agents` selection restricts agent types.
 
 Global defaults live in `~/.codex/AGENTS.md` and `~/.claude/rules/`. The next agent
 session reads them. Editing generated files or live copies loses changes at the next
@@ -24,8 +25,8 @@ coverage, explicit user opt-outs and clients that bypass hooks.
 
 `../bin/setup --skills`, run from this directory's parent, installs public skills
 through the bundled Codex skill installer. Existing copies are retained. New skills
-live in `~/.agents/skills`, where Codex discovers them. Claude and Pi receive
-individual symlinks into the same collection. Bundled skills are symlinks into this repository.
+live in `~/.agents/skills`. Detected profiles receive individual links into the
+same collection. Bundled skills are links into this repository.
 
 The eleven YouTube skills use the independent `maynkudu/youtube-agent-skill`
 repository at its pinned commit. Its original MIT license accompanies every skill.
