@@ -150,6 +150,36 @@ class InstallTests(unittest.TestCase):
             self.assertEqual(startup[0]['eventName'], 'sessionStart')
             self.assertEqual(startup[0]['trustStatus'], 'trusted')
 
+    def test_webbings_migrates_managed_links_and_preserves_user_owned_skills(self):
+        for owned in (True, False):
+            with self.subTest(owned=owned), tempfile.TemporaryDirectory() as folder:
+                home = pathlib.Path(folder)
+                shared = home / '.agents/skills'
+                shared.mkdir(parents=True)
+                old = shared / 'premium-webdesigning'
+                if owned:
+                    old.symlink_to(ROOT / 'skills/skills/premium-webdesigning')
+                else:
+                    old.mkdir()
+                    (old / 'SKILL.md').write_text('user-owned skill')
+                for directory in (home / '.claude/skills', home / '.pi/agent/skills'):
+                    directory.mkdir(parents=True)
+                    (directory / old.name).symlink_to(old)
+                for dry_run in (True, False, False):
+                    args = [str(ROOT / 'bin/setup'), '--skills', '--home', str(home)]
+                    if dry_run:
+                        args.append('--dry-run')
+                    with (patch.object(sys, 'argv', args), patch('json.loads', return_value={'sources': []}),
+                          patch('subprocess.run'), patch('builtins.print')):
+                        runpy.run_path(str(ROOT / 'bin/setup'))['main']()
+                    self.assertEqual(old.exists() or old.is_symlink(), dry_run or not owned)
+                    for directory in (shared, home / '.claude/skills', home / '.pi/agent/skills'):
+                        if not dry_run:
+                            self.assertEqual((directory / 'webbings').resolve(), ROOT / 'skills/skills/webbings')
+                            self.assertEqual((directory / old.name).is_symlink(), not owned and directory != shared)
+                if not owned:
+                    self.assertEqual((old / 'SKILL.md').read_text(), 'user-owned skill')
+
     def test_shared_skills_are_linked_for_all_selected_clients_without_replacing_local_skills(self):
         source = {'repo': 'fixture/skills', 'ref': '0' * 40,
                   'skills': [{'name': name, 'path': f'skills/{name}'} for name in ('yt-script', 'yt-package')]}

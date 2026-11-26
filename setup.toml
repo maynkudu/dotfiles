@@ -18,7 +18,7 @@ shadcn = "shadcn@4.23.0"
 bombadil = "@antithesishq/bombadil@0.8.0"
 
 [skills]
-local = ["blank-mode", "aryan-voice", "animation-fundamentals", "router-design", "router-process", "subsystem-modeling", "blank-direction", "google-seo", "isometric-pixel-games", "interactive-art", "sprite-stacked-games", "private-checkpoint", "context-recall", "reviewed-reflection", "server-lifecycle", "workflow-evaluation", "workflow-health", "skill-host-compat", "instant-ui"]
+local = ["blank-mode", "aryan-voice", "animation-fundamentals", "webbings", "router-design", "router-process", "subsystem-modeling", "blank-direction", "google-seo", "isometric-pixel-games", "interactive-art", "sprite-stacked-games", "private-checkpoint", "context-recall", "reviewed-reflection", "server-lifecycle", "workflow-evaluation", "workflow-health", "skill-host-compat", "instant-ui"]
 
 [updates]
 enabled = true

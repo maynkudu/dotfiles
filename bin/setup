@@ -169,6 +169,14 @@ def main():
 
     if 'skills' in phases:
         shared = home / '.agents/skills'
+        # Retire only links to our renamed skill, including dangling managed links.
+        old_skill = ROOT / 'skills/skills/premium-webdesigning'
+        for directory in (home / '.claude/skills', home / '.pi/agent/skills', shared):
+            stale = directory / 'premium-webdesigning'
+            if stale.is_symlink() and stale.resolve() in (old_skill, shared / 'premium-webdesigning'):
+                print(f'unlink renamed skill {stale}')
+                if not args.dry_run:
+                    stale.unlink()
         installer = Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))) / 'skills/.system/skill-installer/scripts/install-skill-from-github.py'
         lock = json.loads((ROOT / 'skills/sources.lock.json').read_text())
         if not installer.is_file():

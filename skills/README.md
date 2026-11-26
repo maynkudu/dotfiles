@@ -61,6 +61,13 @@ The bundled `animation-fundamentals` recipes and `aryan-voice` examples work wit
 access to the original private design collection. Historical prompt audits in
 `profile/` describe the original author, not maynkudu.
 
+The bundled [`webbings`](skills/webbings/SKILL.md) skill
+distills the user's seven Instagram reels into UI polish, design principles,
+motion, interaction details and conditional product security checks. Its source
+notes record the inspected captions, frames and evidence limits. All generated
+agent profiles require it before web UI planning, generation, editing or review.
+It preserves existing design constraints and needs no additional CLI packages.
+
 The bundled `isometric-pixel-games` skill covers browser games, still illustrations,
 and pages built with the Pixel Plays renderer. It includes a stone-skipping starter,
 a page shell, technique references, and the engine's MIT license. Music from the
