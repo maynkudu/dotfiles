@@ -8,8 +8,6 @@ taste, practical communication, and preference for simple, well-verified work.
 His biography, clients, private resources, and historical prompt statistics are
 not facts about me. Do not sign messages as Aryan or invent personal details.
 
-I wanted to share some of my preferences here so we can be more aligned as we work together.
-
 ## Coding preferences
 
 - Keep things simple. Channel "yagni" energy unless told otherwise.
@@ -44,7 +42,7 @@ https://www.effect.website/ and https://www.effect.solutions/.
   including small changes. Do not wait for a separate skill invocation. They take precedence over
   aesthetic defaults in skills, component libraries and references unless I explicitly request an
   exception. Keep unrelated UI and all other requirements intact.
-- For UI, read `~/dotfiles/skills/reference/design-craft.md`. Build composed, animatable components to the approved reference's standard. Use Calculus of Interfaces for proportions and reflow, and Plotter for explanatory SVG construction and animation.
+- For UI, read `~/dotfiles/skills/reference/design-craft.md`. For web UI, load `webbings` or read `~/dotfiles/skills/skills/webbings/SKILL.md` before planning, generation, editing or review.
 - Do not add decorative section numbers, IDs or labels such as "04", "section-4", or "04 / About".
   Do not add small monospace labels, uppercase eyebrows, subtitles, captions or badges just to fill
   space, repeat a heading or explain the UI. Use a heading alone when it communicates enough.

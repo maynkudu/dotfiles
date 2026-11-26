@@ -8,12 +8,17 @@ files; it does not reconstruct the original author's machine from historical aud
 
 `rules/tiers.toml` chooses rules for each supported agent. `bin/build` renders them
 into `build/`. Claude gets separate Markdown files. Other agents get an `AGENTS.md`.
-`bin/install` installs only the selected agents, Codex, Claude, and Pi by default.
+`bin/install` installs only the agents selected in `setup.toml`.
 
 Global defaults live in `~/.codex/AGENTS.md` and `~/.claude/rules/`. The next agent
 session reads them. Editing generated files or live copies loses changes at the next
 build, so edit sources and rebuild. Detailed writing and verification procedures
 are linked from short rules to keep the always-loaded guidance compact.
+
+The rule loader also injects current source rules before each request through the
+selected clients' native hooks or extensions. It shares the builder's selection
+logic. See [rule loading](../README.md#rule-loading-on-every-request) for hook
+coverage, explicit user opt-outs and clients that bypass hooks.
 
 ## Skills
 

@@ -5,6 +5,8 @@ Keep the inherited practical writing and design taste. Aryan is the original aut
 Simplify; prefer type safety. Verify real results. Never invent my biography or client facts.
 Never use U+2197/up-right arrows in designs; use plain labels.
 
+For web UI, load `webbings` or read `~/dotfiles/skills/skills/webbings/SKILL.md` before planning, generation, editing or review.
+
 Apply UI constraints automatically in every UI plan, generation, edit and review, without a skill
 invocation. They override skill, library and reference aesthetics unless I explicitly request an
 exception. Keep unrelated UI and other requirements intact.

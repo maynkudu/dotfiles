@@ -8,6 +8,8 @@ import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT.parent / 'bin'))
+from agent_profiles import discover_agent_profiles
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--repo-only', action='store_true', help='Check a fresh checkout without installed agents')
 parser.add_argument('--home', type=Path, default=Path.home())
@@ -36,17 +38,16 @@ for source in lock['sources']:
     check(f"pinned source {source['repo']}", len(source['ref']) == 40)
 if not args.repo_only:
     home = args.home.expanduser().resolve()
-    targets = {'codex': home / '.codex/AGENTS.md', 'grok': home / '.grok/AGENTS.md',
-               'pi': home / '.pi/agent/AGENTS.md', 'opencode': home / '.config/opencode/AGENTS.md'}
-    for agent in cfg['agents']:
-        if agent == 'claude':
-            for source in (ROOT / 'build/claude/rules').glob('*.md'):
-                dest = home / '.claude/rules' / source.name
-                check(f'installed Claude rule {source.name}', dest.is_file() and dest.read_text() == source.read_text())
-        else:
-            dest = targets[agent]
-            source = ROOT / 'build' / agent / 'AGENTS.md'
-            check(f'installed {agent} rules', dest.is_file() and dest.read_text() == source.read_text())
+    for agent, profiles in discover_agent_profiles(home, cfg['agents'], include_existing=True).items():
+        for profile in profiles:
+            if agent == 'claude':
+                for source in (ROOT / 'build/claude/rules').glob('*.md'):
+                    dest = profile / 'rules' / source.name
+                    check(f'installed Claude rule {profile.name}/{source.name}', dest.is_file() and dest.read_text() == source.read_text())
+            else:
+                dest = profile / 'AGENTS.md'
+                source = ROOT / 'build' / agent / 'AGENTS.md'
+                check(f'installed {agent} rules {profile}', dest.is_file() and dest.read_text() == source.read_text())
     for name in cfg['skills']['local']:
         check(f'installed local skill {name}', (home / '.agents/skills' / name / 'SKILL.md').is_file())
     sys.path.insert(0, str(ROOT / 'bin'))

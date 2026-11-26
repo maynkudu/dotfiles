@@ -31,6 +31,9 @@ def read_health_config(path, *, toml=False):
 def installed_health(home, repo, cfg, *, runtime=True):
     """Inspect only expected files and links. No server, auth, home scan or writes."""
     home, repo = Path(home), Path(repo)
+    codex_home = home / '.codex'
+    if home.resolve() == Path.home().resolve() and os.environ.get('CODEX_HOME'):
+        codex_home = Path(os.environ['CODEX_HOME']).expanduser().resolve()
     rows = []
 
     def report(label, state):
@@ -70,15 +73,26 @@ def installed_health(home, repo, cfg, *, runtime=True):
             for name in sorted(required):
                 report(f'{agent} required skill link {name}', 'ok' if (directory / name / 'SKILL.md').is_file() else 'missing')
         if agent == 'pi':
-            for filename, target in (('blank-direction-gate.ts', 'pi-blank-direction.ts'), ('dotfiles-update.ts', 'pi-dotfiles-update.ts'), ('workflow-lifecycle.ts', 'pi-workflow-lifecycle.ts')):
+            for filename, target in (('blank-direction-gate.ts', 'pi-blank-direction.ts'), ('dotfiles-update.ts', 'pi-dotfiles-update.ts'), ('workflow-lifecycle.ts', 'pi-workflow-lifecycle.ts'), ('dotfiles-rules.ts', 'pi-dotfiles-rules.ts')):
                 path = home / '.pi/agent/extensions' / filename
                 report(f'pi owned extension {filename}', 'ok' if path.is_symlink() and path.resolve() == repo / 'skills/hooks' / target else 'missing')
             report('pi MCP registration capability', 'unknown')
             continue
+        if agent == 'opencode':
+            path = home / '.config/opencode/plugins/dotfiles-rules.ts'
+            report('opencode owned rule loader', 'ok' if path.is_symlink() and path.resolve() == repo / 'skills/hooks/opencode-dotfiles-rules.ts' else 'missing')
+            state, settings = read_health_config(home / '.config/opencode/opencode.json')
+            source = repo / 'skills/hooks/opencode-dotfiles-rules.ts'
+            groups = (settings.get('plugins'), settings.get('plugin'))
+            entries = [entry for group in groups if isinstance(group, list) for entry in group]
+            target = str(repo / 'skills/hooks/opencode-rules-plugin')
+            registered = any(entry in (target, source.as_uri()) if isinstance(entry, str)
+                             else isinstance(entry, dict) and entry.get('package') == target for entry in entries)
+            report('opencode rule plugin registration', 'ok' if registered else 'missing')
         if agent not in ('claude', 'codex'):
             report(f'{agent} configuration adapter', 'unknown')
             continue
-        settings_path = home / ('.claude/settings.json' if agent == 'claude' else '.codex/hooks.json')
+        settings_path = home / '.claude/settings.json' if agent == 'claude' else codex_home / 'hooks.json'
         state, settings = read_health_config(settings_path)
         report(f'{agent} hook configuration', state)
         hooks = settings.get('hooks', {})
@@ -88,6 +102,8 @@ def installed_health(home, repo, cfg, *, runtime=True):
             for event, owner, mode in (('SessionStart', repo / 'bin/dotfiles-update', '--hook'),
                                        ('SessionStart', repo / 'bin/dotfiles-health', '--hook'),
                                        ('SessionStart', repo / 'bin/agent-workflow-check', '--startup'),
+                                       ('SessionStart', repo / 'skills/bin/dotfiles-rules', '--hook'),
+                                       ('UserPromptSubmit', repo / 'skills/bin/dotfiles-rules', '--hook'),
                                        ('PreToolUse', repo / 'skills/hooks/blank-direction-gate', 'gate'),
                                        ('PostToolUse', repo / 'skills/hooks/blank-direction-gate', 'mark')):
                 groups = hooks.get(event, [])
@@ -112,7 +128,7 @@ def installed_health(home, repo, cfg, *, runtime=True):
                     isinstance(group, dict) and isinstance(group.get('hooks'), list) and any(
                         isinstance(hook, dict) and str(repo / 'skills/hooks/blank-direction-gate') in hook.get('command', '')
                         for hook in group['hooks']) for group in groups) else 'missing')
-        config_path = home / ('.claude.json' if agent == 'claude' else '.codex/config.toml')
+        config_path = home / '.claude.json' if agent == 'claude' else codex_home / 'config.toml'
         state, config = read_health_config(config_path, toml=agent == 'codex')
         report(f'{agent} MCP configuration', state)
         servers = config.get('mcpServers' if agent == 'claude' else 'mcp_servers', {})
@@ -136,6 +152,38 @@ def installed_health(home, repo, cfg, *, runtime=True):
         if agent == 'codex':
             # Presence does not verify Codex's computed trust digest. Native review owns that.
             report('codex native hook trust', 'unknown')
+    # Startup checks inspect only installer-recorded paths, without scanning home.
+    state, manifest = read_health_config(home / '.local/state/dotfiles/agent-profiles.json')
+    recorded = manifest.get('profiles', {})
+    if not isinstance(recorded, dict):
+        recorded = {}
+    for agent in ('codex', 'claude', 'grok', 'pi', 'opencode'):
+        profiles = recorded.get(agent, [])
+        if not isinstance(profiles, list) or len(profiles) > 128:
+            report(f'{agent} profile manifest', 'unknown')
+            continue
+        for index, directory in enumerate(profiles, 1):
+            if not isinstance(directory, str) or not Path(directory).is_absolute():
+                report(f'{agent} profile manifest', 'unknown')
+                continue
+            profile = Path(directory)
+            if agent in ('codex', 'claude', 'grok'):
+                filename = {'codex': 'hooks.json', 'claude': 'settings.json', 'grok': 'hooks/blank-direction-gate.json'}[agent]
+                state, settings = read_health_config(profile / filename)
+                hooks = settings.get('hooks', {})
+                for event in ('SessionStart', 'UserPromptSubmit'):
+                    groups = hooks.get(event, []) if isinstance(hooks, dict) else []
+                    found = isinstance(groups, list) and any(
+                        isinstance(group, dict) and isinstance(group.get('hooks'), list) and any(
+                            isinstance(hook, dict) and str(repo / 'skills/bin/dotfiles-rules') in hook.get('command', '')
+                            for hook in group['hooks']) for group in groups)
+                    report(f'{agent} profile {index} rule hook {event}', 'ok' if found else 'missing')
+            elif agent == 'pi':
+                path = profile / 'extensions/dotfiles-rules.ts'
+                report(f'pi profile {index} rule loader', 'ok' if path.is_symlink() and path.resolve() == repo / 'skills/hooks/pi-dotfiles-rules.ts' else 'missing')
+            else:
+                path = profile / 'plugins/dotfiles-rules.ts'
+                report(f'opencode profile {index} rule loader', 'ok' if path.is_symlink() and path.resolve() == repo / 'skills/hooks/opencode-dotfiles-rules.ts' else 'missing')
     # Only references explicitly named by owned rules are required.
     import re
     references = set()

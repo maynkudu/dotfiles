@@ -1,4 +1,5 @@
 import json
+import os
 import pathlib
 import runpy
 import shutil
@@ -52,10 +53,14 @@ class InstallTests(unittest.TestCase):
             self.assertTrue((home / '.pi/agent/AGENTS.md').is_file())
             self.assertEqual((home / '.pi/agent/extensions/dotfiles-update.ts').resolve(),
                              ROOT / 'skills/hooks/pi-dotfiles-update.ts')
+            self.assertEqual((home / '.pi/agent/extensions/dotfiles-rules.ts').resolve(),
+                             ROOT / 'skills/hooks/pi-dotfiles-rules.ts')
             self.assertEqual((home / '.config/opencode/AGENTS.md').read_text(),
                              (ROOT / 'skills/build/opencode/AGENTS.md').read_text())
             self.assertEqual((home / '.config/opencode/plugins/blank-direction-gate.ts').resolve(),
                              ROOT / 'skills/hooks/opencode-blank-direction.ts')
+            self.assertEqual((home / '.config/opencode/plugins/dotfiles-rules.ts').resolve(),
+                             ROOT / 'skills/hooks/opencode-dotfiles-rules.ts')
             self.assertFalse((home / '.grok').exists())
             before = sorted(str(p.relative_to(home)) for p in home.rglob('*'))
             self.run_installer(home)
@@ -131,6 +136,45 @@ class InstallTests(unittest.TestCase):
             self.assertFalse((home / '.codex').exists())
             self.assertFalse((home / '.claude').exists())
 
+    def test_opencode_plugin_registration_preserves_configuration_and_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            path = home / '.config/opencode/opencode.json'
+            path.parent.mkdir(parents=True)
+            foreign = {'package': 'keep-existing-plugin', 'options': {'keep': True}}
+            path.write_text(json.dumps({'model': 'keep-model', 'plugins': [foreign]}))
+            self.run_installer(home, '--agents', 'opencode')
+            first = path.read_text()
+            settings = json.loads(first)
+            self.assertEqual(settings['model'], 'keep-model')
+            self.assertIn(foreign, settings['plugins'])
+            entries = [*settings.get('plugins', []), *settings.get('plugin', [])]
+            source = ROOT / 'skills/hooks/opencode-dotfiles-rules.ts'
+            target = str(ROOT / 'skills/hooks/opencode-rules-plugin')
+            self.assertTrue(target in [entry.get('package') for entry in entries if isinstance(entry, dict)]
+                            or source.as_uri() in entries)
+            self.run_installer(home, '--agents', 'opencode')
+            self.assertEqual(path.read_text(), first)
+            self.assertEqual(len(list(path.parent.glob('opencode.json.before-dotfiles-*'))), 1)
+
+    def test_installer_also_targets_active_codex_home_without_changing_isolated_homes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = pathlib.Path(folder)
+            active = home / '.codex-custom'
+            args = ['install', '--home', str(home), '--agents', 'codex']
+            with (patch.object(sys, 'argv', args), patch.dict(os.environ, {'CODEX_HOME': str(active)})):
+                isolated = runpy.run_path(str(ROOT / 'skills/bin/install'))
+                self.assertEqual(isolated['CODEX_HOMES'], [home / '.codex'])
+                with patch.object(pathlib.Path, 'home', return_value=home):
+                    installer = runpy.run_path(str(ROOT / 'skills/bin/install'))
+                    installer['main']()
+            for target in (home / '.codex', active):
+                self.assertEqual((target / 'AGENTS.md').read_text(),
+                                 (ROOT / 'skills/build/codex/AGENTS.md').read_text())
+                hooks = json.loads((target / 'hooks.json').read_text())['hooks']
+                self.assertIn('UserPromptSubmit', hooks)
+                self.assertTrue((target / 'config.toml').is_file())
+
     @unittest.skipUnless(shutil.which('codex'), 'Codex CLI is needed to verify its hook trust')
     def test_codex_loads_and_trusts_the_installed_gate(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -149,6 +193,10 @@ class InstallTests(unittest.TestCase):
             self.assertEqual(len(startup), 1)
             self.assertEqual(startup[0]['eventName'], 'sessionStart')
             self.assertEqual(startup[0]['trustStatus'], 'trusted')
+            readers = [hook for hook in installer['codex_hook_hashes'](pathlib.Path(shutil.which('codex')))
+                       if str(ROOT / 'skills/bin/dotfiles-rules') in hook.get('command', '')]
+            self.assertEqual({hook['eventName'] for hook in readers}, {'sessionStart', 'userPromptSubmit'})
+            self.assertTrue(all(hook['trustStatus'] == 'trusted' for hook in readers))
 
     def test_webbings_migrates_managed_links_and_preserves_user_owned_skills(self):
         for owned in (True, False):

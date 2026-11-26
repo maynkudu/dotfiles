@@ -27,9 +27,6 @@ Do not edit a file you have only seen through search results.
 
 Do not fix a symptom in the component where it appears when the value arrives from somewhere else.
 
-Do not rewrite surrounding code you did not need to touch. What was already right stays right. I have
-corrected this exactly: "what you did for all 92 products were perfect. I asked you to remove ui that
-was explaining the ui, but the ui was perfect."
+Preserve surrounding code that already works.
 
-Do not guess at cause. "Read the entire component first, figure out why this happens" is the
-correction this rule exists to prevent.
+Establish the cause before editing.

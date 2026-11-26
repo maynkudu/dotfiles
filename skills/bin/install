@@ -10,7 +10,7 @@ pointing into this repo are ever removed; anything else there is left alone.
 
 Selected single-file agents get their whole AGENTS.md replaced when it differs.
 Each replacement saves a timestamped .before-dotfiles- backup.
-Selected agents also get the BLANK gate and startup update checks.
+Selected agents also get current rule injection, the BLANK gate and startup update checks.
 Other agents and unrelated hooks remain unchanged.
 """
 
@@ -36,6 +36,9 @@ parser.add_argument('--agents', nargs='+', choices=['codex', 'claude', 'grok', '
 parser.add_argument('--home', type=Path, default=Path.home(), help='Target home, also useful for isolated verification')
 args = parser.parse_args()
 HOME = args.home.expanduser().resolve()
+sys.path.insert(0, str(ROOT.parent / 'bin'))
+from agent_profiles import agent_profile_dirs, discover_agent_profiles
+CODEX_HOMES = agent_profile_dirs(HOME, 'codex')
 
 TARGETS = {
     "claude": HOME / ".claude" / "rules",
@@ -68,9 +71,9 @@ def act(msg: str) -> None:
     print(("  would " if DRY else "  ") + msg)
 
 
-def install_claude() -> None:
+def install_claude(home: Path) -> None:
     src_dir = BUILD / "claude" / "rules"
-    dest_dir = TARGETS["claude"]
+    dest_dir = home / 'rules'
     if not dest_dir.exists():
         if not DRY:
             dest_dir.mkdir(parents=True)
@@ -109,10 +112,17 @@ GATE_COMMAND = shlex.quote(str(GATE))
 UPDATE = ROOT.parent / "bin" / "dotfiles-update"
 HEALTH = ROOT.parent / "bin" / "dotfiles-health"
 WORKFLOW = ROOT.parent / "bin" / "agent-workflow-check"
-HOOK_OWNERS = (GATE, UPDATE, HEALTH, WORKFLOW)
+RULE_READER = ROOT / "bin" / "dotfiles-rules"
+HOOK_OWNERS = (GATE, UPDATE, HEALTH, WORKFLOW, RULE_READER)
 STARTUP_HOOKS = {
     "SessionStart": {"hooks": [{"type": "command", "command": shlex.join([sys.executable, str(UPDATE), "--hook"]), "timeout": 35}]},
 }
+
+
+def rule_hooks(agent: str) -> dict:
+    command = shlex.join([sys.executable, str(RULE_READER), '--agent', agent, '--hook'])
+    return {event: {"hooks": [{"type": "command", "command": command, "timeout": 5}]}
+            for event in ('SessionStart', 'UserPromptSubmit')}
 
 
 def startup_check_group(command: Path, flag: str) -> dict:
@@ -168,8 +178,8 @@ def write_config(path: Path, raw: str, text: str) -> bool:
     return True
 
 
-def install_claude_hooks() -> None:
-    path = HOME / ".claude" / "settings.json"
+def install_claude_hooks(home: Path) -> None:
+    path = home / 'settings.json'
     raw = path.read_text() if path.exists() else ""
     settings = json.loads(raw) if raw else {}
     hooks = settings.setdefault("hooks", {})
@@ -177,6 +187,7 @@ def install_claude_hooks() -> None:
     merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
     merge_owned_hooks(hooks, startup_check_group(HEALTH, '--hook'), HEALTH)
     merge_owned_hooks(hooks, startup_check_group(WORKFLOW, '--startup'), WORKFLOW)
+    merge_owned_hooks(hooks, rule_hooks('claude'), RULE_READER)
     # The gate is useless if the search it demands waits on a permission prompt.
     allow = settings.setdefault("permissions", {}).setdefault("allow", [])
     for permission in ("Bash(blank search:*)", "Bash(blank registry-search:*)", "Bash(blank source:*)"):
@@ -201,14 +212,14 @@ CODEX_BINARIES = (
 )
 
 
-def codex_hook_hashes(codex: Path) -> list[dict]:
+def codex_hook_hashes(codex: Path, home: Path | None = None) -> list[dict]:
     """Codex's own view of the user's hooks, from its app-server `hooks/list`.
 
     Codex skips a hook until it is trusted, and trust is a hash Codex computes over
     the hook's definition. Asking Codex for that hash means a format change on their
     side cannot leave a stale value here.
     """
-    env = dict(os.environ, CODEX_HOME=str(HOME / ".codex"))
+    env = dict(os.environ, CODEX_HOME=str(home or HOME / ".codex"))
     # This metadata read does not need plugin synchronization or its temporary checkouts.
     proc = subprocess.Popen([str(codex), "app-server", "--disable", "plugins"], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                             stderr=subprocess.DEVNULL, text=True, cwd=HOME, env=env)
@@ -257,8 +268,7 @@ def trust_codex_hooks(config: Path, hooks: list[dict]) -> None:
     write_config(config, raw, text)
 
 
-def install_codex_hooks() -> None:
-    home = HOME / ".codex"
+def install_codex_hooks(home: Path) -> None:
     path = home / "hooks.json"
     raw = path.read_text() if path.exists() else ""
     data = json.loads(raw) if raw else {}
@@ -267,6 +277,7 @@ def install_codex_hooks() -> None:
     merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
     merge_owned_hooks(hooks, startup_check_group(HEALTH, '--hook'), HEALTH)
     merge_owned_hooks(hooks, startup_check_group(WORKFLOW, '--startup'), WORKFLOW)
+    merge_owned_hooks(hooks, rule_hooks('codex'), RULE_READER)
     write_json(path, raw, data)
     codex = next((c for c in CODEX_BINARIES if c is not None and c.exists()), None)
     if codex is None:
@@ -275,15 +286,14 @@ def install_codex_hooks() -> None:
     if DRY:
         act(f"trust codex hooks via {codex} app-server")
         return
-    hooks = [hook for hook in codex_hook_hashes(codex)
+    hooks = [hook for hook in codex_hook_hashes(codex, home)
              if any(str(owner) in hook.get("command", "") for owner in HOOK_OWNERS)]
     if not all(any(str(owner) in hook.get("command", "") for hook in hooks) for owner in HOOK_OWNERS):
         raise RuntimeError("Codex did not load the dotfiles hooks. Review hooks.json before continuing.")
     trust_codex_hooks(home / "config.toml", hooks)
 
 
-def install_grok_hooks() -> None:
-    home = HOME / ".grok"
+def install_grok_hooks(home: Path) -> None:
     # Grok also runs the Claude settings.json hooks, but Claude's matchers miss some
     # of Grok's tool names. This file has no matcher. A handler that two sources
     # name runs once per call, so the gate still runs once.
@@ -293,6 +303,7 @@ def install_grok_hooks() -> None:
     hooks = data.setdefault("hooks", {})
     merge_owned_hooks(hooks, GROK_HOOKS, GATE)
     merge_owned_hooks(hooks, STARTUP_HOOKS, UPDATE, prepend=True)
+    merge_owned_hooks(hooks, rule_hooks('grok'), RULE_READER)
     if not DRY:
         path.parent.mkdir(exist_ok=True)
     write_json(path, raw, data)
@@ -316,9 +327,9 @@ def link(src: Path, dest: Path) -> None:
         dest.symlink_to(src)
 
 
-def install_single(agent: str) -> None:
+def install_single(agent: str, dest: Path | None = None) -> None:
     src = BUILD / agent / "AGENTS.md"
-    dest = TARGETS[agent]
+    dest = dest or TARGETS[agent]
     if not src.exists():
         return
     if not dest.parent.exists():
@@ -336,6 +347,29 @@ def install_single(agent: str) -> None:
         dest.write_text(text)
 
 
+def install_opencode_rule_plugin(home: Path) -> None:
+    source = ROOT / 'hooks/opencode-dotfiles-rules.ts'
+    link(source, home / 'plugins/dotfiles-rules.ts')
+    binary = shutil.which('opencode')
+    version = subprocess.run([binary, '--version'], capture_output=True, text=True, timeout=5).stdout if binary else ''
+    legacy = bool(re.search(r'\b1\.', version))
+    key = 'plugin' if legacy else 'plugins'
+    path = home / 'opencode.json'
+    raw = path.read_text() if path.exists() else ''
+    settings = json.loads(raw) if raw else {}
+    plugins = settings.setdefault(key, [])
+    if not isinstance(plugins, list):
+        raise RuntimeError('OpenCode plugins must be a list; no registration changed.')
+    target = source.as_uri() if legacy else str(ROOT / 'hooks/opencode-rules-plugin')
+    if not legacy:
+        plugins[:] = [entry for entry in plugins if entry != str(source)
+                      and not (isinstance(entry, dict) and entry.get('package') == str(source))]
+    if not any(entry == target or isinstance(entry, dict) and entry.get('package') == target for entry in plugins):
+        act(f'register OpenCode rule plugin in {path}')
+        plugins.append(target if legacy else {'package': target})
+    write_json(path, raw, settings)
+
+
 def main() -> int:
     if not BUILD.exists():
         sys.exit("error: build/ missing. Run bin/build first.")
@@ -345,23 +379,34 @@ def main() -> int:
     from tools.workflow.workflow_install import install_workflow_links
     for action in install_workflow_links(ROOT.parent, HOME, selected, dry_run=DRY):
         act(action)
-    for agent in selected:
+    profiles = discover_agent_profiles(HOME, selected, include_existing=args.agents is None)
+    manifest_path = HOME / '.local/state/dotfiles/agent-profiles.json'
+    manifest_raw = manifest_path.read_text() if manifest_path.exists() else ''
+    manifest = json.loads(manifest_raw) if manifest_raw else {'schema_version': 1, 'profiles': {}}
+    for agent, homes in profiles.items():
         print(f"{agent}:")
-        if agent == 'claude':
-            install_claude()
-            install_claude_hooks()
-        else:
-            install_single(agent)
-            if agent == 'codex':
-                install_codex_hooks()
-            elif agent == 'grok':
-                install_grok_hooks()
-            elif agent == 'pi':
-                link(ROOT / 'hooks/pi-blank-direction.ts', HOME / '.pi/agent/extensions/blank-direction-gate.ts')
-                link(ROOT / 'hooks/pi-dotfiles-update.ts', HOME / '.pi/agent/extensions/dotfiles-update.ts')
-                link(ROOT / 'hooks/pi-workflow-lifecycle.ts', HOME / '.pi/agent/extensions/workflow-lifecycle.ts')
-            elif agent == 'opencode':
-                link(ROOT / 'hooks/opencode-blank-direction.ts', HOME / '.config/opencode/plugins/blank-direction-gate.ts')
+        for home in homes:
+            print(f'  profile {home}')
+            if agent == 'claude':
+                install_claude(home)
+                install_claude_hooks(home)
+            elif agent == 'codex':
+                install_single(agent, home / 'AGENTS.md')
+                install_codex_hooks(home)
+            else:
+                install_single(agent, home / 'AGENTS.md')
+                if agent == 'grok':
+                    install_grok_hooks(home)
+                elif agent == 'pi':
+                    link(ROOT / 'hooks/pi-dotfiles-rules.ts', home / 'extensions/dotfiles-rules.ts')
+                    link(ROOT / 'hooks/pi-blank-direction.ts', home / 'extensions/blank-direction-gate.ts')
+                    link(ROOT / 'hooks/pi-dotfiles-update.ts', home / 'extensions/dotfiles-update.ts')
+                    link(ROOT / 'hooks/pi-workflow-lifecycle.ts', home / 'extensions/workflow-lifecycle.ts')
+                elif agent == 'opencode':
+                    install_opencode_rule_plugin(home)
+                    link(ROOT / 'hooks/opencode-blank-direction.ts', home / 'plugins/blank-direction-gate.ts')
+        manifest['profiles'][agent] = [str(home) for home in homes]
+    write_json(manifest_path, manifest_raw, manifest)
     print("\ndry run, nothing changed." if DRY else "\ninstalled.")
     return 0
 

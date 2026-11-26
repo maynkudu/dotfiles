@@ -18,7 +18,7 @@ opencode = 0
 
 [claude]
 agent = "claude"
-core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
+core = ["dotfiles-rules", "mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "vps",
   "ui-verification",
@@ -36,7 +36,7 @@ shared = [
 
 [codex]
 agent = "codex"
-core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
+core = ["dotfiles-rules", "mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "vps",
   "ui-verification",
@@ -58,7 +58,7 @@ shared = [
 # claude's 3.4).
 [grok]
 agent = "grok"
-core = ["about-me", "unslop", "aryan-voice", "direction-first"]
+core = ["dotfiles-rules", "about-me", "unslop", "aryan-voice", "direction-first"]
 shared = ["vps", "portless", "webreel", "feature-commits"]
 
 # pi (@earendil-works/pi-coding-agent) reads ~/.pi/agent/AGENTS.md as its global
@@ -70,7 +70,7 @@ shared = ["vps", "portless", "webreel", "feature-commits"]
 # no profile rather than one describing a different agent.
 [pi]
 agent = "pi"
-core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
+core = ["dotfiles-rules", "mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "vps",
   "ui-verification",
@@ -93,7 +93,7 @@ shared = [
 # audit yet, so no profile rather than one describing a different agent.
 [opencode]
 agent = "opencode"
-core = ["mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
+core = ["dotfiles-rules", "mannered-prose", "about-me", "unslop", "aryan-voice", "direction-first", "fidelity-first", "read-before-edit"]
 shared = [
   "vps",
   "ui-verification",

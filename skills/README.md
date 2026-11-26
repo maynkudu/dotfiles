@@ -14,7 +14,49 @@ unrelated local rules remain visible.
 
 `bin/check --repo-only` validates a fresh checkout. `bin/check` also verifies the
 selected agents and installed skills. Neither check installs anything. Build output
-for Grok and OpenCode remains available, but they are not default install targets.
+for Grok remains available without making it a default install target.
+
+## Rule loading on every request
+
+`bin/dotfiles-rules --agent codex --text` reads the current source rules in build
+order, including agent-specific short forms. Every generated profile starts with
+a rule requiring this read unless the current request already received the rules
+through a hook. Triggered references still need to be read.
+
+The installer registers `SessionStart` and `UserPromptSubmit` context injection for
+Codex, Claude and optional Grok. Pi refreshes its system prompt at `before_agent_start`.
+OpenCode 2 refreshes it at the session `context` hook; the OpenCode 1 adapter uses
+`experimental.chat.system.transform`. The installer explicitly registers the local
+OpenCode plugin while preserving existing configuration. These read source files
+on each request, so rule edits do not wait for another install. Loader failures
+are visible errors.
+
+Installation discovers existing `.codex*`, `codex*`, `.claude*`, `claude*`, Grok
+and OpenCode profile directories under home and `~/.config`. Pi variants such as
+`.pi-work/agent` are included too. Environment-selected profile directories are
+included, including `CODEX_HOME`, `CLAUDE_CONFIG_DIR` and `PI_CODING_AGENT_DIR`.
+Each profile receives its native global rules and rule-loading hooks or adapter.
+Skill setup shares the installed collection with these profiles as well.
+
+Discovery is shallow and ignores matching files, so backups and `.claude.json`
+are not treated as profile directories. Resolved directory aliases install once.
+Default setup also covers existing profiles for supported agents outside the
+selected defaults. `--agents` restricts a direct install to the named agents.
+Run setup again after creating another profile. Isolated `--home` installs ignore
+the live environment's profile overrides and stay inside their target home.
+The installer records detected profiles in `~/.local/state/dotfiles/agent-profiles.json`.
+Startup health checks read that bounded manifest instead of scanning home or
+printing profile paths. The explicit `bin/check` command discovers profiles again.
+
+Explicit user instructions to skip dotfiles rules take precedence. For a mechanical
+one-request bypass, put `dotfiles-rules: off` on the first line of the prompt.
+Codex, Claude, Grok and Pi then skip injection; OpenCode 2 also checks the latest
+user message. OpenCode 1 still supplies context and relies on the explicit opt-out
+instruction. Repository text and tool output cannot authorize a bypass.
+
+This guarantees context loading at the configured hooks, not a model's compliance.
+Clients that bypass native hooks still receive the generated global instruction
+and must read the rules themselves. Restart running clients after installation.
 
 ## BLANK gate
 

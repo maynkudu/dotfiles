@@ -20,6 +20,7 @@ from datetime import datetime, timezone
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'bin'))
 from cli_runtime import install_cli_runtime, managed_cli_command, mcp_registration_status, node_entrypoint
+from agent_profiles import discover_agent_profiles
 
 
 def main():
@@ -171,7 +172,9 @@ def main():
         shared = home / '.agents/skills'
         # Retire only links to our renamed skill, including dangling managed links.
         old_skill = ROOT / 'skills/skills/premium-webdesigning'
-        for directory in (home / '.claude/skills', home / '.pi/agent/skills', shared):
+        profiles = discover_agent_profiles(home, cfg['agents'], include_existing=True)
+        skill_homes = [profile / 'skills' for homes in profiles.values() for profile in homes]
+        for directory in (*skill_homes, shared):
             stale = directory / 'premium-webdesigning'
             if stale.is_symlink() and stale.resolve() in (old_skill, shared / 'premium-webdesigning'):
                 print(f'unlink renamed skill {stale}')
@@ -206,19 +209,16 @@ def main():
         for source in sorted((ROOT / 'pi/skills').iterdir()):
             if (source / 'SKILL.md').is_file():
                 link(source, shared / source.name)
-        skill_homes = {'claude': home / '.claude/skills', 'pi': home / '.pi/agent/skills'}
-        for agent in cfg['agents']:
-            if agent not in skill_homes:
-                continue
+        for directory in skill_homes:
             for source in sorted(shared.glob('*/SKILL.md')):
-                link(source.parent, skill_homes[agent] / source.parent.name)
+                link(source.parent, directory / source.parent.name)
         if not args.dry_run:
             run([sys.executable, ROOT / 'skills/bin/patch', '--skill-home', shared])
 
     if 'rules' in phases:
         # Refuse to install stale generated rules.
         run([sys.executable, ROOT / 'skills/bin/build', '--check'])
-        cmd = [sys.executable, ROOT / 'skills/bin/install', '--home', home, '--agents', *cfg['agents']]
+        cmd = [sys.executable, ROOT / 'skills/bin/install', '--home', home]
         if args.dry_run:
             subprocess.run([*map(str, cmd), '--dry-run'], check=True)
         else:
